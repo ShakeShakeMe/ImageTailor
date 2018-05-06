@@ -10,6 +10,7 @@
 		620AC0AD209DFE7C0000580D /* ScrawlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0AC209DFE7C0000580D /* ScrawlViewController.m */; };
 		620AC0B0209DFF150000580D /* ScrawlZoomingScollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */; };
 		620AC0B5209F017B0000580D /* ScrawlBottomToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */; };
+		620AC0B8209F4C3E0000580D /* ScrawlPixellateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */; };
 		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
 		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
 		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
@@ -48,6 +49,8 @@
 		620AC0B2209DFF830000580D /* ImageTailorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageTailorConstants.h; sourceTree = "<group>"; };
 		620AC0B3209F017B0000580D /* ScrawlBottomToolBarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlBottomToolBarControl.h; sourceTree = "<group>"; };
 		620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlBottomToolBarControl.m; sourceTree = "<group>"; };
+		620AC0B6209F4C3E0000580D /* ScrawlPixellateUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlPixellateUtil.h; sourceTree = "<group>"; };
+		620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlPixellateUtil.m; sourceTree = "<group>"; };
 		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
 		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
 		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 				620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */,
 				620AC0B3209F017B0000580D /* ScrawlBottomToolBarControl.h */,
 				620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */,
+				620AC0B6209F4C3E0000580D /* ScrawlPixellateUtil.h */,
+				620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */,
 			);
 			path = scrawl;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */,
 				620AC0B5209F017B0000580D /* ScrawlBottomToolBarControl.m in Sources */,
 				625A703320981819007F1626 /* TailorZoomingFloatEditBtnView.m in Sources */,
+				620AC0B8209F4C3E0000580D /* ScrawlPixellateUtil.m in Sources */,
 				625A70042095C255007F1626 /* CurrentSelectedAssetsManager.m in Sources */,
 				625A6FFB2095B90E007F1626 /* PHAsset+IGListExtension.m in Sources */,
 				625A6FFE2095BA1D007F1626 /* UIView+ViewFrame.m in Sources */,

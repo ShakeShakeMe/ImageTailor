@@ -10,7 +10,7 @@
 #import "ScrawlZoomingScollView.h"
 #import "ScrawlBottomToolBarControl.h"
 
-@interface ScrawlViewController () <ScrawlBottomToolBarControlDelegate>
+@interface ScrawlViewController () <ScrawlBottomToolBarControlDelegate, ScrawlBottomToolBarFLoatViewDelegate>
 @property (nonatomic, strong) ScrawlZoomingScollView *zoomingScrollView;
 @property (nonatomic, strong) ScrawlBottomToolBarControl *toolBarControl;
 @property (nonatomic, strong) ScrawlBottomToolBarFLoatView *toolBarFloatView;
@@ -67,6 +67,35 @@
             break;
         case ScrawlToolBarItemTypePhoneBounds:
             [self clickPhoneBounds:selected];
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - ScrawlBottomToolBarFLoatViewDelegate
+- (void)floatView:(ScrawlBottomToolBarFLoatView *)floatView
+      toolBarItem:(ScrawlToolBarItemType)itemType
+      didSelected:(BOOL)selected
+          atIndex:(NSInteger)index {
+    [self.zoomingScrollView endDoPixllate];
+    switch (itemType) {
+        case ScrawlToolBarItemTypePixellate:
+        {
+            NSDictionary *pixellateActionMap = @{@0: @(ScrawlToolBarPixellateTypeLarge),
+                                                 @1: @(ScrawlToolBarPixellateTypeMiddle),
+                                                 @2: @(ScrawlToolBarPixellateTypeSmall)};
+            [self.zoomingScrollView beginDoPixellateWithType:[pixellateActionMap[@(index)] integerValue]];
+        }
+            break;
+        case ScrawlToolBarItemTypeWatermark:
+            
+            break;
+        case ScrawlToolBarItemTypeGuideLine:
+            
+            break;
+        case ScrawlToolBarItemTypePhoneBounds:
+            
             break;
         default:
             break;
@@ -138,5 +167,6 @@ LazyPropertyWithInit(ScrawlBottomToolBarControl, toolBarControl, {
 })
 LazyPropertyWithInit(ScrawlBottomToolBarFLoatView, toolBarFloatView, {
     _toolBarFloatView.alpha = 0.f;
+    _toolBarFloatView.delegate = self;
 })
 @end
