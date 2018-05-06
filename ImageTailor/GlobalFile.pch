@@ -1,0 +1,38 @@
+//
+//  GlobalFile.pch
+//  ImageTailor
+//
+//  Created by dl on 2018/4/29.
+//  Copyright © 2018年 dl. All rights reserved.
+//
+
+#ifndef GlobalFile_pch
+#define GlobalFile_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <Photos/Photos.h>
+
+#import <IGListKit/IGListKit.h>
+#import <Masonry/Masonry.h>
+#import <KVOController/KVOController.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/UIView+BlocksKit.h>
+#import <BlocksKit/UIControl+BlocksKit.h>
+#import <libextobjc/extobjc.h>
+
+#import "ConstStuff.h"
+#import "UIView+ViewFrame.h"
+#import "UIColor+Hex.h"
+#import "LazyProperty.h"
+#import "SingletonInstance.h"
+#import "PHCachingImageManager+Singleton.h"
+
+#import "ImageTailorConstants.h"
+
+#import "NSArray+IGListExtension.h"
+#import "NSDictionary+IGListExtension.h"
+#import "CurrentSelectedAssetsManager.h"
+
+#endif /* GlobalFile_pch */

@@ -1,0 +1,620 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		620AC0AD209DFE7C0000580D /* ScrawlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0AC209DFE7C0000580D /* ScrawlViewController.m */; };
+		620AC0B0209DFF150000580D /* ScrawlZoomingScollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */; };
+		620AC0B5209F017B0000580D /* ScrawlBottomToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */; };
+		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
+		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
+		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
+		625A6FF72095B253007F1626 /* PHCachingImageManager+Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF62095B253007F1626 /* PHCachingImageManager+Singleton.m */; };
+		625A6FFB2095B90E007F1626 /* PHAsset+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FFA2095B90E007F1626 /* PHAsset+IGListExtension.m */; };
+		625A6FFE2095BA1D007F1626 /* UIView+ViewFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FFD2095BA1D007F1626 /* UIView+ViewFrame.m */; };
+		625A70012095C1C1007F1626 /* ImagePickerItemSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70002095C1C1007F1626 /* ImagePickerItemSectionController.m */; };
+		625A70042095C255007F1626 /* CurrentSelectedAssetsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70032095C255007F1626 /* CurrentSelectedAssetsManager.m */; };
+		625A70072095CFEE007F1626 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70062095CFEE007F1626 /* UIColor+Hex.m */; };
+		625A700F2095DBCE007F1626 /* ImagePickerBottomToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A700E2095DBCE007F1626 /* ImagePickerBottomToolBarView.m */; };
+		625A70132095E488007F1626 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70122095E488007F1626 /* BaseViewController.m */; };
+		625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70182095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m */; };
+		625A701D2096AD3F007F1626 /* TailorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A701C2096AD3F007F1626 /* TailorViewController.m */; };
+		625A70202096B061007F1626 /* TailorNavigatorToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A701F2096B061007F1626 /* TailorNavigatorToolBarControl.m */; };
+		625A70232096C71B007F1626 /* TailorZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70222096C71B007F1626 /* TailorZoomingScrollView.m */; };
+		625A702A2096CA0A007F1626 /* TailorAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70292096CA0A007F1626 /* TailorAssetModel.m */; };
+		625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A702C2096D84A007F1626 /* TailorBottomToolBarControl.m */; };
+		625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A702F20976BE6007F1626 /* TailorReserveInsetsClipedImageView.m */; };
+		625A703320981819007F1626 /* TailorZoomingFloatEditBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A703220981819007F1626 /* TailorZoomingFloatEditBtnView.m */; };
+		62F84290209555C000AE0316 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F8428F209555C000AE0316 /* AppDelegate.m */; };
+		62F84293209555C000AE0316 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F84292209555C000AE0316 /* ViewController.m */; };
+		62F84296209555C000AE0316 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62F84294209555C000AE0316 /* Main.storyboard */; };
+		62F84298209555C000AE0316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62F84297209555C000AE0316 /* Assets.xcassets */; };
+		62F8429B209555C000AE0316 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62F84299209555C000AE0316 /* LaunchScreen.storyboard */; };
+		62F8429E209555C000AE0316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F8429D209555C000AE0316 /* main.m */; };
+		A7DF625D581579BF9CB1DF41 /* Pods_ImageTailor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430F88C01CBC6590F0532FF6 /* Pods_ImageTailor.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		02BC7025B34E9D9DB7561A1F /* Pods-ImageTailor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageTailor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageTailor/Pods-ImageTailor.debug.xcconfig"; sourceTree = "<group>"; };
+		430F88C01CBC6590F0532FF6 /* Pods_ImageTailor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageTailor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		620AC0AB209DFE7C0000580D /* ScrawlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlViewController.h; sourceTree = "<group>"; };
+		620AC0AC209DFE7C0000580D /* ScrawlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlViewController.m; sourceTree = "<group>"; };
+		620AC0AE209DFF150000580D /* ScrawlZoomingScollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlZoomingScollView.h; sourceTree = "<group>"; };
+		620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlZoomingScollView.m; sourceTree = "<group>"; };
+		620AC0B2209DFF830000580D /* ImageTailorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageTailorConstants.h; sourceTree = "<group>"; };
+		620AC0B3209F017B0000580D /* ScrawlBottomToolBarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlBottomToolBarControl.h; sourceTree = "<group>"; };
+		620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlBottomToolBarControl.m; sourceTree = "<group>"; };
+		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
+		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
+		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
+		625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IGListExtension.m"; sourceTree = "<group>"; };
+		625A6FEB2095AE1B007F1626 /* NSDictionary+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+IGListExtension.h"; sourceTree = "<group>"; };
+		625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+IGListExtension.m"; sourceTree = "<group>"; };
+		625A6FEF2095AEAE007F1626 /* ImagePickerItemCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerItemCollectionViewCell.h; sourceTree = "<group>"; };
+		625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerItemCollectionViewCell.m; sourceTree = "<group>"; };
+		625A6FF52095B253007F1626 /* PHCachingImageManager+Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHCachingImageManager+Singleton.h"; sourceTree = "<group>"; };
+		625A6FF62095B253007F1626 /* PHCachingImageManager+Singleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PHCachingImageManager+Singleton.m"; sourceTree = "<group>"; };
+		625A6FF82095B282007F1626 /* SingletonInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SingletonInstance.h; sourceTree = "<group>"; };
+		625A6FF92095B90E007F1626 /* PHAsset+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHAsset+IGListExtension.h"; sourceTree = "<group>"; };
+		625A6FFA2095B90E007F1626 /* PHAsset+IGListExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+IGListExtension.m"; sourceTree = "<group>"; };
+		625A6FFC2095BA1D007F1626 /* UIView+ViewFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+ViewFrame.h"; sourceTree = "<group>"; };
+		625A6FFD2095BA1D007F1626 /* UIView+ViewFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+ViewFrame.m"; sourceTree = "<group>"; };
+		625A6FFF2095C1C1007F1626 /* ImagePickerItemSectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerItemSectionController.h; sourceTree = "<group>"; };
+		625A70002095C1C1007F1626 /* ImagePickerItemSectionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerItemSectionController.m; sourceTree = "<group>"; };
+		625A70022095C255007F1626 /* CurrentSelectedAssetsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentSelectedAssetsManager.h; sourceTree = "<group>"; };
+		625A70032095C255007F1626 /* CurrentSelectedAssetsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentSelectedAssetsManager.m; sourceTree = "<group>"; };
+		625A70052095CFEE007F1626 /* UIColor+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		625A70062095CFEE007F1626 /* UIColor+Hex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		625A70082095D7C2007F1626 /* ConstStuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstStuff.h; sourceTree = "<group>"; };
+		625A700D2095DBCE007F1626 /* ImagePickerBottomToolBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerBottomToolBarView.h; sourceTree = "<group>"; };
+		625A700E2095DBCE007F1626 /* ImagePickerBottomToolBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerBottomToolBarView.m; sourceTree = "<group>"; };
+		625A70112095E488007F1626 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		625A70122095E488007F1626 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		625A70172095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerBottomStatusCollectionViewCell.h; sourceTree = "<group>"; };
+		625A70182095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerBottomStatusCollectionViewCell.m; sourceTree = "<group>"; };
+		625A701B2096AD3F007F1626 /* TailorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorViewController.h; sourceTree = "<group>"; };
+		625A701C2096AD3F007F1626 /* TailorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorViewController.m; sourceTree = "<group>"; };
+		625A701E2096B061007F1626 /* TailorNavigatorToolBarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorNavigatorToolBarControl.h; sourceTree = "<group>"; };
+		625A701F2096B061007F1626 /* TailorNavigatorToolBarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorNavigatorToolBarControl.m; sourceTree = "<group>"; };
+		625A70212096C71B007F1626 /* TailorZoomingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorZoomingScrollView.h; sourceTree = "<group>"; };
+		625A70222096C71B007F1626 /* TailorZoomingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorZoomingScrollView.m; sourceTree = "<group>"; };
+		625A70282096CA0A007F1626 /* TailorAssetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorAssetModel.h; sourceTree = "<group>"; };
+		625A70292096CA0A007F1626 /* TailorAssetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorAssetModel.m; sourceTree = "<group>"; };
+		625A702B2096D84A007F1626 /* TailorBottomToolBarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorBottomToolBarControl.h; sourceTree = "<group>"; };
+		625A702C2096D84A007F1626 /* TailorBottomToolBarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorBottomToolBarControl.m; sourceTree = "<group>"; };
+		625A702E20976BE6007F1626 /* TailorReserveInsetsClipedImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorReserveInsetsClipedImageView.h; sourceTree = "<group>"; };
+		625A702F20976BE6007F1626 /* TailorReserveInsetsClipedImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorReserveInsetsClipedImageView.m; sourceTree = "<group>"; };
+		625A703120981819007F1626 /* TailorZoomingFloatEditBtnView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorZoomingFloatEditBtnView.h; sourceTree = "<group>"; };
+		625A703220981819007F1626 /* TailorZoomingFloatEditBtnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorZoomingFloatEditBtnView.m; sourceTree = "<group>"; };
+		62F8428B209555C000AE0316 /* ImageTailor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageTailor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		62F8428E209555C000AE0316 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		62F8428F209555C000AE0316 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		62F84291209555C000AE0316 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		62F84292209555C000AE0316 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		62F84295209555C000AE0316 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		62F84297209555C000AE0316 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		62F8429A209555C000AE0316 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		62F8429C209555C000AE0316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		62F8429D209555C000AE0316 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D831C7FA8ACC2F4886E295F1 /* Pods-ImageTailor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageTailor.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageTailor/Pods-ImageTailor.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		62F84288209555C000AE0316 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7DF625D581579BF9CB1DF41 /* Pods_ImageTailor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22E7267D3E59C686CB6E3DED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				02BC7025B34E9D9DB7561A1F /* Pods-ImageTailor.debug.xcconfig */,
+				D831C7FA8ACC2F4886E295F1 /* Pods-ImageTailor.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		620AC0AA209DFE5F0000580D /* scrawl */ = {
+			isa = PBXGroup;
+			children = (
+				620AC0AB209DFE7C0000580D /* ScrawlViewController.h */,
+				620AC0AC209DFE7C0000580D /* ScrawlViewController.m */,
+				620AC0AE209DFF150000580D /* ScrawlZoomingScollView.h */,
+				620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */,
+				620AC0B3209F017B0000580D /* ScrawlBottomToolBarControl.h */,
+				620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */,
+			);
+			path = scrawl;
+			sourceTree = "<group>";
+		};
+		620AC0B1209DFF520000580D /* constants */ = {
+			isa = PBXGroup;
+			children = (
+				620AC0B2209DFF830000580D /* ImageTailorConstants.h */,
+			);
+			path = constants;
+			sourceTree = "<group>";
+		};
+		625A6FE62095AA90007F1626 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				625A6FE72095AAB0007F1626 /* LazyProperty.h */,
+				625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */,
+				625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */,
+				625A6FEB2095AE1B007F1626 /* NSDictionary+IGListExtension.h */,
+				625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */,
+				625A6FF52095B253007F1626 /* PHCachingImageManager+Singleton.h */,
+				625A6FF62095B253007F1626 /* PHCachingImageManager+Singleton.m */,
+				625A6FF82095B282007F1626 /* SingletonInstance.h */,
+				625A6FF92095B90E007F1626 /* PHAsset+IGListExtension.h */,
+				625A6FFA2095B90E007F1626 /* PHAsset+IGListExtension.m */,
+				625A6FFC2095BA1D007F1626 /* UIView+ViewFrame.h */,
+				625A6FFD2095BA1D007F1626 /* UIView+ViewFrame.m */,
+				625A70022095C255007F1626 /* CurrentSelectedAssetsManager.h */,
+				625A70032095C255007F1626 /* CurrentSelectedAssetsManager.m */,
+				625A70052095CFEE007F1626 /* UIColor+Hex.h */,
+				625A70062095CFEE007F1626 /* UIColor+Hex.m */,
+				625A70082095D7C2007F1626 /* ConstStuff.h */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		625A6FEE2095AE85007F1626 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				625A6FEF2095AEAE007F1626 /* ImagePickerItemCollectionViewCell.h */,
+				625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */,
+				625A6FFF2095C1C1007F1626 /* ImagePickerItemSectionController.h */,
+				625A70002095C1C1007F1626 /* ImagePickerItemSectionController.m */,
+				625A70172095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.h */,
+				625A70182095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		625A70092095DB93007F1626 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				625A700D2095DBCE007F1626 /* ImagePickerBottomToolBarView.h */,
+				625A700E2095DBCE007F1626 /* ImagePickerBottomToolBarView.m */,
+				625A701E2096B061007F1626 /* TailorNavigatorToolBarControl.h */,
+				625A701F2096B061007F1626 /* TailorNavigatorToolBarControl.m */,
+				625A70212096C71B007F1626 /* TailorZoomingScrollView.h */,
+				625A70222096C71B007F1626 /* TailorZoomingScrollView.m */,
+				625A702B2096D84A007F1626 /* TailorBottomToolBarControl.h */,
+				625A702C2096D84A007F1626 /* TailorBottomToolBarControl.m */,
+				625A702E20976BE6007F1626 /* TailorReserveInsetsClipedImageView.h */,
+				625A702F20976BE6007F1626 /* TailorReserveInsetsClipedImageView.m */,
+				625A703120981819007F1626 /* TailorZoomingFloatEditBtnView.h */,
+				625A703220981819007F1626 /* TailorZoomingFloatEditBtnView.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		625A70102095E470007F1626 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				625A70112095E488007F1626 /* BaseViewController.h */,
+				625A70122095E488007F1626 /* BaseViewController.m */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		625A701A2096AD26007F1626 /* tailor */ = {
+			isa = PBXGroup;
+			children = (
+				625A701B2096AD3F007F1626 /* TailorViewController.h */,
+				625A701C2096AD3F007F1626 /* TailorViewController.m */,
+			);
+			path = tailor;
+			sourceTree = "<group>";
+		};
+		625A70272096C9B8007F1626 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				625A70282096CA0A007F1626 /* TailorAssetModel.h */,
+				625A70292096CA0A007F1626 /* TailorAssetModel.m */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		62F84282209555C000AE0316 = {
+			isa = PBXGroup;
+			children = (
+				62F8428D209555C000AE0316 /* ImageTailor */,
+				62F8428C209555C000AE0316 /* Products */,
+				22E7267D3E59C686CB6E3DED /* Pods */,
+				B4BBBC55ED1687ED66E6DAF2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		62F8428C209555C000AE0316 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				62F8428B209555C000AE0316 /* ImageTailor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		62F8428D209555C000AE0316 /* ImageTailor */ = {
+			isa = PBXGroup;
+			children = (
+				620AC0B1209DFF520000580D /* constants */,
+				620AC0AA209DFE5F0000580D /* scrawl */,
+				625A70272096C9B8007F1626 /* models */,
+				625A701A2096AD26007F1626 /* tailor */,
+				625A70102095E470007F1626 /* base */,
+				625A70092095DB93007F1626 /* views */,
+				625A6FEE2095AE85007F1626 /* cells */,
+				625A6FE62095AA90007F1626 /* util */,
+				62F8428E209555C000AE0316 /* AppDelegate.h */,
+				62F8428F209555C000AE0316 /* AppDelegate.m */,
+				62F84291209555C000AE0316 /* ViewController.h */,
+				62F84292209555C000AE0316 /* ViewController.m */,
+				62F84294209555C000AE0316 /* Main.storyboard */,
+				62F84297209555C000AE0316 /* Assets.xcassets */,
+				62F84299209555C000AE0316 /* LaunchScreen.storyboard */,
+				62F8429C209555C000AE0316 /* Info.plist */,
+				62F8429D209555C000AE0316 /* main.m */,
+				625A6FE52095A8DD007F1626 /* GlobalFile.pch */,
+			);
+			path = ImageTailor;
+			sourceTree = "<group>";
+		};
+		B4BBBC55ED1687ED66E6DAF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				430F88C01CBC6590F0532FF6 /* Pods_ImageTailor.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		62F8428A209555C000AE0316 /* ImageTailor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62F842A1209555C000AE0316 /* Build configuration list for PBXNativeTarget "ImageTailor" */;
+			buildPhases = (
+				5D1502534C279282E2D6C90F /* [CP] Check Pods Manifest.lock */,
+				62F84287209555C000AE0316 /* Sources */,
+				62F84288209555C000AE0316 /* Frameworks */,
+				62F84289209555C000AE0316 /* Resources */,
+				29F8A6EDA65062AB6F7D9ADB /* [CP] Embed Pods Frameworks */,
+				4E2BEE36E0BE2D5B5C75A42C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImageTailor;
+			productName = ImageTailor;
+			productReference = 62F8428B209555C000AE0316 /* ImageTailor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		62F84283209555C000AE0316 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = dl;
+				TargetAttributes = {
+					62F8428A209555C000AE0316 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 62F84286209555C000AE0316 /* Build configuration list for PBXProject "ImageTailor" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 62F84282209555C000AE0316;
+			productRefGroup = 62F8428C209555C000AE0316 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				62F8428A209555C000AE0316 /* ImageTailor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		62F84289209555C000AE0316 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62F8429B209555C000AE0316 /* LaunchScreen.storyboard in Resources */,
+				62F84298209555C000AE0316 /* Assets.xcassets in Resources */,
+				62F84296209555C000AE0316 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		29F8A6EDA65062AB6F7D9ADB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageTailor/Pods-ImageTailor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E2BEE36E0BE2D5B5C75A42C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageTailor/Pods-ImageTailor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D1502534C279282E2D6C90F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		62F84287209555C000AE0316 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				625A70012095C1C1007F1626 /* ImagePickerItemSectionController.m in Sources */,
+				625A70132095E488007F1626 /* BaseViewController.m in Sources */,
+				625A70202096B061007F1626 /* TailorNavigatorToolBarControl.m in Sources */,
+				625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */,
+				620AC0AD209DFE7C0000580D /* ScrawlViewController.m in Sources */,
+				625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */,
+				625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */,
+				625A701D2096AD3F007F1626 /* TailorViewController.m in Sources */,
+				625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */,
+				62F84293209555C000AE0316 /* ViewController.m in Sources */,
+				625A702A2096CA0A007F1626 /* TailorAssetModel.m in Sources */,
+				625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */,
+				62F8429E209555C000AE0316 /* main.m in Sources */,
+				625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */,
+				620AC0B5209F017B0000580D /* ScrawlBottomToolBarControl.m in Sources */,
+				625A703320981819007F1626 /* TailorZoomingFloatEditBtnView.m in Sources */,
+				625A70042095C255007F1626 /* CurrentSelectedAssetsManager.m in Sources */,
+				625A6FFB2095B90E007F1626 /* PHAsset+IGListExtension.m in Sources */,
+				625A6FFE2095BA1D007F1626 /* UIView+ViewFrame.m in Sources */,
+				620AC0B0209DFF150000580D /* ScrawlZoomingScollView.m in Sources */,
+				625A70232096C71B007F1626 /* TailorZoomingScrollView.m in Sources */,
+				62F84290209555C000AE0316 /* AppDelegate.m in Sources */,
+				625A6FF72095B253007F1626 /* PHCachingImageManager+Singleton.m in Sources */,
+				625A70072095CFEE007F1626 /* UIColor+Hex.m in Sources */,
+				625A700F2095DBCE007F1626 /* ImagePickerBottomToolBarView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		62F84294209555C000AE0316 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62F84295209555C000AE0316 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		62F84299209555C000AE0316 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62F8429A209555C000AE0316 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		62F8429F209555C000AE0316 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		62F842A0209555C000AE0316 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		62F842A2209555C000AE0316 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02BC7025B34E9D9DB7561A1F /* Pods-ImageTailor.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8GMNB8286X;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ImageTailor/GlobalFile.pch;
+				INFOPLIST_FILE = ImageTailor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.ding.ImageTailor.dl;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		62F842A3209555C000AE0316 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D831C7FA8ACC2F4886E295F1 /* Pods-ImageTailor.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8GMNB8286X;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ImageTailor/GlobalFile.pch;
+				INFOPLIST_FILE = ImageTailor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.ding.ImageTailor.dl;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		62F84286209555C000AE0316 /* Build configuration list for PBXProject "ImageTailor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62F8429F209555C000AE0316 /* Debug */,
+				62F842A0209555C000AE0316 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62F842A1209555C000AE0316 /* Build configuration list for PBXNativeTarget "ImageTailor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62F842A2209555C000AE0316 /* Debug */,
+				62F842A3209555C000AE0316 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 62F84283209555C000AE0316 /* Project object */;
+}
