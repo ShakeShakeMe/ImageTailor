@@ -37,6 +37,13 @@ typedef NS_ENUM(NSInteger, TailorZommingFloatEditAlignment) {
     TailorZoomingFloatEditAlignRight
 };
 
+typedef NS_ENUM(NSInteger, ScrawlToolBarPixellateType){
+    ScrawlToolBarPixellateTypeNone = 0,
+    ScrawlToolBarPixellateTypeSmall,
+    ScrawlToolBarPixellateTypeMiddle,
+    ScrawlToolBarPixellateTypeLarge
+};
+
 static CGFloat TailorMinZoomingScale = 0.5f;
 static CGFloat TailorMaxZoomingScale = 2.f;
 

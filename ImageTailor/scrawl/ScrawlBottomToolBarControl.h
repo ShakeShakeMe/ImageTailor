@@ -16,13 +16,6 @@ typedef NS_ENUM(NSInteger, ScrawlToolBarItemType){
     ScrawlToolBarItemTypePhoneBounds
 };
 
-typedef NS_ENUM(NSInteger, ScrawlToolBarPixellateType){
-    ScrawlToolBarPixellateTypeNone = 0,
-    ScrawlToolBarPixellateTypeSmall,
-    ScrawlToolBarPixellateTypeMiddle,
-    ScrawlToolBarPixellateTypeLarge
-};
-
 @class ScrawlBottomToolBarControl;
 @class ScrawlBottomToolBarFLoatView;
 

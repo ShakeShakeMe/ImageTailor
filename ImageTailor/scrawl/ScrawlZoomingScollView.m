@@ -17,6 +17,11 @@
 @property (nonatomic, strong, readwrite) NSArray<TailorAssetModel *> *assetModels;
 
 @property (nonatomic, assign) CGPoint defaultContentOffset;
+
+// pixellate
+@property (nonatomic, assign) ScrawlToolBarPixellateType pixellateType;
+@property (nonatomic, strong) NSArray<UIImageView *> *pixellateImageViews;
+//@property (nonatomic, strong) ;
 @end
 
 @implementation ScrawlZoomingScollView
@@ -33,6 +38,7 @@
         self.maximumZoomScale = TailorMaxZoomingScale;
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
+//        self.panGestureRecognizer.minimumNumberOfTouches = 2;
     }
     return self;
 }
@@ -72,6 +78,14 @@
 
 - (void) viewDidAppear {
     self.defaultContentOffset = CGPointZero;
+}
+
+- (void) beginDoPixellateWithType:(ScrawlToolBarPixellateType)pixellateType {
+    
+}
+
+- (void) endDoPixllate {
+    
 }
 
 - (void) layoutSubviews {

@@ -21,4 +21,7 @@
 
 - (void) viewDidAppear;
 
+- (void) beginDoPixellateWithType:(ScrawlToolBarPixellateType)pixellateType;
+- (void) endDoPixllate;
+
 @end
