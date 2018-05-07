@@ -9,6 +9,8 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
 
+  s.source_files = 'Pod/Classes/**/*.{h,m}'
+  s.public_header_files = 'Pod/Classes/**/*.h'
   s.ios.vendored_frameworks = "vendor/RevealServer.framework" 
   s.frameworks = 'UIKit', 'QuartzCore'
 

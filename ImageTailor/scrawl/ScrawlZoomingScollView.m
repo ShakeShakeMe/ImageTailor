@@ -99,11 +99,6 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     [self generatePixellateImage];
     self.panGestureRecognizer.minimumNumberOfTouches = 2;
     
-    [self.smallRadiusPixellateImageLayer removeFromSuperlayer];
-    [self.middleRadiusPixellateImageLayer removeFromSuperlayer];
-    [self.largeRadiusPixellateImageLayer removeFromSuperlayer];
-    self.pixellateDrawLayer.path = NULL;
-    
     if (pixellateType == ScrawlToolBarPixellateTypeSmall) {
         [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
         self.smallRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
@@ -119,6 +114,18 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
 - (void) endDoPixllate {
     self.pixellateType = ScrawlToolBarPixellateTypeNone;
     self.panGestureRecognizer.minimumNumberOfTouches = 1;
+    
+    [self.smallRadiusPixellateImageLayer removeFromSuperlayer];
+    [self.middleRadiusPixellateImageLayer removeFromSuperlayer];
+    [self.largeRadiusPixellateImageLayer removeFromSuperlayer];
+    self.pixellateDrawLayer.path = NULL;
+}
+
+- (void) pixellateWithdraw {
+    UIImageView *lastPixellateImageView = self.pixellateImageViews.lastObject;
+    [lastPixellateImageView removeFromSuperview];
+    [self.pixellateImageViews removeObject:lastPixellateImageView];
+    [self setNeedsLayout];
 }
 
 - (void) layoutSubviews {
@@ -138,6 +145,12 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
         
         width -= model.reverseInsets.left + model.reverseInsets.right;
         height -= model.reverseInsets.top + model.reverseInsets.bottom;
+        
+        if (isVertically) {
+            x += (model.reverseInsets.left + model.reverseInsets.right) / 2.f;
+        } else {
+            y += (model.reverseInsets.top + model.reverseInsets.bottom) / 2.f;
+        }
         
         imageView.frame = CGRectMake(x, y, width, height);
         

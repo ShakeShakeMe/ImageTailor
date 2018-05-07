@@ -1,0 +1,21 @@
+before_script:
+  - export LANG=en_US.UTF-8
+  - export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$HOME/.rbenv/shims:/usr/bin:/bin:/usr/sbin:/sbin
+
+package:
+  tags:
+    - mac
+  script:
+    - bbsp
+  only:
+    - tags
+
+lint:
+  tags:
+    - mac
+  only:
+    - /init/
+    - master
+    - triggers
+  script:
+    - bbsp lint

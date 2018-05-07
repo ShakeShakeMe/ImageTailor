@@ -23,5 +23,6 @@
 
 - (void) beginDoPixellateWithType:(ScrawlToolBarPixellateType)pixellateType;
 - (void) endDoPixllate;
+- (void) pixellateWithdraw;
 
 @end

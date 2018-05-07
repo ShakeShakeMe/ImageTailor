@@ -17,6 +17,8 @@
   "platforms": {
     "ios": "8.0"
   },
+  "source_files": "Pod/Classes/**/*.{h,m}",
+  "public_header_files": "Pod/Classes/**/*.h",
   "ios": {
     "vendored_frameworks": "vendor/RevealServer.framework"
   },

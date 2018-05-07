@@ -50,6 +50,7 @@
     [[PHCachingImageManager sharedInstance] requestImageForAsset:self.asset targetSize:targetSize contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
         @strongify(self)
         if (cell.tag == tag) {
+            NSLog(@"image.size: %@", NSStringFromCGSize(result.size));
             [cell bind:result asset:self.asset];
         }
     }];

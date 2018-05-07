@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED910EFE100A22A255CE79A856DDB46D"
+               BlueprintIdentifier = "F84004C6A837526378893C22C34B2FA1"
                BuildableName = "Pods_ImageTailor.framework"
                BlueprintName = "Pods-ImageTailor"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED910EFE100A22A255CE79A856DDB46D"
+            BlueprintIdentifier = "F84004C6A837526378893C22C34B2FA1"
             BuildableName = "Pods_ImageTailor.framework"
             BlueprintName = "Pods-ImageTailor"
             ReferencedContainer = "container:Pods.xcodeproj">

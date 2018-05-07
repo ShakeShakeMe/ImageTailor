@@ -82,10 +82,14 @@
     switch (itemType) {
         case ScrawlToolBarItemTypePixellate:
         {
-            NSDictionary *pixellateActionMap = @{@0: @(ScrawlToolBarPixellateTypeLarge),
-                                                 @1: @(ScrawlToolBarPixellateTypeMiddle),
-                                                 @2: @(ScrawlToolBarPixellateTypeSmall)};
-            [self.zoomingScrollView beginDoPixellateWithType:[pixellateActionMap[@(index)] integerValue]];
+            if (index == 3) {
+                [self.zoomingScrollView pixellateWithdraw];
+            } else if (selected) {
+                NSDictionary *pixellateActionMap = @{@0: @(ScrawlToolBarPixellateTypeLarge),
+                                                     @1: @(ScrawlToolBarPixellateTypeMiddle),
+                                                     @2: @(ScrawlToolBarPixellateTypeSmall)};
+                [self.zoomingScrollView beginDoPixellateWithType:[pixellateActionMap[@(index)] integerValue]];
+            }
         }
             break;
         case ScrawlToolBarItemTypeWatermark:
@@ -113,6 +117,8 @@
                                  unselectedImages:@[@"", @"", @"", @""]
                                            titles:@[@"大", @"中", @"小", @"撤销"]
                                                 itemType:ScrawlToolBarItemTypePixellate];
+        
+        [self floatView:self.toolBarFloatView toolBarItem:ScrawlToolBarItemTypePixellate didSelected:YES atIndex:1];
     }
     [self.view setNeedsLayout];
 }

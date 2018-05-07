@@ -29,9 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"所有照片";
-//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openPhotoAssert)];
-//    [self.navigationItem setRightBarButtonItem:rightItem];
-    
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.toolBarView];
     [self.view addSubview:self.floatGoToBottomBtn];
