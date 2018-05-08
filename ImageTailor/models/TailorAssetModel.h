@@ -13,13 +13,16 @@
 - (instancetype) initWithAsset:(PHAsset *)asset;
 
 @property (nonatomic, strong, readonly) PHAsset *asset;
-// 对原图做压缩，压缩的大小跟屏幕分辨率有关
-@property (nonatomic, strong, readonly) UIImage *image;
 @property (nonatomic, assign, readonly) CGSize scaledImageSize;
 
 @property (nonatomic, assign, readonly) UIEdgeInsets reverseInsets;
+@property (nonatomic, assign, readonly) CGRect normalizedCropRect;
 
-- (void) loadScaledImageWithCompletion:(void(^)(UIImage *image))completion;
+- (void) loadImageCompletion:(void(^)(UIImage *image))completion;
+- (void) loadImageCliped:(BOOL)cliped completion:(void(^)(UIImage *image))completion;
+- (void) loadImageCliped:(BOOL)cliped original:(BOOL)original completion:(void(^)(UIImage *image))completion;
+
 - (void) clipWithReverseInsets:(UIEdgeInsets)reverseInsets;
+- (void) clipWithCropRect:(CGRect)normalizedCropRect;
 
 @end

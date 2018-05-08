@@ -7,14 +7,13 @@
 //
 
 #import "ScrawlZoomingScollView.h"
-#import "TailorReserveInsetsClipedImageView.h"
 #import "ScrawlPixellateUtil.h"
 
 static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
 
 @interface ScrawlZoomingScollView()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIView *imageContainerView;
-@property (nonatomic, strong) NSArray<TailorReserveInsetsClipedImageView *> *imageViews;
+@property (nonatomic, strong) NSArray<UIImageView *> *imageViews;
 
 @property (nonatomic, assign, readwrite) TailorTileDirection tileDirection;
 @property (nonatomic, strong, readwrite) NSArray<TailorAssetModel *> *assetModels;
@@ -66,8 +65,10 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
         [imageView removeFromSuperview];
     }];
     self.imageViews = [assetModels bk_map:^id(TailorAssetModel *model) {
-        TailorReserveInsetsClipedImageView *imageView = [[TailorReserveInsetsClipedImageView alloc] init];
-        [imageView bindAssetModel:model];
+        UIImageView *imageView = [[UIImageView alloc] init];
+        [model loadImageCliped:YES completion:^(UIImage *image) {
+            imageView.image = image;
+        }];
         imageView.backgroundColor = [UIColor hex_randomColorWithAlpha:0.5f];
         [self.imageContainerView addSubview:imageView];
         return imageView;
@@ -136,21 +137,21 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     __block UIView *preView = nil;
     __block CGFloat growingTileSum = 0.f;
     
-    [self.imageViews enumerateObjectsUsingBlock:^(TailorReserveInsetsClipedImageView * _Nonnull imageView, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * _Nonnull imageView, NSUInteger idx, BOOL * _Nonnull stop) {
         TailorAssetModel *model = self.assetModels[idx];
         CGFloat width = isVertically ? imageFixedTiledValue : imageFixedTiledValue * model.scaledImageSize.width / model.scaledImageSize.height;
         CGFloat height = isVertically ? imageFixedTiledValue * model.scaledImageSize.height / model.scaledImageSize.width : imageFixedTiledValue;
         CGFloat x = isVertically ? (imageFixedTiledValue - width) : (preView ? preView.right : 0.f);
         CGFloat y = isVertically ? (preView ? preView.bottom : 0.f) : (imageFixedTiledValue - height);
         
-        width -= model.reverseInsets.left + model.reverseInsets.right;
-        height -= model.reverseInsets.top + model.reverseInsets.bottom;
-        
         if (isVertically) {
-            x += (model.reverseInsets.left + model.reverseInsets.right) / 2.f;
+            x += (1.f - model.normalizedCropRect.size.width) / 2.f * width;
         } else {
-            y += (model.reverseInsets.top + model.reverseInsets.bottom) / 2.f;
+            y += (1.f - model.normalizedCropRect.size.height) / 2.f * height;
         }
+        
+        width *= model.normalizedCropRect.size.width;
+        height *= model.normalizedCropRect.size.height;
         
         imageView.frame = CGRectMake(x, y, width, height);
         
@@ -288,12 +289,6 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     } else {
         pixellateImage = [self.largeRadiusPixellateImageLayer bk_associatedValueForKey:kPixellateLayerImageKey];
     }
-//    CGFloat enlargeScale = image.size.width * image.scale / CGRectGetWidth(rect);
-    
-//    CGRect pixellateImageRect = CGRectMake(CGRectGetMinX(rect) * enlargeScale,
-//                                           CGRectGetMinY(rect) * enlargeScale,
-//                                           CGRectGetWidth(rect) * enlargeScale,
-//                                           CGRectGetHeight(rect) * enlargeScale);
     CGFloat enlargeScale = pixellateImage.size.width * pixellateImage.scale / (self.imageContainerView.width / self.zoomScale);
     CGRect pixellateRect = CGRectMake(CGRectGetMinX(rect) * enlargeScale,
                                       CGRectGetMinY(rect) * enlargeScale,

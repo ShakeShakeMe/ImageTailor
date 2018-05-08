@@ -46,11 +46,13 @@
     NSInteger tag = cell.tag + 1;
     cell.tag = tag;
     
+    PHImageRequestOptions *options = [PHImageRequestOptions new];
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
+    options.resizeMode = PHImageRequestOptionsResizeModeExact;
     @weakify(self)
-    [[PHCachingImageManager sharedInstance] requestImageForAsset:self.asset targetSize:targetSize contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+    [[PHCachingImageManager sharedInstance] requestImageForAsset:self.asset targetSize:targetSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
         @strongify(self)
         if (cell.tag == tag) {
-            NSLog(@"image.size: %@", NSStringFromCGSize(result.size));
             [cell bind:result asset:self.asset];
         }
     }];

@@ -26,9 +26,9 @@
 
 - (void) bindAssetModel:(TailorAssetModel *)assetModel {
     self.assetModel = assetModel;
-    
+
     @weakify(self)
-    [assetModel loadScaledImageWithCompletion:^(UIImage *image) {
+    [assetModel loadImageCompletion:^(UIImage *image) {
         @strongify(self)
         self.innerImageView.image = image;
     }];
@@ -37,7 +37,7 @@
 }
 
 - (UIImage *) clipedImage {
-    UIImage *originImage = self.assetModel.image;
+    UIImage *originImage = self.innerImageView.image;
     UIEdgeInsets reverseInsets = self.assetModel.reverseInsets;
     CGFloat enlargeScale = originImage.size.width * originImage.scale / (self.width + reverseInsets.left + reverseInsets.right);
     UIEdgeInsets enlargeInsets = UIEdgeInsetsMake(reverseInsets.top * enlargeScale,
@@ -62,6 +62,14 @@
                                                                                 itemSize:self.size];
     BOOL success = !UIEdgeInsetsEqualToEdgeInsets(insets, self.assetModel.reverseInsets);
     [self.assetModel clipWithReverseInsets:insets];
+    
+    CGSize originalSize = CGSizeMake(self.size.width + insets.left + insets.right,
+                                     self.size.height + insets.top + insets.bottom);
+    CGRect cropRect = CGRectMake(insets.left / originalSize.width,
+                                 insets.top / originalSize.height,
+                                 1.f - (insets.left + insets.right) / originalSize.width,
+                                 1.f - (insets.top + insets.bottom) / originalSize.height);
+    [self.assetModel clipWithCropRect:cropRect];
     return success;
 }
 
