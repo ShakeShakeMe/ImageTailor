@@ -1,6 +1,0 @@
-framework module Reveal_iOS_SDK {
-  umbrella header "Reveal-iOS-SDK-umbrella.h"
-
-  export *
-  module * { export * }
-}

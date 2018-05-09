@@ -7,9 +7,9 @@
 //
 
 #import "ScrawlZoomingScollView.h"
-#import "ScrawlPixellateUtil.h"
 
 static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
+static CIWarpKernel *customKernel = nil;
 
 @interface ScrawlZoomingScollView()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIView *imageContainerView;
@@ -99,7 +99,7 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
         self.pixellateType = pixellateType;
         [self generatePixellateImage];
         self.panGestureRecognizer.minimumNumberOfTouches = 2;
-        
+
         if (pixellateType == ScrawlToolBarPixellateTypeSmall) {
             [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
             self.smallRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
@@ -136,6 +136,7 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     dispatch_group_t requestGroup = dispatch_group_create();
     [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
         dispatch_group_enter(requestGroup);
+        [images addObject:@(idx)];
         
         PHImageRequestOptions *options = [PHImageRequestOptions new];
         options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -148,7 +149,7 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
          contentMode:PHImageContentModeDefault
          options:options
          resultHandler:^(UIImage *result, NSDictionary *info) {
-             [images addObject:result];
+             images[idx] = result;
              dispatch_group_leave(requestGroup);
          }];
     }];
@@ -306,6 +307,7 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     dispatch_group_t requestGroup = dispatch_group_create();
     [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
         dispatch_group_enter(requestGroup);
+        [images addObject:@(idx)];
         
         PHImageRequestOptions *options = [PHImageRequestOptions new];
         options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -321,7 +323,7 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
          contentMode:PHImageContentModeDefault
          options:options
          resultHandler:^(UIImage *result, NSDictionary *info) {
-             [images addObject:result];
+             images[idx] = result;
              dispatch_group_leave(requestGroup);
          }];
     }];
@@ -352,6 +354,8 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
         UIGraphicsBeginImageContext(CGSizeMake(isVertically ? maxImageVector : imageVerticalVectorSum,
                                                isVertically ? imageVerticalVectorSum : maxImageVector));
         [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@"image.size: %@, rect: %@", NSStringFromCGSize(image.size),
+                  NSStringFromCGRect([imageRects[idx] CGRectValue]));
             [image drawInRect:[imageRects[idx] CGRectValue]];
         }];
         self.snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -362,6 +366,33 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     });
 }
 
+- (UIImage *) generatePixellateImageWIthRadius:(CGFloat)radius {
+    if (!customKernel) {
+        NSBundle *bundle = [NSBundle bundleForClass: [self class]];
+        NSURL *kernelURL = [bundle URLForResource:@"Pixellate" withExtension:@"cikernel"];
+        
+        NSError *error;
+        NSString *kernelCode = [NSString stringWithContentsOfURL:kernelURL
+                                                        encoding:NSUTF8StringEncoding error:&error];
+        if (kernelCode == nil) {
+            NSLog(@"Error loading kernel code string in %@\n%@",
+                  NSStringFromSelector(_cmd),
+                  [error localizedDescription]);
+            abort();
+        }
+        
+        NSArray *kernels = [CIWarpKernel kernelsWithString:kernelCode];
+        customKernel = [kernels objectAtIndex:0];
+    }
+    CIImage *inputImage = [[CIImage alloc] initWithImage:self.snapshotImage];
+    CGRect dod = inputImage.extent;
+    CIImage *outputImage = [customKernel applyWithExtent:dod roiCallback:^CGRect(int index, CGRect destRect) {
+        return destRect;
+    } inputImage:inputImage arguments:@[@5]];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    return [UIImage imageWithCGImage:[context createCGImage:outputImage fromRect:outputImage.extent]];
+}
+
 - (void) generatePixellateImage {
     if (!self.pixellateDrawLayer) {
         self.pixellateDrawLayer = [CAShapeLayer layer];
@@ -370,7 +401,7 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     }
     
     if (self.pixellateType == ScrawlToolBarPixellateTypeSmall && !self.smallRadiusPixellateImageLayer) {
-        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:4];
+        UIImage *image = [self generatePixellateImageWIthRadius:4];
         self.smallRadiusPixellateImageLayer = [CALayer new];
         self.smallRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.smallRadiusPixellateImageLayer.contents = (id) image.CGImage;
@@ -378,14 +409,14 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
         [self.smallRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (self.pixellateType == ScrawlToolBarPixellateTypeMiddle && !self.middleRadiusPixellateImageLayer) {
-        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:10];
+        UIImage *image = [self generatePixellateImageWIthRadius:10];
         self.middleRadiusPixellateImageLayer = [CALayer new];
         self.middleRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.middleRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.middleRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (self.pixellateType == ScrawlToolBarPixellateTypeLarge && !self.largeRadiusPixellateImageLayer) {
-        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:18];
+        UIImage *image = [self generatePixellateImageWIthRadius:18];
         self.largeRadiusPixellateImageLayer = [CALayer new];
         self.largeRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.largeRadiusPixellateImageLayer.contents = (id) image.CGImage;

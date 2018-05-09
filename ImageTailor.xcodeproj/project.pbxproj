@@ -11,6 +11,7 @@
 		620AC0B0209DFF150000580D /* ScrawlZoomingScollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */; };
 		620AC0B5209F017B0000580D /* ScrawlBottomToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */; };
 		620AC0B8209F4C3E0000580D /* ScrawlPixellateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */; };
+		620AC0BA20A3568C0000580D /* Pixellate.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 620AC0B920A3568C0000580D /* Pixellate.cikernel */; };
 		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
 		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
 		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
@@ -51,6 +52,7 @@
 		620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlBottomToolBarControl.m; sourceTree = "<group>"; };
 		620AC0B6209F4C3E0000580D /* ScrawlPixellateUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlPixellateUtil.h; sourceTree = "<group>"; };
 		620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlPixellateUtil.m; sourceTree = "<group>"; };
+		620AC0B920A3568C0000580D /* Pixellate.cikernel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pixellate.cikernel; sourceTree = "<group>"; };
 		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
 		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
 		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */,
 				620AC0B6209F4C3E0000580D /* ScrawlPixellateUtil.h */,
 				620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */,
+				620AC0B920A3568C0000580D /* Pixellate.cikernel */,
 			);
 			path = scrawl;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62F8429B209555C000AE0316 /* LaunchScreen.storyboard in Resources */,
+				620AC0BA20A3568C0000580D /* Pixellate.cikernel in Resources */,
 				62F84298209555C000AE0316 /* Assets.xcassets in Resources */,
 				62F84296209555C000AE0316 /* Main.storyboard in Resources */,
 			);
@@ -396,7 +400,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

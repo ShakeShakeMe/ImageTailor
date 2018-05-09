@@ -1,0 +1,27 @@
+{
+  "name": "Reveal-Server",
+  "version": "10.0.1",
+  "summary": "Reveal-iOS-SDK.",
+  "homepage": "http://git.husor.com/Pods/RReveal-Server",
+  "license": {
+    "type": "proprietary",
+    "text": "Husor Inc. Copyright"
+  },
+  "authors": {
+    "li.ding": "li.ding@husor.com"
+  },
+  "source": {
+    "git": "http://git.husor.com/Pods/Reveal-Server.git",
+    "tag": "10.0.1"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "ios": {
+    "vendored_frameworks": "vendor/RevealServer.framework"
+  },
+  "frameworks": [
+    "UIKit",
+    "QuartzCore"
+  ]
+}
