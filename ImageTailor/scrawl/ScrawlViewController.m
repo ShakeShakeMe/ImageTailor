@@ -26,6 +26,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveToPhoto)];
+    
     [self.view addSubview:self.zoomingScrollView];
     [self.zoomingScrollView refreshWithAssetModels:self.assetModels
                                      tileDirection:self.tileDirection
@@ -164,6 +166,10 @@
     self.toolBarFloatView.alpha = 0.f;
     self.toolBarFloatView.showVerticalLine = NO;
     self.toolBarFloatView.selectedIndex = 0;
+}
+
+- (void) saveToPhoto {
+    [self.zoomingScrollView saveToPhoto];
 }
 
 #pragma mark - getters

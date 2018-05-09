@@ -130,6 +130,65 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     [self setNeedsLayout];
 }
 
+- (void) saveToPhoto {
+    BOOL isVertically = self.tileDirection == TailorTileDirectionVertically;
+    NSMutableArray *images = [@[] mutableCopy];
+    dispatch_group_t requestGroup = dispatch_group_create();
+    [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        dispatch_group_enter(requestGroup);
+        
+        PHImageRequestOptions *options = [PHImageRequestOptions new];
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        options.resizeMode = PHImageRequestOptionsResizeModeExact;
+        options.normalizedCropRect = assetModel.normalizedCropRect;
+        
+        [[PHCachingImageManager sharedInstance]
+         requestImageForAsset:assetModel.asset
+         targetSize:CGSizeMake(assetModel.asset.pixelWidth, assetModel.asset.pixelHeight)
+         contentMode:PHImageContentModeDefault
+         options:options
+         resultHandler:^(UIImage *result, NSDictionary *info) {
+             [images addObject:result];
+             dispatch_group_leave(requestGroup);
+         }];
+    }];
+    dispatch_group_notify(requestGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __block CGFloat maxImageVector = 0.f;
+        [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGFloat imageVector = (isVertically ? image.size.width : image.size.height) * image.scale;
+            maxImageVector = MAX(maxImageVector, imageVector);
+        }];
+        __block CGFloat imageVerticalVectorSum = 0.f;
+        __block CGRect preImageRect = CGRectZero;
+        NSArray<NSValue *> *imageRects = [images bk_map:^id(UIImage *image) {
+            CGFloat enlargeScale = maxImageVector / (image.scale * (isVertically ? image.size.width : image.size.height));
+            CGSize imageSize = CGSizeMake(image.size.width * enlargeScale, image.size.height * enlargeScale);
+            CGRect imageRect = CGRectMake(0.f, 0.f, imageSize.width, imageSize.height);
+            if (isVertically) {
+                imageRect.origin = CGPointMake(CGRectGetMinX(preImageRect), CGRectGetMaxY(preImageRect));
+                imageVerticalVectorSum += imageSize.height;
+            } else {
+                imageRect.origin = CGPointMake(CGRectGetMaxX(preImageRect), CGRectGetMinY(preImageRect));
+                imageVerticalVectorSum += imageSize.width;
+            }
+            preImageRect = imageRect;
+            return [NSValue valueWithCGRect:imageRect];
+        }];
+        
+        // draw on one bitmap
+        UIGraphicsBeginImageContext(CGSizeMake(isVertically ? maxImageVector : imageVerticalVectorSum,
+                                               isVertically ? imageVerticalVectorSum : maxImageVector));
+        [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
+            [image drawInRect:[imageRects[idx] CGRectValue]];
+        }];
+        UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self saveImage:mergedImage];
+        });
+    });
+}
+
 - (void) layoutSubviews {
     [super layoutSubviews];
     

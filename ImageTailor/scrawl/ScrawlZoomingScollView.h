@@ -25,4 +25,6 @@
 - (void) endDoPixllate;
 - (void) pixellateWithdraw;
 
+- (void) saveToPhoto;
+
 @end
