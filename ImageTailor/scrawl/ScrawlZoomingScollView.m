@@ -93,23 +93,24 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
 }
 
 - (void) beginDoPixellateWithType:(ScrawlToolBarPixellateType)pixellateType {
-    if (!self.snapshotImage) {
-        [self generateSnapshot];
-    }
-    self.pixellateType = pixellateType;
-    [self generatePixellateImage];
-    self.panGestureRecognizer.minimumNumberOfTouches = 2;
-    
-    if (pixellateType == ScrawlToolBarPixellateTypeSmall) {
-        [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
-        self.smallRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
-    } else if (pixellateType == ScrawlToolBarPixellateTypeMiddle) {
-        [self.imageContainerView.layer addSublayer:self.middleRadiusPixellateImageLayer];
-        self.middleRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
-    } else {
-        [self.imageContainerView.layer addSublayer:self.largeRadiusPixellateImageLayer];
-        self.largeRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
-    }
+    @weakify(self)
+    [self generateSnapshotWithCompletion:^(UIImage *snapshot) {
+        @strongify(self)
+        self.pixellateType = pixellateType;
+        [self generatePixellateImage];
+        self.panGestureRecognizer.minimumNumberOfTouches = 2;
+        
+        if (pixellateType == ScrawlToolBarPixellateTypeSmall) {
+            [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
+            self.smallRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
+        } else if (pixellateType == ScrawlToolBarPixellateTypeMiddle) {
+            [self.imageContainerView.layer addSublayer:self.middleRadiusPixellateImageLayer];
+            self.middleRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
+        } else {
+            [self.imageContainerView.layer addSublayer:self.largeRadiusPixellateImageLayer];
+            self.largeRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
+        }
+    }];
 }
 
 - (void) endDoPixllate {
@@ -236,13 +237,70 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
 
 #pragma mark - private methods
 
-- (void) generateSnapshot {
-    CGSize snapshotSize = CGSizeMake(self.imageContainerView.size.width / self.zoomScale,
-                                     self.imageContainerView.size.height / self.zoomScale);
-    UIGraphicsBeginImageContextWithOptions(snapshotSize, self.imageContainerView.opaque, 0);
-    [self.imageContainerView drawViewHierarchyInRect:self.imageContainerView.bounds afterScreenUpdates:YES];
-    self.snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+- (void) generateSnapshotWithCompletion:(void(^)(UIImage *snapshot))completion {
+    if (self.snapshotImage) {
+        !completion ?: completion(self.snapshotImage);
+    }
+    
+    BOOL isVertically = self.tileDirection == TailorTileDirectionVertically;
+    NSMutableArray *images = [@[] mutableCopy];
+    dispatch_group_t requestGroup = dispatch_group_create();
+    [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        dispatch_group_enter(requestGroup);
+        
+        PHImageRequestOptions *options = [PHImageRequestOptions new];
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        options.resizeMode = PHImageRequestOptionsResizeModeExact;
+        options.normalizedCropRect = assetModel.normalizedCropRect;
+        
+        CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width,
+                                 [UIScreen mainScreen].bounds.size.width * assetModel.asset.pixelHeight / assetModel.asset.pixelWidth);
+        
+        [[PHCachingImageManager sharedInstance]
+         requestImageForAsset:assetModel.asset
+         targetSize:size
+         contentMode:PHImageContentModeDefault
+         options:options
+         resultHandler:^(UIImage *result, NSDictionary *info) {
+             [images addObject:result];
+             dispatch_group_leave(requestGroup);
+         }];
+    }];
+    dispatch_group_notify(requestGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __block CGFloat maxImageVector = 0.f;
+        [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGFloat imageVector = (isVertically ? image.size.width : image.size.height) * image.scale;
+            maxImageVector = MAX(maxImageVector, imageVector);
+        }];
+        __block CGFloat imageVerticalVectorSum = 0.f;
+        __block CGRect preImageRect = CGRectZero;
+        NSArray<NSValue *> *imageRects = [images bk_map:^id(UIImage *image) {
+            CGFloat enlargeScale = maxImageVector / (image.scale * (isVertically ? image.size.width : image.size.height));
+            CGSize imageSize = CGSizeMake(image.size.width * enlargeScale, image.size.height * enlargeScale);
+            CGRect imageRect = CGRectMake(0.f, 0.f, imageSize.width, imageSize.height);
+            if (isVertically) {
+                imageRect.origin = CGPointMake(CGRectGetMinX(preImageRect), CGRectGetMaxY(preImageRect));
+                imageVerticalVectorSum += imageSize.height;
+            } else {
+                imageRect.origin = CGPointMake(CGRectGetMaxX(preImageRect), CGRectGetMinY(preImageRect));
+                imageVerticalVectorSum += imageSize.width;
+            }
+            preImageRect = imageRect;
+            return [NSValue valueWithCGRect:imageRect];
+        }];
+        
+        // draw on one bitmap
+        UIGraphicsBeginImageContext(CGSizeMake(isVertically ? maxImageVector : imageVerticalVectorSum,
+                                               isVertically ? imageVerticalVectorSum : maxImageVector));
+        [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
+            [image drawInRect:[imageRects[idx] CGRectValue]];
+        }];
+        self.snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            !completion ?: completion(self.snapshotImage);
+        });
+    });
 }
 
 - (void) generatePixellateImage {
@@ -253,7 +311,7 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
     }
     
     if (self.pixellateType == ScrawlToolBarPixellateTypeSmall && !self.smallRadiusPixellateImageLayer) {
-        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:10];
+        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:4];
         self.smallRadiusPixellateImageLayer = [CALayer new];
         self.smallRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.smallRadiusPixellateImageLayer.contents = (id) image.CGImage;
@@ -261,14 +319,14 @@ static void *kPixellateLayerImageKey = &kPixellateLayerImageKey;
         [self.smallRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (self.pixellateType == ScrawlToolBarPixellateTypeMiddle && !self.middleRadiusPixellateImageLayer) {
-        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:30];
+        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:10];
         self.middleRadiusPixellateImageLayer = [CALayer new];
         self.middleRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.middleRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.middleRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (self.pixellateType == ScrawlToolBarPixellateTypeLarge && !self.largeRadiusPixellateImageLayer) {
-        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:60];
+        UIImage *image = [ScrawlPixellateUtil pixellateImageWithOriginImage:self.snapshotImage radius:18];
         self.largeRadiusPixellateImageLayer = [CALayer new];
         self.largeRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.largeRadiusPixellateImageLayer.contents = (id) image.CGImage;

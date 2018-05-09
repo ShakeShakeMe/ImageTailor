@@ -18,6 +18,8 @@
 @property (nonatomic, assign, readonly) UIEdgeInsets reverseInsets;
 @property (nonatomic, assign, readonly) CGRect normalizedCropRect;
 
+@property (nonatomic, strong) NSMutableArray *testImgs;
+
 - (void) loadImageCompletion:(void(^)(UIImage *image))completion;
 - (void) loadImageCliped:(BOOL)cliped completion:(void(^)(UIImage *image))completion;
 - (void) loadImageCliped:(BOOL)cliped original:(BOOL)original completion:(void(^)(UIImage *image))completion;

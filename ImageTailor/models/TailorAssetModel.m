@@ -26,6 +26,8 @@
         CGSize targetSize = CGSizeMake(asset.pixelWidth * zoomScale, asset.pixelHeight * zoomScale);
         self.scaledImageSize = targetSize;
         self.normalizedCropRect = CGRectMake(0.f, 0.f, 1.f, 1.f);
+        
+        self.testImgs = [@[] mutableCopy];
     }
     return self;
 }
@@ -43,7 +45,6 @@
     options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
     options.resizeMode = PHImageRequestOptionsResizeModeExact;
     if (!original && cliped) {
-//        options.normalizedCropRect = CGRectMake(0.2, 0.2, 0.6, 0.6);
         options.normalizedCropRect = self.normalizedCropRect;
     }
     
@@ -55,7 +56,29 @@
      resultHandler:^(UIImage *result, NSDictionary *info) {
          !completion ?: completion(result);
      }];
+    
+//    CGSize originSize = CGSizeMake(self.asset.pixelWidth, self.asset.pixelHeight);
+//    for (int i=0; i<20; i++) {
+//        [self testWithPosition:(i / 20.f) size:CGSizeMake(originSize.width, originSize.height / 20.f)];
+//    }
 }
+
+//- (void) testWithPosition:(CGFloat)position size:(CGSize)size {
+//    PHImageRequestOptions *options = [PHImageRequestOptions new];
+//    options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
+//    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+//    options.normalizedCropRect = CGRectMake(0, position, 1, 1.f / 20.f);
+//
+//    [[PHCachingImageManager sharedInstance]
+//     requestImageForAsset:self.asset
+//     targetSize:size
+//     contentMode:PHImageContentModeDefault
+//     options:options
+//     resultHandler:^(UIImage *result, NSDictionary *info) {
+//         [self.testImgs addObject:result];
+//         NSLog(@"position: %@, image.size: %@", @(position), NSStringFromCGSize(result.size));
+//     }];
+//}
 
 - (void) clipWithReverseInsets:(UIEdgeInsets)reverseInsets {
     self.reverseInsets = reverseInsets;

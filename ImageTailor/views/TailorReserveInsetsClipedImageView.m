@@ -62,14 +62,6 @@
                                                                                 itemSize:self.size];
     BOOL success = !UIEdgeInsetsEqualToEdgeInsets(insets, self.assetModel.reverseInsets);
     [self.assetModel clipWithReverseInsets:insets];
-    
-    CGSize originalSize = CGSizeMake(self.size.width + insets.left + insets.right,
-                                     self.size.height + insets.top + insets.bottom);
-    CGRect cropRect = CGRectMake(insets.left / originalSize.width,
-                                 insets.top / originalSize.height,
-                                 1.f - (insets.left + insets.right) / originalSize.width,
-                                 1.f - (insets.top + insets.bottom) / originalSize.height);
-    [self.assetModel clipWithCropRect:cropRect];
     return success;
 }
 
@@ -127,6 +119,14 @@
                                            -insets.top,
                                            self.width + insets.left + insets.right,
                                            self.height + insets.top + insets.bottom);
+    
+    CGSize originalSize = CGSizeMake(self.size.width + insets.left + insets.right,
+                                     self.size.height + insets.top + insets.bottom);
+    CGRect cropRect = CGRectMake(insets.left / originalSize.width,
+                                 insets.top / originalSize.height,
+                                 1.f - (insets.left + insets.right) / originalSize.width,
+                                 1.f - (insets.top + insets.bottom) / originalSize.height);
+    [self.assetModel clipWithCropRect:cropRect];
 }
 
 LazyPropertyWithInit(UIImageView, innerImageView, {
