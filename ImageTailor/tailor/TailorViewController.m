@@ -7,14 +7,11 @@
 //
 
 #import "TailorViewController.h"
-//#import "TailorNavigatorToolBarControl.h"
 #import "TailorZoomingScrollView.h"
 #import "TailorBottomToolBarControl.h"
 #import "ScrawlViewController.h"
 
 @interface TailorViewController ()
-//<TailorNavigatorToolBarControlDelegate>
-//@property (nonatomic, strong) TailorNavigatorToolBarControl *navigatorToolBarControl;
 @property (nonatomic, strong) TailorBottomToolBarControl *bottomToolBarControl;
 @property (nonatomic, strong) TailorZoomingScrollView *zoomingScrollView;
 @end
@@ -26,15 +23,8 @@
     
     self.title = @"裁剪";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"去涂鸦" style:UIBarButtonItemStylePlain target:self action:@selector(goScrawl)];
-    
-//    self.navigatorToolBarControl = [[TailorNavigatorToolBarControl alloc] initWithFrame:CGRectMake(0, 0, ceilf(self.view.width * 0.75f), 44.f)];
-//    self.navigatorToolBarControl.delegate = self;
-//    self.navigationItem.titleView = self.navigatorToolBarControl;
-//    [self.navigatorToolBarControl refreshWithTitles:@[@"裁剪", @"工具"]];
     
     [self.view addSubview:self.bottomToolBarControl];
     [self.view addSubview:self.zoomingScrollView];
@@ -46,15 +36,10 @@
     [super viewDidLayoutSubviews];
     self.bottomToolBarControl.frame = CGRectMake(0.f, self.view.height - 44.f - self.mergedSafeAreaInsets.bottom, self.view.width, 44.f);
     self.zoomingScrollView.frame = CGRectMake(0.f,
-                                              self.mergedSafeAreaInsets.top,
+                                              0.f,
                                               self.view.width,
-                                              self.bottomToolBarControl.top - self.mergedSafeAreaInsets.top);
+                                              self.bottomToolBarControl.top);
 }
-
-//#pragma mark - TailorNavigatorToolBarControlDelegate
-//- (void) didSelectToolBarControl:(TailorNavigatorToolBarControl *)toolBarControl index:(NSInteger)index {
-//
-//}
 
 #pragma mark - TailorBottomToolBarControlDelegate
 

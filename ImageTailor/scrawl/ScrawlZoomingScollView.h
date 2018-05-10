@@ -21,9 +21,14 @@
 
 - (void) viewDidAppear;
 
+// 马赛克
 - (void) beginDoPixellateWithType:(ScrawlToolBarPixellateType)pixellateType;
 - (void) endDoPixllate;
 - (void) pixellateWithdraw;
+
+// 水印
+- (void) showWatermarkWithAlignment:(NSTextAlignment)alignment text:(NSString *)text;
+- (void) hideWatermark;
 
 - (void) saveToPhoto;
 

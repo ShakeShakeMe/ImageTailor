@@ -12,10 +12,6 @@
 
 @interface ScrawlViewController : BaseViewController
 
-//@property (nonatomic, strong) UIImage *snapshot;
-//@property (nonatomic, strong) NSArray<NSValue *> *rects;
-//@property (nonatomic, strong) NSArray<UIImage *> *images;
-
 @property (nonatomic, strong) NSArray<TailorAssetModel *> *assetModels;
 
 @property (nonatomic, assign) TailorTileDirection tileDirection;

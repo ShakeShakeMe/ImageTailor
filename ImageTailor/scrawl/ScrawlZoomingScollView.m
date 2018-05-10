@@ -32,6 +32,10 @@ static CIWarpKernel *customKernel = nil;
 @property (nonatomic, assign) CGPoint startTouchPoint;
 
 @property (nonatomic, assign) CGMutablePathRef path;
+@property (nonatomic, assign) CGRect imageViewsUnionRect;
+
+// water mark < © >
+@property (nonatomic, strong) UILabel *watermarkLabel;
 @end
 
 @implementation ScrawlZoomingScollView
@@ -49,10 +53,79 @@ static CIWarpKernel *customKernel = nil;
         self.maximumZoomScale = TailorMaxZoomingScale;
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
+
+        [self addSubview:self.watermarkLabel];
     }
     return self;
 }
 
+- (void) viewDidAppear {
+    self.defaultContentOffset = CGPointZero;
+}
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    
+    BOOL isVertically = self.tileDirection == TailorTileDirectionVertically;
+    CGFloat imageFixedTiledValue = isVertically ? self.width : self.height;
+    __block UIView *preView = nil;
+    __block CGFloat growingTileSum = 0.f;
+    
+    __block CGRect imageViewsUnionRect = CGRectZero;
+    [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * _Nonnull imageView, NSUInteger idx, BOOL * _Nonnull stop) {
+        TailorAssetModel *model = self.assetModels[idx];
+        CGFloat width = isVertically ? imageFixedTiledValue : imageFixedTiledValue * model.scaledImageSize.width / model.scaledImageSize.height;
+        CGFloat height = isVertically ? imageFixedTiledValue * model.scaledImageSize.height / model.scaledImageSize.width : imageFixedTiledValue;
+        CGFloat x = isVertically ? (imageFixedTiledValue - width) : (preView ? preView.right : 0.f);
+        CGFloat y = isVertically ? (preView ? preView.bottom : 0.f) : (imageFixedTiledValue - height);
+        
+        if (isVertically) {
+            x += (1.f - model.normalizedCropRect.size.width) / 2.f * width;
+        } else {
+            y += (1.f - model.normalizedCropRect.size.height) / 2.f * height;
+        }
+        
+        width *= model.normalizedCropRect.size.width;
+        height *= model.normalizedCropRect.size.height;
+        
+        imageView.frame = CGRectMake(x, y, width, height);
+        imageViewsUnionRect = CGRectUnion(imageViewsUnionRect, imageView.frame);
+        
+        growingTileSum += isVertically ? height : width;
+        preView = imageView;
+    }];
+    self.imageViewsUnionRect = imageViewsUnionRect;
+    
+    CGFloat contentSizeWidth = (isVertically ? self.width : growingTileSum) * self.zoomScale;
+    CGFloat contentSizeHeight = (isVertically ? growingTileSum : self.height)  * self.zoomScale;
+    CGSize containerViewSize = CGSizeMake(contentSizeWidth, contentSizeHeight);
+    self.contentSize = containerViewSize;
+    if (!CGPointEqualToPoint(self.defaultContentOffset, CGPointZero)) {
+        self.contentOffset = self.defaultContentOffset;
+    }
+    
+    // Center the container view as it becomes smaller than the size of the screen
+    CGSize boundsSize = self.bounds.size;
+    CGRect frameToCenter = (CGRect){CGPointZero, containerViewSize};
+    // Horizontally
+    if (frameToCenter.size.width < boundsSize.width) {
+        frameToCenter.origin.x = floorf((boundsSize.width - frameToCenter.size.width) / 2.0);
+    } else {
+        frameToCenter.origin.x = 0;
+    }
+    
+    // Vertically
+    if (frameToCenter.size.height < boundsSize.height) {
+        frameToCenter.origin.y = floorf((boundsSize.height - frameToCenter.size.height) / 2.0);
+    } else {
+        frameToCenter.origin.y = 0;
+    }
+    self.imageContainerView.frame = frameToCenter;
+    
+    self.watermarkLabel.frame = CGRectMake(0.f, CGRectGetHeight(imageViewsUnionRect) - 40.f, CGRectGetWidth(imageViewsUnionRect), 40.f);
+}
+
+#pragma mark - refresh
 - (void) refreshWithAssetModels:(NSArray<TailorAssetModel *> *)assetModels
                   tileDirection:(TailorTileDirection)tileDirection
                defaultZoomScale:(CGFloat) zoomScale
@@ -88,10 +161,7 @@ static CIWarpKernel *customKernel = nil;
     [self setNeedsLayout];
 }
 
-- (void) viewDidAppear {
-    self.defaultContentOffset = CGPointZero;
-}
-
+#pragma mark - pixellate
 - (void) beginDoPixellateWithType:(ScrawlToolBarPixellateType)pixellateType {
     @weakify(self)
     [self generateSnapshotWithCompletion:^(UIImage *snapshot) {
@@ -99,7 +169,7 @@ static CIWarpKernel *customKernel = nil;
         self.pixellateType = pixellateType;
         [self generatePixellateImage];
         self.panGestureRecognizer.minimumNumberOfTouches = 2;
-
+        
         if (pixellateType == ScrawlToolBarPixellateTypeSmall) {
             [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
             self.smallRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
@@ -130,6 +200,24 @@ static CIWarpKernel *customKernel = nil;
     [self setNeedsLayout];
 }
 
+#pragma mark - weater mark
+- (void) showWatermarkWithAlignment:(NSTextAlignment)alignment text:(NSString *)text {
+    self.watermarkLabel.textAlignment = alignment;
+    
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor blackColor];
+    shadow.shadowOffset = CGSizeMake(6.f, 6.f);
+    shadow.shadowBlurRadius = 6.f;
+    self.watermarkLabel.attributedText = [[NSAttributedString alloc] initWithString:(text ?: @"")
+                                                                         attributes:@{NSShadowAttributeName: shadow}];
+    self.watermarkLabel.hidden = text.length == 0;
+}
+
+- (void) hideWatermark {
+    self.watermarkLabel.hidden = YES;
+}
+
+#pragma mark - save to photo
 - (void) saveToPhoto {
     BOOL isVertically = self.tileDirection == TailorTileDirectionVertically;
     NSMutableArray *images = [@[] mutableCopy];
@@ -154,7 +242,6 @@ static CIWarpKernel *customKernel = nil;
          }];
     }];
     
-    CGRect imageViewsUnionRect = [self unionRectForAllImageViews];
     // 马赛克图片 和 大小
     NSMutableArray *pixellateImageInfos = [@[] mutableCopy];
     [self.pixellateImageViews enumerateObjectsUsingBlock:^(UIImageView *pixellateImageView, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -197,7 +284,7 @@ static CIWarpKernel *customKernel = nil;
             [image drawInRect:[imageRects[idx] CGRectValue]];
         }];
         
-        CGFloat enlargeScale = (isVertically ? maxImageVector : imageVerticalVectorSum) / CGRectGetWidth(imageViewsUnionRect);
+        CGFloat enlargeScale = (isVertically ? maxImageVector : imageVerticalVectorSum) / CGRectGetWidth(self.imageViewsUnionRect);
         
         // 绘制所有的马赛克图片
         [pixellateImageInfos enumerateObjectsUsingBlock:^(NSDictionary *pixellateImageViewInfo, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -217,62 +304,6 @@ static CIWarpKernel *customKernel = nil;
     });
 }
 
-- (void) layoutSubviews {
-    [super layoutSubviews];
-    
-    BOOL isVertically = self.tileDirection == TailorTileDirectionVertically;
-    CGFloat imageFixedTiledValue = isVertically ? self.width : self.height;
-    __block UIView *preView = nil;
-    __block CGFloat growingTileSum = 0.f;
-    
-    [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * _Nonnull imageView, NSUInteger idx, BOOL * _Nonnull stop) {
-        TailorAssetModel *model = self.assetModels[idx];
-        CGFloat width = isVertically ? imageFixedTiledValue : imageFixedTiledValue * model.scaledImageSize.width / model.scaledImageSize.height;
-        CGFloat height = isVertically ? imageFixedTiledValue * model.scaledImageSize.height / model.scaledImageSize.width : imageFixedTiledValue;
-        CGFloat x = isVertically ? (imageFixedTiledValue - width) : (preView ? preView.right : 0.f);
-        CGFloat y = isVertically ? (preView ? preView.bottom : 0.f) : (imageFixedTiledValue - height);
-        
-        if (isVertically) {
-            x += (1.f - model.normalizedCropRect.size.width) / 2.f * width;
-        } else {
-            y += (1.f - model.normalizedCropRect.size.height) / 2.f * height;
-        }
-        
-        width *= model.normalizedCropRect.size.width;
-        height *= model.normalizedCropRect.size.height;
-        
-        imageView.frame = CGRectMake(x, y, width, height);
-        
-        growingTileSum += isVertically ? height : width;
-        preView = imageView;
-    }];
-    
-    CGFloat contentSizeWidth = (isVertically ? self.width : growingTileSum) * self.zoomScale;
-    CGFloat contentSizeHeight = (isVertically ? growingTileSum : self.height)  * self.zoomScale;
-    CGSize containerViewSize = CGSizeMake(contentSizeWidth, contentSizeHeight);
-    self.contentSize = containerViewSize;
-    if (!CGPointEqualToPoint(self.defaultContentOffset, CGPointZero)) {
-        self.contentOffset = self.defaultContentOffset;
-    }
-    
-    // Center the container view as it becomes smaller than the size of the screen
-    CGSize boundsSize = self.bounds.size;
-    CGRect frameToCenter = (CGRect){CGPointZero, containerViewSize};
-    // Horizontally
-    if (frameToCenter.size.width < boundsSize.width) {
-        frameToCenter.origin.x = floorf((boundsSize.width - frameToCenter.size.width) / 2.0);
-    } else {
-        frameToCenter.origin.x = 0;
-    }
-    
-    // Vertically
-    if (frameToCenter.size.height < boundsSize.height) {
-        frameToCenter.origin.y = floorf((boundsSize.height - frameToCenter.size.height) / 2.0);
-    } else {
-        frameToCenter.origin.y = 0;
-    }
-    self.imageContainerView.frame = frameToCenter;
-}
 
 #pragma mark - touches
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -325,22 +356,14 @@ static CIWarpKernel *customKernel = nil;
     [self touchesEnded:touches withEvent:event];
 }
 
-- (CGPoint) transformedTouchPoint:(CGPoint)touchPoint {
-    CGRect imageViewsUnionRect = [self unionRectForAllImageViews];
-    return CGPointMake(MIN(MAX(CGRectGetMinX(imageViewsUnionRect), touchPoint.x), CGRectGetMaxX(imageViewsUnionRect)),
-                       MIN(MAX(CGRectGetMinY(imageViewsUnionRect), touchPoint.y), CGRectGetMaxY(imageViewsUnionRect)));
-}
-
-- (CGRect) unionRectForAllImageViews {
-    __block CGRect imageViewsUnionRect = CGRectZero;
-    [self.imageViews bk_each:^(UIImageView *imageView) {
-        imageViewsUnionRect = CGRectUnion(imageViewsUnionRect, imageView.frame);
-    }];
-    return imageViewsUnionRect;
-}
-
 #pragma mark - private methods
 
+- (CGPoint) transformedTouchPoint:(CGPoint)touchPoint {
+    return CGPointMake(MIN(MAX(CGRectGetMinX(self.imageViewsUnionRect), touchPoint.x), CGRectGetMaxX(self.imageViewsUnionRect)),
+                       MIN(MAX(CGRectGetMinY(self.imageViewsUnionRect), touchPoint.y), CGRectGetMaxY(self.imageViewsUnionRect)));
+}
+
+#pragma mark - others snapshot
 - (void) generateSnapshotWithCompletion:(void(^)(UIImage *snapshot))completion {
     if (self.snapshotImage) {
         !completion ?: completion(self.snapshotImage);
@@ -410,6 +433,7 @@ static CIWarpKernel *customKernel = nil;
     });
 }
 
+#pragma mark - others pixellate
 - (UIImage *) generatePixellateImageWIthRadius:(CGFloat)radius {
     if (!customKernel) {
         NSBundle *bundle = [NSBundle bundleForClass: [self class]];
@@ -438,38 +462,28 @@ static CIWarpKernel *customKernel = nil;
 }
 
 - (void) generatePixellateImage {
-    if (!self.pixellateDrawLayer) {
-        self.pixellateDrawLayer = [CAShapeLayer layer];
-        self.pixellateDrawLayer.frame = self.imageContainerView.bounds;
-        self.pixellateDrawLayer.fillColor = [UIColor lightGrayColor].CGColor;
-    }
+    self.pixellateDrawLayer.frame = self.imageContainerView.bounds;
+    self.pixellateDrawLayer.fillColor = [UIColor lightGrayColor].CGColor;
     
-    if (self.pixellateType == ScrawlToolBarPixellateTypeSmall && !self.smallRadiusPixellateImageLayer) {
+    if (self.pixellateType == ScrawlToolBarPixellateTypeSmall) {
         UIImage *image = [self generatePixellateImageWIthRadius:4];
-        self.smallRadiusPixellateImageLayer = [CALayer new];
         self.smallRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.smallRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
         [self.smallRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
-    if (self.pixellateType == ScrawlToolBarPixellateTypeMiddle && !self.middleRadiusPixellateImageLayer) {
+    if (self.pixellateType == ScrawlToolBarPixellateTypeMiddle) {
         UIImage *image = [self generatePixellateImageWIthRadius:10];
-        self.middleRadiusPixellateImageLayer = [CALayer new];
         self.middleRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.middleRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.middleRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
-    if (self.pixellateType == ScrawlToolBarPixellateTypeLarge && !self.largeRadiusPixellateImageLayer) {
+    if (self.pixellateType == ScrawlToolBarPixellateTypeLarge) {
         UIImage *image = [self generatePixellateImageWIthRadius:18];
-        self.largeRadiusPixellateImageLayer = [CALayer new];
         self.largeRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.largeRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.largeRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
-}
-
-- (void) prepareForPixellateLayer {
-    
 }
 
 - (void) pastePixellateImageViewWithRect:(CGRect)rect {
@@ -499,6 +513,7 @@ static CIWarpKernel *customKernel = nil;
     [self setNeedsLayout];
 }
 
+#pragma mark - others save image to photo
 - (void) saveImage:(UIImage *)image {
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
 }
@@ -522,4 +537,13 @@ static CIWarpKernel *customKernel = nil;
 
 #pragma mark - getters
 LazyPropertyWithInit(UIView, imageContainerView, {})
+LazyProperty(CALayer, smallRadiusPixellateImageLayer)
+LazyProperty(CALayer, middleRadiusPixellateImageLayer)
+LazyProperty(CALayer, largeRadiusPixellateImageLayer)
+LazyProperty(CAShapeLayer, pixellateDrawLayer)
+LazyPropertyWithInit(UILabel, watermarkLabel, {
+    _watermarkLabel.font = [UIFont systemFontOfSize:10];
+    _watermarkLabel.textColor = [UIColor whiteColor];
+    _watermarkLabel.hidden = YES;
+})
 @end

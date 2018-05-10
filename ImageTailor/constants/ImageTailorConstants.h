@@ -44,6 +44,13 @@ typedef NS_ENUM(NSInteger, ScrawlToolBarPixellateType){
     ScrawlToolBarPixellateTypeLarge
 };
 
+//typedef NS_ENUM(NSInteger, ScrawlToolBarWatermarkPosition){
+//    ScrawlToolBarWatermarkPositionNone = 0,
+//    ScrawlToolBarWatermarkPositionBottomLeft,
+//    ScrawlToolBarWatermarkPositionBottomCenter,
+//    ScrawlToolBarWatermarkPositionBottomRight
+//};
+
 static CGFloat TailorMinZoomingScale = 0.5f;
 static CGFloat TailorMaxZoomingScale = 2.f;
 

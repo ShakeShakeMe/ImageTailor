@@ -16,9 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.extendedLayoutIncludesOpaqueBars = YES;
-    self.automaticallyAdjustsScrollViewInsets = YES;
-    self.modalPresentationCapturesStatusBarAppearance = NO;
+//    self.extendedLayoutIncludesOpaqueBars = YES;
+//    self.automaticallyAdjustsScrollViewInsets = YES;
+//    self.modalPresentationCapturesStatusBarAppearance = NO;
 }
 
 - (BOOL)isHotSpotOn {

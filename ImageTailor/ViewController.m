@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"所有照片";
+    
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.toolBarView];
     [self.view addSubview:self.floatGoToBottomBtn];
@@ -58,8 +59,7 @@
     
     self.toolBarView.frame = CGRectMake(0.f, self.view.height - self.mergedSafeAreaInsets.bottom - 44.f, self.view.width, 44.f);
     self.collectionView.frame = CGRectMake(0, 0.f, self.view.width, self.view.height);
-    UIEdgeInsets inset = self.collectionView.contentInset;
-    self.collectionView.contentInset = UIEdgeInsetsMake(inset.top, inset.left, self.mergedSafeAreaInsets.bottom, inset.right);
+    self.collectionView.contentInset = UIEdgeInsetsMake(self.mergedSafeAreaInsets.top, 0.f, self.mergedSafeAreaInsets.bottom, 0.f);
     self.floatGoToBottomBtn.size = CGSizeMake(44.f, 44.f);
     self.floatGoToBottomBtn.centerX = self.view.centerX;
     self.floatGoToBottomBtn.bottom = self.toolBarView.top - 44.f;
@@ -218,6 +218,9 @@
         _collectionView.alpha = 0.f;
         _collectionView.allowsMultipleSelection = YES;
         _collectionView.alwaysBounceVertical = YES;
+        if (@available(iOS 11.0, *)) {
+            _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
     }
     return _collectionView;
 }

@@ -23,8 +23,6 @@
 
     self.title = @"涂鸦";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveToPhoto)];
     
@@ -48,11 +46,8 @@
     self.toolBarControl.frame = CGRectMake(0.f, self.view.height - 44.f - self.mergedSafeAreaInsets.bottom, self.view.width, 44.f);
     self.toolBarFloatView.frame = CGRectMake(0.f, self.toolBarControl.top - 44.f, self.view.width, 44.f);
     
-    CGFloat zoomingScrollViewHeight = (self.toolBarFloatView.alpha == 0.f ? self.toolBarControl.top : self.toolBarFloatView.top) - self.mergedSafeAreaInsets.top;
-    self.zoomingScrollView.frame = CGRectMake(0.f,
-                                              self.mergedSafeAreaInsets.top,
-                                              self.view.width,
-                                              zoomingScrollViewHeight);
+    CGFloat zoomingScrollViewHeight = self.toolBarFloatView.alpha == 0.f ? self.toolBarControl.top : self.toolBarFloatView.top;
+    self.zoomingScrollView.frame = CGRectMake(0.f, 0.f, self.view.width, zoomingScrollViewHeight);
 }
 
 #pragma mark - ScrawlBottomToolBarControlDelegate

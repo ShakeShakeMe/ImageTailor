@@ -44,7 +44,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.imageViewsContainer];
-        self.scrollsToTop = NO;
         self.delegate = self;
         self.minimumZoomScale = TailorMinZoomingScale;
         self.maximumZoomScale = TailorMaxZoomingScale;
