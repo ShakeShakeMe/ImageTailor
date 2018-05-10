@@ -153,7 +153,18 @@ static CIWarpKernel *customKernel = nil;
              dispatch_group_leave(requestGroup);
          }];
     }];
+    
+    CGRect imageViewsUnionRect = [self unionRectForAllImageViews];
+    // 马赛克图片 和 大小
+    NSMutableArray *pixellateImageInfos = [@[] mutableCopy];
+    [self.pixellateImageViews enumerateObjectsUsingBlock:^(UIImageView *pixellateImageView, NSUInteger idx, BOOL * _Nonnull stop) {
+        [pixellateImageInfos addObject:@{@"image": pixellateImageView.image,
+                                         @"frame": [NSValue valueWithCGRect:pixellateImageView.frame]}];
+    }];
+    
     dispatch_group_notify(requestGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // 计算绘制每一个原图时(每个原图大小可能不一样)，应该绘制成的大小
         __block CGFloat maxImageVector = 0.f;
         [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
             CGFloat imageVector = (isVertically ? image.size.width : image.size.height) * image.scale;
@@ -161,6 +172,7 @@ static CIWarpKernel *customKernel = nil;
         }];
         __block CGFloat imageVerticalVectorSum = 0.f;
         __block CGRect preImageRect = CGRectZero;
+        // 计算每个原图应该占用的大小
         NSArray<NSValue *> *imageRects = [images bk_map:^id(UIImage *image) {
             CGFloat enlargeScale = maxImageVector / (image.scale * (isVertically ? image.size.width : image.size.height));
             CGSize imageSize = CGSizeMake(image.size.width * enlargeScale, image.size.height * enlargeScale);
@@ -179,8 +191,23 @@ static CIWarpKernel *customKernel = nil;
         // draw on one bitmap
         UIGraphicsBeginImageContext(CGSizeMake(isVertically ? maxImageVector : imageVerticalVectorSum,
                                                isVertically ? imageVerticalVectorSum : maxImageVector));
+        
+        // 绘制所有的原图
         [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
             [image drawInRect:[imageRects[idx] CGRectValue]];
+        }];
+        
+        CGFloat enlargeScale = (isVertically ? maxImageVector : imageVerticalVectorSum) / CGRectGetWidth(imageViewsUnionRect);
+        
+        // 绘制所有的马赛克图片
+        [pixellateImageInfos enumerateObjectsUsingBlock:^(NSDictionary *pixellateImageViewInfo, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIImage *pixellateImage = pixellateImageViewInfo[@"image"];
+            CGRect frame = [pixellateImageViewInfo[@"frame"] CGRectValue];
+            CGRect pixellateRect = CGRectMake(frame.origin.x * enlargeScale,
+                                              frame.origin.y * enlargeScale,
+                                              frame.size.width * enlargeScale,
+                                              frame.size.height * enlargeScale);
+            [pixellateImage drawInRect:pixellateRect];
         }];
         UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -254,7 +281,8 @@ static CIWarpKernel *customKernel = nil;
     }
     
     self.startTouch = touches.anyObject;
-    self.startTouchPoint = [self.startTouch locationInView:self.imageContainerView];
+    CGPoint touchPoint = [self.startTouch locationInView:self.imageContainerView];
+    self.startTouchPoint = [self transformedTouchPoint:touchPoint];
 }
 
 - (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -262,6 +290,7 @@ static CIWarpKernel *customKernel = nil;
         return ;
     }
     CGPoint touchPoint = [touches.anyObject locationInView:self.imageContainerView];
+    touchPoint = [self transformedTouchPoint:touchPoint];
     CGRect currentPixellateRect = CGRectMake(MIN(touchPoint.x, self.startTouchPoint.x),
                                              MIN(touchPoint.y, self.startTouchPoint.y),
                                              fabs(touchPoint.x - self.startTouchPoint.x),
@@ -276,8 +305,9 @@ static CIWarpKernel *customKernel = nil;
     }
     
     CGPoint touchPoint = [touches.anyObject locationInView:self.imageContainerView];
-    CGRect currentPixellateRect = CGRectMake(MAX(MIN(touchPoint.x, self.startTouchPoint.x), 0.f),
-                                             MAX(MIN(touchPoint.y, self.startTouchPoint.y), 0.f),
+    touchPoint = [self transformedTouchPoint:touchPoint];
+    CGRect currentPixellateRect = CGRectMake(MIN(touchPoint.x, self.startTouchPoint.x),
+                                             MIN(touchPoint.y, self.startTouchPoint.y),
                                              fabs(touchPoint.x - self.startTouchPoint.x),
                                              fabs(touchPoint.y - self.startTouchPoint.y));
     CGFloat width = MIN(CGRectGetWidth(currentPixellateRect), self.imageContainerView.width / self.zoomScale - CGRectGetMinX(currentPixellateRect));
@@ -293,6 +323,20 @@ static CIWarpKernel *customKernel = nil;
 
 - (void) touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self touchesEnded:touches withEvent:event];
+}
+
+- (CGPoint) transformedTouchPoint:(CGPoint)touchPoint {
+    CGRect imageViewsUnionRect = [self unionRectForAllImageViews];
+    return CGPointMake(MIN(MAX(CGRectGetMinX(imageViewsUnionRect), touchPoint.x), CGRectGetMaxX(imageViewsUnionRect)),
+                       MIN(MAX(CGRectGetMinY(imageViewsUnionRect), touchPoint.y), CGRectGetMaxY(imageViewsUnionRect)));
+}
+
+- (CGRect) unionRectForAllImageViews {
+    __block CGRect imageViewsUnionRect = CGRectZero;
+    [self.imageViews bk_each:^(UIImageView *imageView) {
+        imageViewsUnionRect = CGRectUnion(imageViewsUnionRect, imageView.frame);
+    }];
+    return imageViewsUnionRect;
 }
 
 #pragma mark - private methods
