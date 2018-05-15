@@ -94,7 +94,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD/MBProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
-  install_framework "${PODS_ROOT}/../Reveal-iOS-SDK/vendor/RevealServer.framework"
+  install_framework "${PODS_ROOT}/../Reveal-Server/vendor/RevealServer.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -103,7 +103,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD/MBProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Masonry/Masonry.framework"
-  install_framework "${PODS_ROOT}/../Reveal-iOS-SDK/vendor/RevealServer.framework"
+  install_framework "${PODS_ROOT}/../Reveal-Server/vendor/RevealServer.framework"
   install_framework "$BUILT_PRODUCTS_DIR/libextobjc/libextobjc.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

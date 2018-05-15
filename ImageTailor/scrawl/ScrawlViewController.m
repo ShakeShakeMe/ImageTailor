@@ -90,7 +90,19 @@
         }
             break;
         case ScrawlToolBarItemTypeWatermark:
-            
+        {
+            if (index == 0) {
+                [self.zoomingScrollView hideWatermark];
+            } else if (index == 4) {
+                
+            } else {
+                NSDictionary *watermarkAlignmentMap = @{@1: @(NSTextAlignmentLeft),
+                                                        @2: @(NSTextAlignmentCenter),
+                                                        @3: @(NSTextAlignmentRight)};
+                [self.zoomingScrollView showWatermarkWithAlignment:[watermarkAlignmentMap[@(index)] integerValue]
+                                                              text:@"This is test water mark."];
+            }
+        }
             break;
         case ScrawlToolBarItemTypeGuideLine:
             

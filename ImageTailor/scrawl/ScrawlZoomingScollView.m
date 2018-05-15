@@ -54,7 +54,7 @@ static CIWarpKernel *customKernel = nil;
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
 
-        [self addSubview:self.watermarkLabel];
+        [self.imageContainerView addSubview:self.watermarkLabel];
     }
     return self;
 }
@@ -122,7 +122,14 @@ static CIWarpKernel *customKernel = nil;
     }
     self.imageContainerView.frame = frameToCenter;
     
-    self.watermarkLabel.frame = CGRectMake(0.f, CGRectGetHeight(imageViewsUnionRect) - 40.f, CGRectGetWidth(imageViewsUnionRect), 40.f);
+    self.watermarkLabel.frame = CGRectMake(0.f, CGRectGetHeight(imageViewsUnionRect) - 40.f, self.watermarkLabel.width, 40.f);
+    if (self.watermarkLabel.textAlignment == NSTextAlignmentLeft) {
+        self.watermarkLabel.left = 0.f;
+    } else if(self.watermarkLabel.textAlignment == NSTextAlignmentRight) {
+        self.watermarkLabel.right = CGRectGetWidth(imageViewsUnionRect);
+    } else {
+        self.watermarkLabel.centerX = CGRectGetMidX(imageViewsUnionRect);
+    }
 }
 
 #pragma mark - refresh
@@ -158,6 +165,8 @@ static CIWarpKernel *customKernel = nil;
     
     self.zoomScale = zoomScale;
     self.defaultContentOffset = contentOffset;
+    
+    [self.imageContainerView bringSubviewToFront:self.watermarkLabel];
     [self setNeedsLayout];
 }
 
@@ -211,6 +220,14 @@ static CIWarpKernel *customKernel = nil;
     self.watermarkLabel.attributedText = [[NSAttributedString alloc] initWithString:(text ?: @"")
                                                                          attributes:@{NSShadowAttributeName: shadow}];
     self.watermarkLabel.hidden = text.length == 0;
+    [self.watermarkLabel sizeToFit];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+    
+    if (!self.watermarkLabel.hidden) {
+        CGRect visableWaterLabelRect = [self.imageContainerView convertRect:self.watermarkLabel.frame toView:self];
+        [self scrollRectToVisible:visableWaterLabelRect animated:YES];
+    }
 }
 
 - (void) hideWatermark {
@@ -242,14 +259,7 @@ static CIWarpKernel *customKernel = nil;
          }];
     }];
     
-    // 马赛克图片 和 大小
-    NSMutableArray *pixellateImageInfos = [@[] mutableCopy];
-    [self.pixellateImageViews enumerateObjectsUsingBlock:^(UIImageView *pixellateImageView, NSUInteger idx, BOOL * _Nonnull stop) {
-        [pixellateImageInfos addObject:@{@"image": pixellateImageView.image,
-                                         @"frame": [NSValue valueWithCGRect:pixellateImageView.frame]}];
-    }];
-    
-    dispatch_group_notify(requestGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_group_notify(requestGroup, dispatch_get_main_queue(), ^{
         
         // 计算绘制每一个原图时(每个原图大小可能不一样)，应该绘制成的大小
         __block CGFloat maxImageVector = 0.f;
@@ -287,23 +297,29 @@ static CIWarpKernel *customKernel = nil;
         CGFloat enlargeScale = (isVertically ? maxImageVector : imageVerticalVectorSum) / CGRectGetWidth(self.imageViewsUnionRect);
         
         // 绘制所有的马赛克图片
-        [pixellateImageInfos enumerateObjectsUsingBlock:^(NSDictionary *pixellateImageViewInfo, NSUInteger idx, BOOL * _Nonnull stop) {
-            UIImage *pixellateImage = pixellateImageViewInfo[@"image"];
-            CGRect frame = [pixellateImageViewInfo[@"frame"] CGRectValue];
+        [self.pixellateImageViews enumerateObjectsUsingBlock:^(UIImageView *pixellateImageView, NSUInteger idx, BOOL * _Nonnull stop) {
+            UIImage *pixellateImage = pixellateImageView.image;
+            CGRect frame = pixellateImageView.frame;
             CGRect pixellateRect = CGRectMake(frame.origin.x * enlargeScale,
                                               frame.origin.y * enlargeScale,
                                               frame.size.width * enlargeScale,
                                               frame.size.height * enlargeScale);
             [pixellateImage drawInRect:pixellateRect];
         }];
+        
+        // 绘制水印
+        CGRect watermarkDrawRect = CGRectMake(self.watermarkLabel.left * enlargeScale,
+                                              self.watermarkLabel.top * enlargeScale,
+                                              self.watermarkLabel.width * enlargeScale,
+                                              self.watermarkLabel.height * enlargeScale);
+        [self.watermarkLabel drawViewHierarchyInRect:watermarkDrawRect afterScreenUpdates:YES];
+        
         UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [self saveImage:mergedImage];
-        });
+        
+        [self saveImage:mergedImage];
     });
 }
-
 
 #pragma mark - touches
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
