@@ -130,6 +130,8 @@ static CIWarpKernel *customKernel = nil;
     } else {
         self.watermarkLabel.centerX = CGRectGetMidX(imageViewsUnionRect);
     }
+    
+    NSLog(@"layoutsubvies");
 }
 
 #pragma mark - refresh
@@ -226,6 +228,11 @@ static CIWarpKernel *customKernel = nil;
     
     if (!self.watermarkLabel.hidden) {
         CGRect visableWaterLabelRect = [self.imageContainerView convertRect:self.watermarkLabel.frame toView:self];
+        visableWaterLabelRect = CGRectMake(MIN(CGRectGetMinX(visableWaterLabelRect), MAX(self.contentSize.width, 0.f)),
+                                           MIN(CGRectGetMinY(visableWaterLabelRect), MAX(self.contentSize.height, 0.f)),
+                                           CGRectGetWidth(visableWaterLabelRect),
+                                           CGRectGetHeight(visableWaterLabelRect));
+        NSLog(@"visableWaterLabelRect: %@, contentSize: %@", NSStringFromCGRect(visableWaterLabelRect), NSStringFromCGSize(self.contentSize));
         [self scrollRectToVisible:visableWaterLabelRect animated:YES];
     }
 }
@@ -437,8 +444,6 @@ static CIWarpKernel *customKernel = nil;
         UIGraphicsBeginImageContext(CGSizeMake(isVertically ? maxImageVector : imageVerticalVectorSum,
                                                isVertically ? imageVerticalVectorSum : maxImageVector));
         [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"image.size: %@, rect: %@", NSStringFromCGSize(image.size),
-                  NSStringFromCGRect([imageRects[idx] CGRectValue]));
             [image drawInRect:[imageRects[idx] CGRectValue]];
         }];
         self.snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -450,7 +455,7 @@ static CIWarpKernel *customKernel = nil;
 }
 
 #pragma mark - others pixellate
-- (UIImage *) generatePixellateImageWIthRadius:(CGFloat)radius {
+- (UIImage *) generatePixellateImageWithRadius:(CGFloat)radius {
     if (!customKernel) {
         NSBundle *bundle = [NSBundle bundleForClass: [self class]];
         NSURL *kernelURL = [bundle URLForResource:@"Pixellate" withExtension:@"cikernel"];
@@ -482,20 +487,20 @@ static CIWarpKernel *customKernel = nil;
     self.pixellateDrawLayer.fillColor = [UIColor lightGrayColor].CGColor;
     
     if (self.pixellateType == ScrawlToolBarPixellateTypeSmall) {
-        UIImage *image = [self generatePixellateImageWIthRadius:4];
+        UIImage *image = [self generatePixellateImageWithRadius:4];
         self.smallRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.smallRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
         [self.smallRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (self.pixellateType == ScrawlToolBarPixellateTypeMiddle) {
-        UIImage *image = [self generatePixellateImageWIthRadius:10];
+        UIImage *image = [self generatePixellateImageWithRadius:10];
         self.middleRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.middleRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.middleRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (self.pixellateType == ScrawlToolBarPixellateTypeLarge) {
-        UIImage *image = [self generatePixellateImageWIthRadius:18];
+        UIImage *image = [self generatePixellateImageWithRadius:18];
         self.largeRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
         self.largeRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.largeRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];

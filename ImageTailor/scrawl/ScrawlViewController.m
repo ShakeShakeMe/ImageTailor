@@ -100,7 +100,7 @@
                                                         @2: @(NSTextAlignmentCenter),
                                                         @3: @(NSTextAlignmentRight)};
                 [self.zoomingScrollView showWatermarkWithAlignment:[watermarkAlignmentMap[@(index)] integerValue]
-                                                              text:@"This is test water mark."];
+                                                              text:@"©This is test water mark."];
             }
         }
             break;
