@@ -224,17 +224,8 @@ static CIWarpKernel *customKernel = nil;
     self.watermarkLabel.hidden = text.length == 0;
     [self.watermarkLabel sizeToFit];
     [self setNeedsLayout];
-    [self layoutIfNeeded];
     
-    if (!self.watermarkLabel.hidden) {
-        CGRect visableWaterLabelRect = [self.imageContainerView convertRect:self.watermarkLabel.frame toView:self];
-        visableWaterLabelRect = CGRectMake(MIN(CGRectGetMinX(visableWaterLabelRect), MAX(self.contentSize.width, 0.f)),
-                                           MIN(CGRectGetMinY(visableWaterLabelRect), MAX(self.contentSize.height, 0.f)),
-                                           CGRectGetWidth(visableWaterLabelRect),
-                                           CGRectGetHeight(visableWaterLabelRect));
-        NSLog(@"visableWaterLabelRect: %@, contentSize: %@", NSStringFromCGRect(visableWaterLabelRect), NSStringFromCGSize(self.contentSize));
-        [self scrollRectToVisible:visableWaterLabelRect animated:YES];
-    }
+    [self scrollViewToShowWaterMark];
 }
 
 - (void) hideWatermark {
@@ -532,6 +523,21 @@ static CIWarpKernel *customKernel = nil;
     [self.imageContainerView addSubview:pixellateRectImageView];
     
     [self setNeedsLayout];
+}
+
+#pragma mark - others scroll to show watermark
+- (void) scrollViewToShowWaterMark {
+    if (!self.watermarkLabel.hidden) {
+        [self layoutIfNeeded];
+        CGRect visableWaterLabelRect = [self.imageContainerView convertRect:self.watermarkLabel.frame toView:self];
+        visableWaterLabelRect.origin = CGPointMake(CGRectGetMinX(visableWaterLabelRect) - self.imageContainerView.left,
+                                                   CGRectGetMinY(visableWaterLabelRect) - self.imageContainerView.top);
+        CGFloat x = CGRectGetMidX(visableWaterLabelRect) - self.width / 2.f;
+        x = MIN(MAX(0.f, x), self.contentSize.width - self.width);
+        visableWaterLabelRect.origin.x = x;
+        visableWaterLabelRect.size.width = self.width;
+        [self scrollRectToVisible:visableWaterLabelRect animated:YES];
+    }
 }
 
 #pragma mark - others save image to photo
