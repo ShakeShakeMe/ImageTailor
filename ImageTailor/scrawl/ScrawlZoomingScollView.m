@@ -130,8 +130,6 @@ static CIWarpKernel *customKernel = nil;
     } else {
         self.watermarkLabel.centerX = CGRectGetMidX(imageViewsUnionRect);
     }
-    
-    NSLog(@"layoutsubvies");
 }
 
 #pragma mark - refresh

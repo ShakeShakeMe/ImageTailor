@@ -105,10 +105,10 @@
            @(TailorZoomingFloatEditAlignLeft),
            @(TailorZoomingFloatEditAlignRight)
            ] containsObject:@(self.alignment)]) {
-        self.editBtn.centerY = windowCenterPoint.y;
+//        self.editBtn.centerY = windowCenterPoint.y;
         self.editBtn.top = MIN(MAX(0.f, self.editBtn.bottom), self.line.height - self.editBtn.height);
     } else {
-        self.editBtn.centerX = windowCenterPoint.x;
+//        self.editBtn.centerX = windowCenterPoint.x;
         self.editBtn.left = MIN(MAX(0.f, self.editBtn.left), self.line.width - self.editBtn.width);
     }
     

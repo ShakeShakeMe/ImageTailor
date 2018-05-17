@@ -207,62 +207,8 @@
         growingTileSum += isVertically ? height : width;
         preView = imgView;
     }];
-    
-    // bounds btn views frame
-    CGFloat btnViewSizeValue= 1.f / self.zoomScale * 15.f;
-    [self.boundsEditBtnViews enumerateObjectsUsingBlock:^(TailorZoomingFloatEditBtnView * btnView, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGRect btnFrame = CGRectZero;
-        TailorReserveInsetsClipedImageView *firstImgView = self.imageViews.firstObject;
-        TailorReserveInsetsClipedImageView *lastImgView = self.imageViews.lastObject;
-        
-        BOOL isClipStateNormal = self.clipState == TailorToolActionClipStateNormal;
-        BOOL btnViewHidden = NO;
-        if (btnView.alignment == TailorZoomingFloatEditAlignTop) {
-            btnFrame = CGRectMake(firstImgView.left,
-                                  firstImgView.top,
-                                  isVertically ? firstImgView.width : lastImgView.right - firstImgView.left,
-                                  btnViewSizeValue);
-            btnViewHidden = isClipStateNormal && !isVertically;
-        } else if (btnView.alignment == TailorZoomingFloatEditAlignLeft) {
-            btnFrame = CGRectMake(firstImgView.left,
-                                  firstImgView.top,
-                                  btnViewSizeValue,
-                                  isVertically ? lastImgView.bottom - firstImgView.top : firstImgView.height);
-            btnViewHidden = isClipStateNormal && isVertically;
-        } else if (btnView.alignment == TailorZoomingFloatEditAlignBottom) {
-            btnFrame = CGRectMake(firstImgView.left,
-                                  lastImgView.bottom - btnViewSizeValue,
-                                  isVertically ? lastImgView.width : lastImgView.right - firstImgView.left,
-                                  btnViewSizeValue);
-            btnViewHidden = isClipStateNormal && !isVertically;
-        } else {
-            btnFrame = CGRectMake(lastImgView.right - btnViewSizeValue,
-                                  firstImgView.top,
-                                  btnViewSizeValue,
-                                  isVertically ? lastImgView.bottom - firstImgView.top : lastImgView.height);
-            btnViewHidden = isClipStateNormal && isVertically;
-        }
-        btnView.frame = btnFrame;
-        if (self.clipState == TailorToolActionClipStateNone) {
-            btnViewHidden = YES;
-        }
-        btnView.hidden = btnViewHidden;
-    }];
-    
-    // normal btn views frame
-    [self.normalEditBtnViews enumerateObjectsUsingBlock:^(TailorZoomingFloatEditBtnView * btnView, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGRect imgViewFrame = self.imageViews[idx].frame;
-        CGRect btnFrame = CGRectZero;
-        if (btnView.alignment == TailorZoomingFloatEditAlignVertically) {
-            btnFrame = CGRectMake(CGRectGetMaxX(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetMinY(imgViewFrame), btnViewSizeValue,  CGRectGetHeight(imgViewFrame));
-        } else {
-            btnFrame = CGRectMake(CGRectGetMinX(imgViewFrame), CGRectGetMaxY(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetWidth(imgViewFrame), btnViewSizeValue);
-        }
-        
-        btnView.frame = btnFrame;
-        btnView.hidden = self.clipState != TailorToolActionClipStateNormal;
-    }];
 
+    // container view position
     CGFloat contentSizeWidth = (isVertically ? self.width : growingTileSum) * self.zoomScale;
     CGFloat contentSizeHeight = (isVertically ? growingTileSum : self.height)  * self.zoomScale;
     CGSize containerViewSize = CGSizeMake(contentSizeWidth, contentSizeHeight);
@@ -287,6 +233,97 @@
         }
         self.imageViewsContainer.frame = frameToCenter;
     }
+    
+    // 计算屏幕中container view的可视区域
+    CGFloat x = MAX(self.contentOffset.x, 0.f) / MAX(self.zoomScale, 1.f);
+    CGFloat y = MAX(self.contentOffset.y, 0.f) / MAX(self.zoomScale, 1.f);
+    
+    // width
+    CGFloat width = self.width;
+    if (self.contentOffset.x > 0) {
+        width = MIN((self.contentSize.width - self.contentOffset.x), self.width);
+    } else {
+        width = MAX(self.width + self.contentOffset.x, 0.f);
+    }
+    width /= MAX(self.zoomScale, 1.f);
+    
+    // height
+    CGFloat height = self.height;
+    if (self.contentOffset.y > 0) {
+        height = MIN((self.contentSize.height - self.contentOffset.y), self.height);
+    } else {
+        height = MAX(self.height + self.contentOffset.y, 0.f);
+    }
+    height /= MAX(self.zoomScale, 1.f);
+    CGRect visableRect = CGRectMake(x, y, width, height);
+    NSLog(@"visableRect: %@", NSStringFromCGRect(visableRect));
+    
+    // bounds btn views frame
+    CGFloat btnViewSizeValue= 1.f / self.zoomScale * 15.f;
+    [self.boundsEditBtnViews enumerateObjectsUsingBlock:^(TailorZoomingFloatEditBtnView * btnView, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGRect btnFrame = CGRectZero;
+        TailorReserveInsetsClipedImageView *firstImgView = self.imageViews.firstObject;
+        TailorReserveInsetsClipedImageView *lastImgView = self.imageViews.lastObject;
+        
+        BOOL isClipStateNormal = self.clipState == TailorToolActionClipStateNormal;
+        BOOL btnViewHidden = NO;
+        if (btnView.alignment == TailorZoomingFloatEditAlignTop) {
+            btnFrame = CGRectMake(
+//                                  CGRectGetMinX(visableRect),
+                                  firstImgView.left,
+                                  firstImgView.top,
+//                                  CGRectGetWidth(visableRect),
+                                  isVertically ? firstImgView.width : lastImgView.right - firstImgView.left,
+                                  btnViewSizeValue);
+            btnViewHidden = isClipStateNormal && !isVertically;
+        } else if (btnView.alignment == TailorZoomingFloatEditAlignLeft) {
+            btnFrame = CGRectMake(firstImgView.left,
+//                                  CGRectGetMinY(visableRect),
+                                  firstImgView.top,
+                                  btnViewSizeValue,
+//                                  CGRectGetHeight(visableRect));
+                                  isVertically ? lastImgView.bottom - firstImgView.top : firstImgView.height);
+            btnViewHidden = isClipStateNormal && isVertically;
+        } else if (btnView.alignment == TailorZoomingFloatEditAlignBottom) {
+            btnFrame = CGRectMake(
+//                                  CGRectGetMinX(visableRect),
+                                  firstImgView.left,
+                                  lastImgView.bottom - btnViewSizeValue,
+//                                  CGRectGetWidth(visableRect),
+                                  isVertically ? lastImgView.width : lastImgView.right - firstImgView.left,
+                                  btnViewSizeValue);
+            btnViewHidden = isClipStateNormal && !isVertically;
+        } else {
+            btnFrame = CGRectMake(
+//                                  CGRectGetMaxX(visableRect) - btnViewSizeValue,
+                                  lastImgView.right - btnViewSizeValue,
+//                                  CGRectGetMinY(visableRect),
+                                  firstImgView.top,
+                                  btnViewSizeValue,
+//                                  CGRectGetHeight(visableRect));
+                                  isVertically ? lastImgView.bottom - firstImgView.top : lastImgView.height);
+            btnViewHidden = isClipStateNormal && isVertically;
+        }
+        btnView.frame = btnFrame;
+        if (self.clipState == TailorToolActionClipStateNone) {
+            btnViewHidden = YES;
+        }
+        btnView.hidden = btnViewHidden;
+    }];
+    
+    // normal btn views frame
+    [self.normalEditBtnViews enumerateObjectsUsingBlock:^(TailorZoomingFloatEditBtnView * btnView, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGRect imgViewFrame = self.imageViews[idx].frame;
+        CGRect btnFrame = CGRectZero;
+        if (btnView.alignment == TailorZoomingFloatEditAlignVertically) {
+            btnFrame = CGRectMake(CGRectGetMaxX(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetMinY(imgViewFrame), btnViewSizeValue,  CGRectGetHeight(imgViewFrame));
+        } else {
+            btnFrame = CGRectMake(CGRectGetMinX(imgViewFrame), CGRectGetMaxY(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetWidth(imgViewFrame), btnViewSizeValue);
+        }
+        
+        btnView.frame = btnFrame;
+        btnView.hidden = self.clipState != TailorToolActionClipStateNormal;
+    }];
 }
 
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
