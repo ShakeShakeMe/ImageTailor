@@ -9,6 +9,7 @@
 #import "ScrawlViewController.h"
 #import "ScrawlZoomingScollView.h"
 #import "ScrawlBottomToolBarControl.h"
+#import "WatermarkEditorViewController.h"
 
 @interface ScrawlViewController () <ScrawlBottomToolBarControlDelegate, ScrawlBottomToolBarFLoatViewDelegate>
 @property (nonatomic, strong) ScrawlZoomingScollView *zoomingScrollView;
@@ -94,7 +95,8 @@
             if (index == 0) {
                 [self.zoomingScrollView hideWatermark];
             } else if (index == 4) {
-                
+                WatermarkEditorViewController *vc = [[WatermarkEditorViewController alloc] init];
+                [self.navigationController presentViewController:vc animated:NO completion:nil];
             } else {
                 NSDictionary *watermarkAlignmentMap = @{@1: @(NSTextAlignmentLeft),
                                                         @2: @(NSTextAlignmentCenter),
