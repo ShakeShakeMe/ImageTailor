@@ -36,8 +36,6 @@
 
 // snapshot
 @property (nonatomic, strong, readwrite) NSArray<NSValue *> *imageRectsOnSnapshot;
-
-@property (nonatomic, strong) UIView *tmpFloatView;
 @end
 
 @implementation TailorZoomingScrollView
@@ -242,7 +240,6 @@
     // 计算屏幕中container view的可视区域
     CGRect totalVisableRect = [self.superview convertRect:((CGRect){CGPointZero, self.size}) toView:self.imageViewsContainer];
     CGRect visableRect = CGRectIntersection(allImagesUnionRect, totalVisableRect);
-    self.tmpFloatView.frame = visableRect;
     
     // bounds btn views frame
     CGFloat btnViewSizeValue= 1.f / self.zoomScale * 15.f;
@@ -254,38 +251,28 @@
         BOOL isClipStateNormal = self.clipState == TailorToolActionClipStateNormal;
         BOOL btnViewHidden = NO;
         if (btnView.alignment == TailorZoomingFloatEditAlignTop) {
-            btnFrame = CGRectMake(
-                                  CGRectGetMinX(visableRect),
-//                                  firstImgView.left,
+            btnFrame = CGRectMake(CGRectGetMinX(visableRect),
                                   firstImgView.top,
                                   CGRectGetWidth(visableRect),
-//                                  isVertically ? firstImgView.width : lastImgView.right - firstImgView.left,
                                   btnViewSizeValue);
             btnViewHidden = isClipStateNormal && !isVertically;
         } else if (btnView.alignment == TailorZoomingFloatEditAlignLeft) {
             btnFrame = CGRectMake(firstImgView.left,
                                   CGRectGetMinY(visableRect),
-//                                  firstImgView.top,
                                   btnViewSizeValue,
                                   CGRectGetHeight(visableRect));
-//                                  isVertically ? lastImgView.bottom - firstImgView.top : firstImgView.height);
             btnViewHidden = isClipStateNormal && isVertically;
         } else if (btnView.alignment == TailorZoomingFloatEditAlignBottom) {
-            btnFrame = CGRectMake(
-                                  CGRectGetMinX(visableRect),
-//                                  firstImgView.left,
+            btnFrame = CGRectMake(CGRectGetMinX(visableRect),
                                   lastImgView.bottom - btnViewSizeValue,
                                   CGRectGetWidth(visableRect),
-//                                  isVertically ? lastImgView.width : lastImgView.right - firstImgView.left,
                                   btnViewSizeValue);
             btnViewHidden = isClipStateNormal && !isVertically;
         } else {
             btnFrame = CGRectMake(lastImgView.right - btnViewSizeValue,
                                   CGRectGetMinY(visableRect),
-//                                  firstImgView.top,
                                   btnViewSizeValue,
                                   CGRectGetHeight(visableRect));
-//                                  isVertically ? lastImgView.bottom - firstImgView.top : lastImgView.height);
             btnViewHidden = isClipStateNormal && isVertically;
         }
         btnView.frame = btnFrame;
@@ -300,9 +287,9 @@
         CGRect imgViewFrame = self.imageViews[idx].frame;
         CGRect btnFrame = CGRectZero;
         if (btnView.alignment == TailorZoomingFloatEditAlignVertically) {
-            btnFrame = CGRectMake(CGRectGetMaxX(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetMinY(imgViewFrame), btnViewSizeValue,  CGRectGetHeight(imgViewFrame));
+            btnFrame = CGRectMake(CGRectGetMaxX(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetMinY(visableRect), btnViewSizeValue,  CGRectGetHeight(visableRect));
         } else {
-            btnFrame = CGRectMake(CGRectGetMinX(imgViewFrame), CGRectGetMaxY(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetWidth(imgViewFrame), btnViewSizeValue);
+            btnFrame = CGRectMake(CGRectGetMinX(visableRect), CGRectGetMaxY(imgViewFrame) - btnViewSizeValue / 2.f, CGRectGetWidth(visableRect), btnViewSizeValue);
         }
         
         btnView.frame = btnFrame;
@@ -530,9 +517,4 @@
 
 #pragma mark - getters
 LazyPropertyWithInit(UIView, imageViewsContainer, {})
-LazyPropertyWithInit(UIView, tmpFloatView, {
-    _tmpFloatView.backgroundColor = [UIColor hex_colorWithHex:0xFFFFFF alpha:0.1f];
-    _tmpFloatView.layer.borderColor = [UIColor redColor].CGColor;
-    _tmpFloatView.layer.borderWidth = 1.f;
-})
 @end

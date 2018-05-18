@@ -98,20 +98,7 @@
         default:
             break;
     }
-    
-    // 始终保持在屏幕中间可见的范围内，并且没有溢出
-    CGPoint windowCenterPoint = [self.window convertPoint:self.window.center toView:self];
-    if ([@[@(TailorZoomingFloatEditAlignVertically),
-           @(TailorZoomingFloatEditAlignLeft),
-           @(TailorZoomingFloatEditAlignRight)
-           ] containsObject:@(self.alignment)]) {
-//        self.editBtn.centerY = windowCenterPoint.y;
-        self.editBtn.top = MIN(MAX(0.f, self.editBtn.bottom), self.line.height - self.editBtn.height);
-    } else {
-//        self.editBtn.centerX = windowCenterPoint.x;
-        self.editBtn.left = MIN(MAX(0.f, self.editBtn.left), self.line.width - self.editBtn.width);
-    }
-    
+
     _editBtn.titleLabel.font = [UIFont systemFontOfSize:(8 * btnSizeBase / 15.f)];
 }
 
