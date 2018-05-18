@@ -116,7 +116,6 @@
         self.alwaysBounceHorizontal = YES;
     }
     
-    [self.imageViewsContainer addSubview:self.tmpFloatView];
     [self zoomToReset];
     [self setNeedsLayout];
 }
