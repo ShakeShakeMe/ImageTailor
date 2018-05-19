@@ -176,7 +176,7 @@ THE SOFTWARE.</string>
 			<key>License</key>
 			<string>proprietary</string>
 			<key>Title</key>
-			<string>Reveal-iOS-SDK</string>
+			<string>Reveal-Server</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

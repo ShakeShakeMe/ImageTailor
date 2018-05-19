@@ -57,7 +57,7 @@ PODS:
   - libextobjc/UmbrellaHeader (0.4.1)
   - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
-  - Reveal-iOS-SDK (10.0.1)
+  - Reveal-Server (10.0.1)
 
 DEPENDENCIES:
   - BlocksKit (= 2.2.5)
@@ -66,11 +66,11 @@ DEPENDENCIES:
   - libextobjc (= 0.4.1)
   - Masonry (= 1.1.0)
   - MBProgressHUD (= 1.0.0)
-  - Reveal-iOS-SDK (from `./Reveal-iOS-SDK`)
+  - Reveal-Server (from `./Reveal-Server`)
 
 EXTERNAL SOURCES:
-  Reveal-iOS-SDK:
-    :path: "./Reveal-iOS-SDK"
+  Reveal-Server:
+    :path: "./Reveal-Server"
 
 SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
@@ -79,8 +79,8 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  Reveal-iOS-SDK: 018a670f0a402f8ab8b459f6cd4259e5d4760ee3
+  Reveal-Server: 814ce62335be26a05d5374c0330747c992bc96a9
 
 PODFILE CHECKSUM: c4fdd6175b4b5e0d5d6358b04abbbfc3f11faeca
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

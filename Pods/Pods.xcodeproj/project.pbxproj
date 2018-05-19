@@ -344,6 +344,7 @@
 		10427AADECFE7D20D505A6962392D50C /* IGListDebugger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListDebugger.h; path = Source/Internal/IGListDebugger.h; sourceTree = "<group>"; };
 		122E00CAF8AE2F89C4AA579219B87B52 /* IGListAdapterProxy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListAdapterProxy.h; path = Source/Internal/IGListAdapterProxy.h; sourceTree = "<group>"; };
 		136F4DDF11F30188B286CC3A2D066357 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1472A06DE15D8653002A331219C28E62 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = vendor/RevealServer.framework; sourceTree = "<group>"; };
 		14D7732B274D16ECEE01CB363F242B5B /* BlocksKit+MessageUI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "BlocksKit+MessageUI.h"; path = "BlocksKit/BlocksKit+MessageUI.h"; sourceTree = "<group>"; };
 		150F7214D83FFEB0B1C79FB216AC3DD0 /* libextobjc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = libextobjc.xcconfig; sourceTree = "<group>"; };
 		17D5AA51FAB44D5C29D033A7A190D7CB /* IGListKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IGListKit.xcconfig; sourceTree = "<group>"; };
@@ -528,7 +529,6 @@
 		BC7B16801CC0D48781100DBE76FADE81 /* IGListKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListKit.modulemap; sourceTree = "<group>"; };
 		BF1DAC37E28BF90AC6850C9D51DCDFFB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0EB6C329FA70B8979156AD6356E74FE /* UIAlertView+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+BlocksKit.h"; path = "BlocksKit/UIKit/UIAlertView+BlocksKit.h"; sourceTree = "<group>"; };
-		C10A04DF2BAFBC88C76A072DF4CEA101 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = vendor/RevealServer.framework; sourceTree = "<group>"; };
 		C293B4179E7C4DD60463DB8FECD6DB69 /* IGListIndexSetResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGListIndexSetResult.m; path = Source/Common/IGListIndexSetResult.m; sourceTree = "<group>"; };
 		C29C1D8FF2E57CE844BEBE3C0901E2EB /* Pods-ImageTailor-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ImageTailor-dummy.m"; sourceTree = "<group>"; };
 		C4716495D9FC27D489BC268A3D9D8C4F /* IGListStackedSectionController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGListStackedSectionController.h; path = Source/IGListStackedSectionController.h; sourceTree = "<group>"; };
@@ -676,6 +676,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		014725CD2C3B97035C5368363AF7929C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1472A06DE15D8653002A331219C28E62 /* RevealServer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		06C3C08CB98CA2D96378DDB75F84DCFC /* EXTADT */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,12 +701,13 @@
 			name = EXTSynthesize;
 			sourceTree = "<group>";
 		};
-		0B151B6CFC2CFF4DF9B309ACB01FADD4 /* Development Pods */ = {
+		0FAF1FC10ADE6147C2D79FBFC91FA5AC /* Reveal-Server */ = {
 			isa = PBXGroup;
 			children = (
-				D7E13E9158AB31469611F868D4B2A82B /* Reveal-iOS-SDK */,
+				014725CD2C3B97035C5368363AF7929C /* Frameworks */,
 			);
-			name = "Development Pods";
+			name = "Reveal-Server";
+			path = "../Reveal-Server";
 			sourceTree = "<group>";
 		};
 		1093B57D06EE2E3E464BC936A43E8C63 /* Targets Support Files */ = {
@@ -794,6 +803,14 @@
 			name = MessageUI;
 			sourceTree = "<group>";
 		};
+		2B2B2A2B5A1653E1AF2899A5796A1F04 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0FAF1FC10ADE6147C2D79FBFC91FA5AC /* Reveal-Server */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
 		34568480F85E335521EE8CE35874F2EC /* EXTSelectorChecking */ = {
 			isa = PBXGroup;
 			children = (
@@ -882,7 +899,7 @@
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				0B151B6CFC2CFF4DF9B309ACB01FADD4 /* Development Pods */,
+				2B2B2A2B5A1653E1AF2899A5796A1F04 /* Development Pods */,
 				20B56609144CE204DFA8221F742B2D76 /* Frameworks */,
 				360734BB57EC6A208843597DE37A4853 /* Pods */,
 				1D4B0357464BE7CB8F046B6E1A8AF524 /* Products */,
@@ -1186,14 +1203,6 @@
 			name = Default;
 			sourceTree = "<group>";
 		};
-		BF638E640955C8D0D6D6D2F28CC03990 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C10A04DF2BAFBC88C76A072DF4CEA101 /* RevealServer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		C16BD7C9BDFC02623BF031CB9D82B285 /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,15 +1266,6 @@
 			);
 			name = BlocksKit;
 			path = BlocksKit;
-			sourceTree = "<group>";
-		};
-		D7E13E9158AB31469611F868D4B2A82B /* Reveal-iOS-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				BF638E640955C8D0D6D6D2F28CC03990 /* Frameworks */,
-			);
-			name = "Reveal-iOS-SDK";
-			path = "../Reveal-iOS-SDK";
 			sourceTree = "<group>";
 		};
 		DF1A59835560CFD33E4E2D62FB4F0D38 /* NSMethodSignature+EXT */ = {
