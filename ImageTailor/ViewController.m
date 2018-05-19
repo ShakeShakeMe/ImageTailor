@@ -57,7 +57,7 @@
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    self.toolBarView.frame = CGRectMake(0.f, self.view.height - self.mergedSafeAreaInsets.bottom - 44.f, self.view.width, 44.f);
+    self.toolBarView.frame = CGRectMake(0.f, self.view.height - self.mergedSafeAreaInsets.bottom - 50.f, self.view.width, 50.f);
     self.collectionView.frame = CGRectMake(0, 0.f, self.view.width, self.view.height);
     self.collectionView.contentInset = UIEdgeInsetsMake(self.mergedSafeAreaInsets.top, 0.f, self.mergedSafeAreaInsets.bottom, 0.f);
     self.floatGoToBottomBtn.size = CGSizeMake(44.f, 44.f);
@@ -133,7 +133,7 @@
         return [[IGListSingleSectionController alloc] initWithCellClass:[ImagePickerBottomStatusCollectionViewCell class] configureBlock:^(NSString *item, __kindof ImagePickerBottomStatusCollectionViewCell * _Nonnull cell) {
             [cell bindViewModel:item];
         } sizeBlock:^CGSize(NSString *item, id<IGListCollectionContext>  _Nullable collectionContext) {
-            return CGSizeMake(collectionContext.insetContainerSize.width, 44.f);
+            return CGSizeMake(collectionContext.insetContainerSize.width, 50.f);
         }];
     }
     return [ImagePickerItemSectionController new];

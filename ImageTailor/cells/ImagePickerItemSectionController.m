@@ -18,7 +18,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.inset = UIEdgeInsetsMake(1.f, 1.f, 1.f, 1.f);
+        self.inset = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
     }
     return self;
 }
@@ -29,7 +29,7 @@
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     CGFloat containerWidth = self.collectionContext.insetContainerSize.width;
-    CGFloat itemWidth = (containerWidth - 4 * 2.f) / 4.f;
+    CGFloat itemWidth = (containerWidth - 2.f) / 4.f;
     CGFloat scale = UIScreen.mainScreen.scale;
     return CGSizeMake(floorf(itemWidth * scale) / scale, itemWidth);
 }

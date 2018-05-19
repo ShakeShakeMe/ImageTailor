@@ -33,8 +33,7 @@
         }];
         [self.selectedMaskView addSubview:self.selectedIndexLabel];
         [self.selectedIndexLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@12.f);
-            make.top.equalTo(@12.f);
+            make.center.equalTo(self.selectedMaskView);
         }];
         
         @weakify(self)
@@ -71,11 +70,11 @@ LazyPropertyWithInit(UIImageView, imgView, {
     _imgView.clipsToBounds = YES;
 })
 LazyPropertyWithInit(UIView, selectedMaskView, {
-    _selectedMaskView.backgroundColor = [UIColor hex_colorWithHex:0x4297EC alpha:0.6f];
+    _selectedMaskView.backgroundColor = [UIColor hex_colorWithHex:0x0036FF alpha:0.6f];
     
 })
 LazyPropertyWithInit(UILabel, selectedIndexLabel, {
-    _selectedIndexLabel.font = [UIFont boldSystemFontOfSize:30];
+    _selectedIndexLabel.font = [UIFont boldSystemFontOfSize:44];
     _selectedIndexLabel.textColor = [UIColor whiteColor];
 })
 

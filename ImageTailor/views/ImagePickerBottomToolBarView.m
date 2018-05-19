@@ -23,7 +23,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor hex_colorWithHex:0x4297EC];
+        self.backgroundColor = [UIColor hex_colorWithHex:0x0036FF];
         self.alpha = 0.f;
         [self addSubview:self.clearBtn];
         [self addSubview:self.clipBtn];
@@ -86,10 +86,7 @@
 }
 
 LazyPropertyWithInit(UIButton, clearBtn, {
-//    [_clearBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    [_clearBtn setTitle:@"清除" forState:UIControlStateNormal];
-    [_clearBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _clearBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    [_clearBtn setImage:[UIImage imageNamed:@"btn_close_n"] forState:UIControlStateNormal];
     @weakify(self)
     [_clearBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
@@ -99,9 +96,12 @@ LazyPropertyWithInit(UIButton, clearBtn, {
     } forControlEvents:UIControlEventTouchUpInside];
 })
 LazyPropertyWithInit(UIButton, clipBtn, {
-    [_clipBtn setTitle:@"裁剪" forState:UIControlStateNormal];
+    [_clipBtn setImage:[UIImage imageNamed:@"btn_tool_frame_s"] forState:UIControlStateNormal];
+    [_clipBtn setTitle:@"单张编辑" forState:UIControlStateNormal];
     [_clipBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _clipBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    _clipBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+    [_clipBtn setImageEdgeInsets:UIEdgeInsetsMake(0.f, 0.f, 0.f, 3.f)];
+    [_clipBtn setTitleEdgeInsets:UIEdgeInsetsMake(0.f, 3.f, 0.f, 0.f)];
     @weakify(self)
     [_clipBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
@@ -111,9 +111,12 @@ LazyPropertyWithInit(UIButton, clipBtn, {
     } forControlEvents:UIControlEventTouchUpInside];
 })
 LazyPropertyWithInit(UIButton, spliceVertically, {
-    [_spliceVertically setTitle:@"竖向拼接" forState:UIControlStateNormal];
+    [_spliceVertically setImage:[UIImage imageNamed:@"btn_tool_frame_s"] forState:UIControlStateNormal];
+    [_spliceVertically setTitle:@"纵向拼接" forState:UIControlStateNormal];
     [_spliceVertically setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _spliceVertically.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    _spliceVertically.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+    [_spliceVertically setImageEdgeInsets:UIEdgeInsetsMake(0.f, 0.f, 0.f, 3.f)];
+    [_spliceVertically setTitleEdgeInsets:UIEdgeInsetsMake(0.f, 3.f, 0.f, 0.f)];
     @weakify(self)
     [_spliceVertically bk_addEventHandler:^(id sender) {
         @strongify(self)
@@ -123,9 +126,12 @@ LazyPropertyWithInit(UIButton, spliceVertically, {
     } forControlEvents:UIControlEventTouchUpInside];
 })
 LazyPropertyWithInit(UIButton, spliceHorizontally, {
+    [_spliceHorizontally setImage:[UIImage imageNamed:@"btn_tool_frame_s"] forState:UIControlStateNormal];
     [_spliceHorizontally setTitle:@"横向拼接" forState:UIControlStateNormal];
     [_spliceHorizontally setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _spliceHorizontally.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    _spliceHorizontally.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+    [_spliceHorizontally setImageEdgeInsets:UIEdgeInsetsMake(0.f, 0.f, 0.f, 3.f)];
+    [_spliceHorizontally setTitleEdgeInsets:UIEdgeInsetsMake(0.f, 3.f, 0.f, 0.f)];
     @weakify(self)
     [_spliceHorizontally bk_addEventHandler:^(id sender) {
         @strongify(self)

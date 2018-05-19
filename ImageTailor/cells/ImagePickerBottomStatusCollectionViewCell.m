@@ -31,8 +31,8 @@
 
 LazyPropertyWithInit(UILabel, txtLabel, {
     _txtLabel.textAlignment = NSTextAlignmentCenter;
-    _txtLabel.textColor = [UIColor hex_colorWithHex:0x666666];
-    _txtLabel.font = [UIFont systemFontOfSize:15];
+    _txtLabel.textColor = [UIColor hex_colorWithHex:0x98A2A6];
+    _txtLabel.font = [UIFont systemFontOfSize:13];
 })
 
 @end
