@@ -8,9 +8,6 @@
 
 #import "EditorZoomingScrollView.h"
 #import "TailorZoomingFloatEditBtnView.h"
-#import "EditorClipContext.h"
-#import "EditorPixellateContext.h"
-#import "EditorWatermarkContext.h"
 
 @interface EditorZoomingScrollView()<UIScrollViewDelegate, TailorZoomingFloatEditBtnViewDelegate>
 @property (nonatomic, assign, readwrite) TailorTileDirection tileDirection;
@@ -19,11 +16,11 @@
 // views
 @property (nonatomic, strong) UIView *imageViewsContainer;
 @property (nonatomic, strong, readwrite) NSArray<TailorReserveInsetsClipedImageView *> *imageViews;
-@property (nonatomic, assign) CGRect imageViewsUnionRect;
+@property (nonatomic, assign, readwrite) CGRect imageViewsUnionRect;
 
-@property (nonatomic, strong) EditorClipContext *clipContext;
-@property (nonatomic, strong) EditorPixellateContext *pixellateContext;
-@property (nonatomic, strong) EditorWatermarkContext *watermarkContext;
+@property (nonatomic, strong, readwrite) EditorClipContext *clipContext;
+@property (nonatomic, strong, readwrite) EditorPixellateContext *pixellateContext;
+@property (nonatomic, strong, readwrite) EditorWatermarkContext *watermarkContext;
 @end
 
 @implementation EditorZoomingScrollView
@@ -105,6 +102,7 @@
         [self.pixellateContext endDoPixellate];
         self.panGestureRecognizer.minimumNumberOfTouches = 1;
     } else {
+        self.pixellateContext.imageViewsUnionRect = self.imageViewsUnionRect;
         [self.pixellateContext beginDoPixellateWithType:pixellateType assetModels:self.assetModels];
         self.panGestureRecognizer.minimumNumberOfTouches = 2;
     }
@@ -115,6 +113,9 @@
     [self setNeedsLayout];
 }
 
+- (void) pixellateClear {
+    [self.pixellateContext clear];
+}
 
 - (void) showWatermarkWithType:(EditorToolBarWatermarkType)watermarkType text:(NSString *)text {
     [self.watermarkContext showWatermarkWithType:watermarkType imagesUnionRect:self.imageViewsUnionRect text:text];
@@ -123,6 +124,15 @@
 
 - (void) hideWatermark {
     [self.watermarkContext hideWatermark];
+}
+
+- (BOOL) hasChanged {
+    return !self.watermarkContext.watermarkLabel.hidden || self.pixellateContext.pixellateImageViews.count > 0;
+}
+
+- (void) abandonAllTailorChanges {
+    [self.watermarkContext clear];
+    [self.pixellateContext clear];
 }
 
 - (void)zoomToReset {
@@ -170,6 +180,9 @@
         }
         
         imgView.frame = CGRectMake(x, y, width, height);
+        if (idx == 0) {
+            imageViewsUnionRect = imgView.frame;
+        }
         imageViewsUnionRect = CGRectUnion(imageViewsUnionRect, imgView.frame);
         [allImageRects addObject:[NSValue valueWithCGRect:imgView.frame]];
         
@@ -211,7 +224,6 @@
     // pixellate
     if (self.pixellateContext.pixellateType != ScrawlToolBarPixellateTypeNone && touches.count == 1) {
         [self.pixellateContext touchBeginWithTouch:touches.anyObject
-                                   imagesUnionRect:self.imageViewsUnionRect
                                          zoomScale:self.zoomScale];
     }
     
@@ -315,6 +327,7 @@
 - (void) touchesEndOrCancled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event isCancled:(BOOL)cancled {
     if (self.pixellateContext.pixellateType != ScrawlToolBarPixellateTypeNone && touches.count == 1) {
         [self.pixellateContext touchEndedWithTouch:touches.anyObject];
+        return ;
     }
     
     // 先针对bounds linkage bounds做值保存
@@ -386,7 +399,7 @@
 
 #pragma mark - others scroll to show watermark
 - (void) scrollViewToShowWaterMark {
-    CGRect visableWaterLabelRect = [self.imageViewsContainer convertRect:self.watermarkContext.visableWaterLabelRect toView:self];
+    CGRect visableWaterLabelRect = [self.imageViewsContainer convertRect:self.watermarkContext.watermarkLabel.frame toView:self];
     visableWaterLabelRect.origin = CGPointMake(CGRectGetMinX(visableWaterLabelRect) - self.imageViewsContainer.left,
                                                CGRectGetMinY(visableWaterLabelRect) - self.imageViewsContainer.top);
     CGFloat x = CGRectGetMidX(visableWaterLabelRect) - self.width / 2.f;

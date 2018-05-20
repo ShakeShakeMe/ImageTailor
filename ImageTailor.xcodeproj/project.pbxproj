@@ -23,6 +23,7 @@
 		62453E0D20B105D500F20B98 /* img_cut_arrow@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 62453E0B20B105D400F20B98 /* img_cut_arrow@3x.gif */; };
 		62453E0E20B105D500F20B98 /* img_cut_arrow@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */; };
 		62453E1120B120DF00F20B98 /* EditorWatermarkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */; };
+		62453E1520B1819000F20B98 /* SaveToPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */; };
 		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
 		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
 		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
@@ -84,6 +85,8 @@
 		62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "img_cut_arrow@2x.gif"; sourceTree = "<group>"; };
 		62453E0F20B120DF00F20B98 /* EditorWatermarkContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorWatermarkContext.h; sourceTree = "<group>"; };
 		62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorWatermarkContext.m; sourceTree = "<group>"; };
+		62453E1320B1819000F20B98 /* SaveToPhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveToPhotoViewController.h; sourceTree = "<group>"; };
+		62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveToPhotoViewController.m; sourceTree = "<group>"; };
 		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
 		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
 		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
@@ -214,6 +217,15 @@
 			path = editor;
 			sourceTree = "<group>";
 		};
+		62453E1220B1816B00F20B98 /* saveToPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				62453E1320B1819000F20B98 /* SaveToPhotoViewController.h */,
+				62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */,
+			);
+			path = saveToPhoto;
+			sourceTree = "<group>";
+		};
 		625A6FE62095AA90007F1626 /* util */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +332,7 @@
 		62F8428D209555C000AE0316 /* ImageTailor */ = {
 			isa = PBXGroup;
 			children = (
+				62453E1220B1816B00F20B98 /* saveToPhoto */,
 				62453DF220AFC75F00F20B98 /* editor */,
 				6240338B20AED97C00832A24 /* watermark */,
 				620AC0B1209DFF520000580D /* constants */,
@@ -512,6 +525,7 @@
 				625A6FF72095B253007F1626 /* PHCachingImageManager+Singleton.m in Sources */,
 				625A70072095CFEE007F1626 /* UIColor+Hex.m in Sources */,
 				62453DF820AFC7AB00F20B98 /* EditorZoomingScrollView.m in Sources */,
+				62453E1520B1819000F20B98 /* SaveToPhotoViewController.m in Sources */,
 				625A700F2095DBCE007F1626 /* ImagePickerBottomToolBarView.m in Sources */,
 				62453DF520AFC77F00F20B98 /* EditorViewController.m in Sources */,
 			);

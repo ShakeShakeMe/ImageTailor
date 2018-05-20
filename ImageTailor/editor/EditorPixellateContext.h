@@ -13,7 +13,9 @@
 
 @property (nonatomic, weak) UIView *imageContainerView;
 @property (nonatomic, assign) TailorTileDirection tileDirection;
+@property (nonatomic, assign) CGRect imageViewsUnionRect;
 
+@property (nonatomic, strong, readonly) NSMutableArray<UIImageView *> *pixellateImageViews;
 @property (nonatomic, assign, readonly) ScrawlToolBarPixellateType pixellateType;
 
 - (void) beginDoPixellateWithType:(ScrawlToolBarPixellateType)pixellateType
@@ -22,7 +24,7 @@
 - (void) pixellateWithdraw;
 - (void) clearCache;
 
-- (void) touchBeginWithTouch:(UITouch *)touch imagesUnionRect:(CGRect)unionRect zoomScale:(CGFloat)zoomScale;
+- (void) touchBeginWithTouch:(UITouch *)touch zoomScale:(CGFloat)zoomScale;
 - (void) touchMovedWithTouch:(UITouch *)touch;
 - (void) touchEndedWithTouch:(UITouch *)touch;
 

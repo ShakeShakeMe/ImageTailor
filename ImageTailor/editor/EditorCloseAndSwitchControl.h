@@ -10,6 +10,7 @@
 
 @protocol EditorCloseAndSwitchControlDelegate <NSObject>
 - (void) editorClose;
+- (BOOL) shouldAskSwitchToNormal;
 - (void) editorSwitchToState:(BOOL)normalState;
 @end
 

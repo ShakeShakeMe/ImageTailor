@@ -45,16 +45,20 @@ typedef NS_ENUM(NSInteger, EditorToolbarBtnType){
 
 @interface EditorBottomToolbarPixellateFloatView : UIView
 @property (nonatomic, weak) id<EditorBottomToolbarFloatViewDelegate> delegate;
+- (void) reset;
 @end
 
 @interface EditorBottomToolbarSpacelineFloatView : UIView
 @property (nonatomic, weak) id<EditorBottomToolbarFloatViewDelegate> delegate;
+- (void) reset;
 @end
 
 @interface EditorBottomToolbarWatermarkFloatView : UIView
 @property (nonatomic, weak) id<EditorBottomToolbarFloatViewDelegate> delegate;
+- (void) reset;
 @end
 
 @interface EditorBottomToolbarPhoneBoundsFLoatView : UIView
 @property (nonatomic, weak) id<EditorBottomToolbarFloatViewDelegate> delegate;
+- (void) reset;
 @end

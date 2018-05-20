@@ -183,6 +183,11 @@ LazyPropertyWithInit(UIButton, toolPhoneBoundsBtn, {
     self.middleBtn.frame = CGRectMake(self.largeBtn.right, 0.f, self.width / 4.f, self.height);
     self.smallBtn.frame = CGRectMake(self.middleBtn.right, 0.f, self.width / 4.f, self.height);
 }
+- (void) reset {
+    [@[self.largeBtn, self.middleBtn, self.smallBtn] bk_each:^(UIButton *btn) {
+        btn.selected = NO;
+    }];
+}
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
     [@[self.largeBtn, self.middleBtn, self.smallBtn] bk_each:^(UIButton *btn) {
         if (currentBtn != btn) {
@@ -261,12 +266,13 @@ LazyPropertyWithInit(UIButton, smallBtn, {
     self.allBoundsBtn.frame = CGRectMake(self.clearBtn.right, 0.f, self.width / 3.f, self.height);
     self.spaceBtn.frame = CGRectMake(self.allBoundsBtn.right, 0.f, self.width / 3.f, self.height);
 }
-- (void) clearOtherBtnState:(UIButton *)currentBtn {
+- (void) reset {
     [@[self.clearBtn, self.allBoundsBtn, self.spaceBtn] bk_each:^(UIButton *btn) {
-        if (currentBtn != btn) {
-            btn.selected = NO;
-        }
+        btn.selected = NO;
     }];
+}
+- (void) clearOtherBtnState:(UIButton *)currentBtn {
+    [self reset];
     currentBtn.selected = YES;
 }
 LazyPropertyWithInit(UIButton, clearBtn, {
@@ -334,12 +340,13 @@ LazyPropertyWithInit(UIButton, spaceBtn, {
     self.rightBtn.frame = CGRectMake(self.leftBtn.right, 0.f, self.width / 5.f, self.height);
     self.editBtn.frame = CGRectMake(self.rightBtn.right, 0.f, self.width / 5.f, self.height);
 }
-- (void) clearOtherBtnState:(UIButton *)currentBtn {
+- (void) reset {
     [@[self.clearBtn, self.centerBtn, self.leftBtn, self.rightBtn] bk_each:^(UIButton *btn) {
-        if (currentBtn != btn) {
-            btn.selected = NO;
-        }
+        btn.selected = NO;
     }];
+}
+- (void) clearOtherBtnState:(UIButton *)currentBtn {
+    [self reset];
     currentBtn.selected = YES;
 }
 LazyPropertyWithInit(UIButton, clearBtn, {
@@ -429,12 +436,13 @@ LazyPropertyWithInit(UIButton, editBtn, {
     self.blackBtn.frame = CGRectMake(self.goldBtn.right, 0.f, self.width / 5.f, self.height);
     self.iPhoneXBtn.frame = CGRectMake(self.blackBtn.right, 0.f, self.width / 5.f, self.height);
 }
-- (void) clearOtherBtnState:(UIButton *)currentBtn {
+- (void) reset {
     [@[self.clearBtn, self.silveryBtn, self.goldBtn, self.blackBtn, self.iPhoneXBtn] bk_each:^(UIButton *btn) {
-        if (currentBtn != btn) {
-            btn.selected = NO;
-        }
+        btn.selected = NO;
     }];
+}
+- (void) clearOtherBtnState:(UIButton *)currentBtn {
+    [self reset];
     currentBtn.selected = YES;
 }
 LazyPropertyWithInit(UIButton, clearBtn, {

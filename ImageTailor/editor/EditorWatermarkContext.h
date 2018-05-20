@@ -10,8 +10,8 @@
 
 @interface EditorWatermarkContext : NSObject
 
+@property (nonatomic, strong, readonly) UILabel *watermarkLabel;
 @property (nonatomic, weak) UIView *imageContainerView;
-@property (nonatomic, assign, readonly) CGRect visableWaterLabelRect;
 
 // 水印
 - (void) showWatermarkWithType:(EditorToolBarWatermarkType)watermarkType imagesUnionRect:(CGRect)unionRect text:(NSString *)text;

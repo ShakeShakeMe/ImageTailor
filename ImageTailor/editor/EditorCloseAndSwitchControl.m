@@ -7,6 +7,7 @@
 //
 
 #import "EditorCloseAndSwitchControl.h"
+#import "UIAlertView+BlocksKit.h"
 
 @interface EditorCloseAndSwitchControl()
 @property (nonatomic, strong) UIButton *closeBtn;
@@ -34,10 +35,27 @@
         @weakify(self)
         [self bk_addEventHandler:^(id sender) {
             @strongify(self)
-            self.selected = !self.selected;
-            self.titleLabel.text = self.selected ? @"工具" : @"裁剪";
-            if ([self.delegate respondsToSelector:@selector(editorSwitchToState:)]) {
-                [self.delegate editorSwitchToState:!self.selected];
+            BOOL shouldAsk = NO;
+            if (self.selected && [self.delegate respondsToSelector:@selector(shouldAskSwitchToNormal)]) {
+                shouldAsk = [self.delegate shouldAskSwitchToNormal];
+            }
+            
+            void(^switchBlock)(void) = ^() {
+                @strongify(self)
+                self.selected = !self.selected;
+                self.titleLabel.text = self.selected ? @"工具" : @"裁剪";
+                if ([self.delegate respondsToSelector:@selector(editorSwitchToState:)]) {
+                    [self.delegate editorSwitchToState:!self.selected];
+                }
+            };
+            if (shouldAsk) {
+                [UIAlertView bk_showAlertViewWithTitle:@"放弃修改" message:@"确定放弃修改?" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    if (buttonIndex == 1) {
+                        !switchBlock ?: switchBlock();
+                    }
+                }];
+            } else {
+                !switchBlock ?: switchBlock();
             }
         } forControlEvents:UIControlEventTouchUpInside];
     }

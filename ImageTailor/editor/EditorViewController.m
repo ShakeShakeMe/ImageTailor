@@ -11,6 +11,7 @@
 #import "EditorZoomingScrollView.h"
 #import "EditorBottomToolbarControl.h"
 #import "WatermarkEditorViewController.h"
+#import "SaveToPhotoViewController.h"
 
 static NSString *WatermarkTextKey = @"WatermarkTextKey";
 static NSString *WatermarkTextPrefixKey = @"WatermarkTextPrefixKey";
@@ -92,16 +93,30 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (BOOL) shouldAskSwitchToNormal {
+    return [self.zoomingScrollView hasChanged];
+}
+
 - (void) editorSwitchToState:(BOOL)normalState {
     if (normalState) {
         [self.toolBarControl switchToClip];
         [self.toolBarControl selectBtnType:EditorToolbarBtnTypeClipNormal selected:YES];
         self.floatView.hidden = YES;
+        [self resetAllTailorState];
         [self.view setNeedsLayout];
     } else {
         [self.toolBarControl switchToTool];
         [self.toolBarControl selectBtnType:EditorToolbarBtnTypeClipNormal selected:NO];
+        [self.zoomingScrollView pixellateClear];
     }
+}
+
+- (void) resetAllTailorState {
+    [self.zoomingScrollView abandonAllTailorChanges];
+    [self.pixellateFloatView reset];
+    [self.spacelineFloatView reset];
+    [self.watermarkFloatView reset];
+    [self.phoneBoundsFloatView reset];
 }
 
 #pragma mark - EditorBottomToolbarControlDelegate
@@ -171,7 +186,7 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     } else {
         NSDictionary *watermarkPrefixMap = @{
             @(EditorWatermarkPrefixTypeNormal): @"©",
-            @(EditorWatermarkPrefixTypeOther): @"@",
+            @(EditorWatermarkPrefixTypeOther): @"@ ",
             @(EditorToolBarWatermarkTypeNone): @""
         };
         NSString *text = [NSString stringWithFormat:@"%@ %@", watermarkPrefixMap[@(self.watermarkPrefixType)], self.watermarkText];
@@ -263,6 +278,18 @@ LazyPropertyWithInit(EditorCloseAndSwitchControl, swithControl, {
 })
 LazyPropertyWithInit(UIButton, saveBtn, {
     [_saveBtn setImage:[UIImage imageNamed:@"btn_navbar_save_n"] forState:UIControlStateNormal];
+    @weakify(self)
+    [_saveBtn bk_addEventHandler:^(id sender) {
+        @strongify(self)
+//        [self.zoomingScrollView saveToPhoto];
+        SaveToPhotoViewController *vc = [[SaveToPhotoViewController alloc] init];
+        vc.tileDirection = self.zoomingScrollView.tileDirection;
+        vc.assetModels = self.zoomingScrollView.assetModels;
+        vc.pixellateImageViews = self.zoomingScrollView.pixellateContext.pixellateImageViews;
+        vc.watermarkLabel = self.zoomingScrollView.watermarkContext.watermarkLabel;
+        vc.imageViewsUnionRect = self.zoomingScrollView.imageViewsUnionRect;
+        [self.navigationController presentViewController:vc animated:NO completion:nil];
+    } forControlEvents:UIControlEventTouchUpInside];
 })
 LazyPropertyWithInit(EditorBottomToolbarControl, toolBarControl, {
     _toolBarControl.delegate = self;

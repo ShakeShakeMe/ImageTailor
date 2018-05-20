@@ -10,7 +10,7 @@
 
 @interface EditorWatermarkContext()
 // water mark < © >
-@property (nonatomic, strong) UILabel *watermarkLabel;
+@property (nonatomic, strong, readwrite) UILabel *watermarkLabel;
 @end
 
 @implementation EditorWatermarkContext
@@ -36,9 +36,9 @@
                                            self.watermarkLabel.width,
                                            self.watermarkLabel.height);
     if (watermarkType == EditorToolBarWatermarkTypeLeft) {
-        self.watermarkLabel.left = extraOffset;
+        self.watermarkLabel.left = CGRectGetMinX(unionRect) + extraOffset;
     } else if(watermarkType == EditorToolBarWatermarkTypeRight) {
-        self.watermarkLabel.right = CGRectGetWidth(unionRect) - extraOffset;
+        self.watermarkLabel.right = CGRectGetMaxX(unionRect) - extraOffset;
     } else {
         self.watermarkLabel.centerX = CGRectGetMidX(unionRect);
     }

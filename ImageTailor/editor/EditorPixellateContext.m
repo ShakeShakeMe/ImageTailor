@@ -18,15 +18,16 @@ static CIWarpKernel *customKernel = nil;
 @property (nonatomic, strong) CALayer *middleRadiusPixellateImageLayer;
 @property (nonatomic, strong) CALayer *largeRadiusPixellateImageLayer;
 @property (nonatomic, strong) CAShapeLayer *pixellateDrawLayer;
-@property (nonatomic, strong) NSMutableArray<UIImageView *> *pixellateImageViews;
+@property (nonatomic, strong, readwrite) NSMutableArray<UIImageView *> *pixellateImageViews;
 @property (nonatomic, strong) UITouch *startTouch;
 @property (nonatomic, assign) CGPoint startTouchPoint;
+@property (nonatomic, assign) CGRect movingPixellateRect;
 
 @property (nonatomic, assign) CGMutablePathRef path;
-@property (nonatomic, assign) CGRect imageViewsUnionRect;
 @property (nonatomic, assign) CGFloat zoomScale;
 
 @property (nonatomic, strong) UIImage *snapshotImage;
+@property (nonatomic, strong) UIImageView *testView;
 @end
 
 @implementation EditorPixellateContext
@@ -53,21 +54,30 @@ static CIWarpKernel *customKernel = nil;
         [self.smallRadiusPixellateImageLayer removeFromSuperlayer];
         [self.middleRadiusPixellateImageLayer removeFromSuperlayer];
         [self.largeRadiusPixellateImageLayer removeFromSuperlayer];
+        
+        UIImage *pixellateImage = nil;
         if (pixellateType == ScrawlToolBarPixellateTypeSmall) {
             [self.imageContainerView.layer addSublayer:self.smallRadiusPixellateImageLayer];
             self.smallRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
+            pixellateImage = [self.smallRadiusPixellateImageLayer bk_associatedValueForKey:kPixellateLayerImageKey];
         } else if (pixellateType == ScrawlToolBarPixellateTypeMiddle) {
             [self.imageContainerView.layer addSublayer:self.middleRadiusPixellateImageLayer];
             self.middleRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
+            pixellateImage = [self.middleRadiusPixellateImageLayer bk_associatedValueForKey:kPixellateLayerImageKey];
         } else {
             [self.imageContainerView.layer addSublayer:self.largeRadiusPixellateImageLayer];
             self.largeRadiusPixellateImageLayer.mask = self.pixellateDrawLayer;
+            pixellateImage = [self.largeRadiusPixellateImageLayer bk_associatedValueForKey:kPixellateLayerImageKey];
         }
+        
+//        self.testView.image = pixellateImage;
+//        self.testView.frame = self.imageViewsUnionRect;
+//        [self.imageContainerView addSubview:self.testView];
     }];
 }
 
 - (void) endDoPixellate {
-    
+    self.pixellateType = ScrawlToolBarPixellateTypeNone;
 }
 
 - (void) pixellateWithdraw {
@@ -81,6 +91,7 @@ static CIWarpKernel *customKernel = nil;
 }
 
 - (void) clear {
+    [self endDoPixellate];
     [self clearCache];
     [self.pixellateImageViews bk_each:^(UIView *v) {
         [v removeFromSuperview];
@@ -89,9 +100,8 @@ static CIWarpKernel *customKernel = nil;
 }
 
 #pragma mark - touch event
-- (void) touchBeginWithTouch:(UITouch *)touch imagesUnionRect:(CGRect)unionRect zoomScale:(CGFloat)zoomScale {
+- (void) touchBeginWithTouch:(UITouch *)touch zoomScale:(CGFloat)zoomScale {
     self.startTouch = touch;
-    self.imageViewsUnionRect = unionRect;
     self.zoomScale = zoomScale;
     CGPoint touchPoint = [self.startTouch locationInView:self.imageContainerView];
     self.startTouchPoint = [self transformedTouchPoint:touchPoint];
@@ -100,29 +110,33 @@ static CIWarpKernel *customKernel = nil;
 - (void) touchMovedWithTouch:(UITouch *)touch {
     CGPoint touchPoint = [touch locationInView:self.imageContainerView];
     touchPoint = [self transformedTouchPoint:touchPoint];
-    CGRect currentPixellateRect = CGRectMake(MIN(touchPoint.x, self.startTouchPoint.x),
-                                             MIN(touchPoint.y, self.startTouchPoint.y),
+    CGRect currentPixellateRect = CGRectMake(MIN(touchPoint.x, self.startTouchPoint.x) - CGRectGetMinX(self.imageViewsUnionRect),
+                                             MIN(touchPoint.y, self.startTouchPoint.y) - CGRectGetMinY(self.imageViewsUnionRect),
                                              fabs(touchPoint.x - self.startTouchPoint.x),
                                              fabs(touchPoint.y - self.startTouchPoint.y));
+    NSLog(@"moved rect: %@", NSStringFromCGRect(currentPixellateRect));
     
+    self.movingPixellateRect = currentPixellateRect;
     self.pixellateDrawLayer.path = [UIBezierPath bezierPathWithRect:currentPixellateRect].CGPath;
 }
 
 - (void) touchEndedWithTouch:(UITouch *)touch {
-    CGPoint touchPoint = [touch locationInView:self.imageContainerView];
-    touchPoint = [self transformedTouchPoint:touchPoint];
-    CGRect currentPixellateRect = CGRectMake(MIN(touchPoint.x, self.startTouchPoint.x),
-                                             MIN(touchPoint.y, self.startTouchPoint.y),
-                                             fabs(touchPoint.x - self.startTouchPoint.x),
-                                             fabs(touchPoint.y - self.startTouchPoint.y));
-    CGFloat width = MIN(CGRectGetWidth(currentPixellateRect), self.imageContainerView.width / self.zoomScale - CGRectGetMinX(currentPixellateRect));
-    CGFloat height = MIN(CGRectGetHeight(currentPixellateRect), self.imageContainerView.height / self.zoomScale - CGRectGetMinY(currentPixellateRect));
-    currentPixellateRect.size = CGSizeMake(width, height);
+//    CGPoint touchPoint = self.movingTouchPoint;
+//    CGRect currentPixellateRect = CGRectMake(MIN(touchPoint.x, self.startTouchPoint.x),
+//                                             MIN(touchPoint.y, self.startTouchPoint.y),
+//                                             fabs(touchPoint.x - self.startTouchPoint.x),
+//                                             fabs(touchPoint.y - self.startTouchPoint.y));
+//    CGFloat width = MIN(CGRectGetWidth(currentPixellateRect), self.imageContainerView.width / self.zoomScale - CGRectGetMinX(currentPixellateRect));
+//    CGFloat height = MIN(CGRectGetHeight(currentPixellateRect), self.imageContainerView.height / self.zoomScale - CGRectGetMinY(currentPixellateRect));
+//    currentPixellateRect.size = CGSizeMake(width, height);
     
-    NSLog(@"currentPixellateRect: %@", NSStringFromCGRect(currentPixellateRect));
-    [self pastePixellateImageViewWithRect:currentPixellateRect];
+    NSLog(@"currentPixellateRect: %@, unionRect: %@",
+          NSStringFromCGRect(self.movingPixellateRect),
+          NSStringFromCGRect(self.imageViewsUnionRect));
+    [self pastePixellateImageViewWithRect:self.movingPixellateRect];
     self.startTouch = nil;
     self.startTouchPoint = CGPointZero;
+    self.movingPixellateRect = CGRectZero;
     self.pixellateDrawLayer.path = NULL;
 }
 
@@ -229,19 +243,19 @@ static CIWarpKernel *customKernel = nil;
     
     if (pixellateType == ScrawlToolBarPixellateTypeSmall) {
         UIImage *image = [self generatePixellateImageWithRadius:2];
-        self.smallRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
+        self.smallRadiusPixellateImageLayer.frame = self.imageViewsUnionRect;
         self.smallRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.smallRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (pixellateType == ScrawlToolBarPixellateTypeMiddle) {
         UIImage *image = [self generatePixellateImageWithRadius:4];
-        self.middleRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
+        self.middleRadiusPixellateImageLayer.frame = self.imageViewsUnionRect;
         self.middleRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.middleRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
     if (pixellateType == ScrawlToolBarPixellateTypeLarge) {
         UIImage *image = [self generatePixellateImageWithRadius:6];
-        self.largeRadiusPixellateImageLayer.frame = self.imageContainerView.bounds;
+        self.largeRadiusPixellateImageLayer.frame = self.imageViewsUnionRect;
         self.largeRadiusPixellateImageLayer.contents = (id) image.CGImage;
         [self.largeRadiusPixellateImageLayer bk_associateValue:image withKey:kPixellateLayerImageKey];
     }
@@ -261,7 +275,7 @@ static CIWarpKernel *customKernel = nil;
     } else {
         pixellateImage = [self.largeRadiusPixellateImageLayer bk_associatedValueForKey:kPixellateLayerImageKey];
     }
-    CGFloat enlargeScale = pixellateImage.size.width * pixellateImage.scale / (self.imageContainerView.width / self.zoomScale);
+    CGFloat enlargeScale = pixellateImage.size.width * pixellateImage.scale / CGRectGetWidth(self.imageViewsUnionRect);
     CGRect pixellateRect = CGRectMake(CGRectGetMinX(rect) * enlargeScale,
                                       CGRectGetMinY(rect) * enlargeScale,
                                       CGRectGetWidth(rect) * enlargeScale,
@@ -272,7 +286,10 @@ static CIWarpKernel *customKernel = nil;
     CGImageRelease(imageRef);
     
     UIImageView *pixellateRectImageView = [[UIImageView alloc] initWithImage:pixellateRectImage];
-    pixellateRectImageView.frame = rect;
+    pixellateRectImageView.frame = CGRectMake(CGRectGetMinX(rect) + CGRectGetMinX(self.imageViewsUnionRect),
+                                              CGRectGetMinY(rect) + CGRectGetMinY(self.imageViewsUnionRect),
+                                              CGRectGetWidth(rect),
+                                              CGRectGetHeight(rect));
     [self.pixellateImageViews addObject:pixellateRectImageView];
     [self.imageContainerView addSubview:pixellateRectImageView];
 }
@@ -282,4 +299,5 @@ LazyProperty(CALayer, smallRadiusPixellateImageLayer)
 LazyProperty(CALayer, middleRadiusPixellateImageLayer)
 LazyProperty(CALayer, largeRadiusPixellateImageLayer)
 LazyProperty(CAShapeLayer, pixellateDrawLayer)
+LazyProperty(UIImageView, testView)
 @end

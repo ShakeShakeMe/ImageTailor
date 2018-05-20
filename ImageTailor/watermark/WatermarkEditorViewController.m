@@ -47,7 +47,7 @@
     [self.finishBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
         if (self.tf.text.length == 0) {
-            [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"请输入水印文案" cancelButtonTitle:nil otherButtonTitles:@"OK" handler:nil];
+            [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"请输入水印文案" cancelButtonTitle:nil otherButtonTitles:@[@"OK"] handler:nil];
             return ;
         }
         [self dismissAnimating];
