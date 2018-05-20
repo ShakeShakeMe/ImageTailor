@@ -61,14 +61,20 @@
 }
 
 - (void) switchToClip {
+    self.clipBtnBgView.hidden = NO;
     [UIView animateWithDuration:0.3f animations:^{
         self.bounds = CGRectMake(0.f, 0.f, self.width, self.height);
+    } completion:^(BOOL finished) {
+        self.toolBtnBgView.hidden = YES;
     }];
 }
 
 - (void) switchToTool {
+    self.toolBtnBgView.hidden = NO;
     [UIView animateWithDuration:0.3f animations:^{
         self.bounds = CGRectMake(self.width, 0.f, self.width, self.height);
+    } completion:^(BOOL finished) {
+        self.clipBtnBgView.hidden = YES;
     }];
 }
 
@@ -122,7 +128,7 @@ LazyPropertyWithInit(UIView, extraBottomView, {
     _extraBottomView.backgroundColor = self.backgroundColor;
 })
 LazyPropertyWithInit(UIView, line, {
-    _line.backgroundColor = [UIColor hex_colorWithHex:0x000000 alpha:0.9f];
+    _line.backgroundColor = [UIColor hex_colorWithHex:0x000000 alpha:0.1f];
 })
 LazyProperty(UIView, clipBtnBgView)
 LazyPropertyWithInit(UIButton, clipNormalBtn, {
@@ -204,7 +210,7 @@ LazyPropertyWithInit(UIButton, largeBtn, {
         @strongify(self)
         [self clearOtherBtnState:sender];
         if ([self.delegate respondsToSelector:@selector(pixellateWithType:)]) {
-            [self.delegate pixellateWithType:(self.largeBtn.selected ? ScrawlToolBarPixellateTypeNone : ScrawlToolBarPixellateTypeLarge)];
+            [self.delegate pixellateWithType:(!self.largeBtn.selected ? ScrawlToolBarPixellateTypeNone : ScrawlToolBarPixellateTypeLarge)];
         }
     } forControlEvents:UIControlEventTouchUpInside];
 })
@@ -216,7 +222,7 @@ LazyPropertyWithInit(UIButton, middleBtn, {
         @strongify(self)
         [self clearOtherBtnState:sender];
         if ([self.delegate respondsToSelector:@selector(pixellateWithType:)]) {
-            [self.delegate pixellateWithType:(self.largeBtn.selected ? ScrawlToolBarPixellateTypeNone : ScrawlToolBarPixellateTypeMiddle)];
+            [self.delegate pixellateWithType:(!self.middleBtn.selected ? ScrawlToolBarPixellateTypeNone : ScrawlToolBarPixellateTypeMiddle)];
         }
     } forControlEvents:UIControlEventTouchUpInside];
 })
@@ -228,7 +234,7 @@ LazyPropertyWithInit(UIButton, smallBtn, {
         @strongify(self)
         [self clearOtherBtnState:sender];
         if ([self.delegate respondsToSelector:@selector(pixellateWithType:)]) {
-            [self.delegate pixellateWithType:(self.largeBtn.selected ? ScrawlToolBarPixellateTypeNone : ScrawlToolBarPixellateTypeSmall)];
+            [self.delegate pixellateWithType:(!self.smallBtn.selected ? ScrawlToolBarPixellateTypeNone : ScrawlToolBarPixellateTypeSmall)];
         }
     } forControlEvents:UIControlEventTouchUpInside];
 })

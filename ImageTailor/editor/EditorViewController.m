@@ -129,11 +129,11 @@
 
 #pragma mark - EditorBottomToolbarFloatViewDelegate
 - (void)pixellateWithType:(ScrawlToolBarPixellateType)pixellateType {
-    
+    [self.zoomingScrollView pixellateWithType:pixellateType];
 }
 
 - (void)pixellateWithdraw {
-    
+    [self.zoomingScrollView pixellateWithdraw];
 }
 
 - (void) spacelineWithType:(EditorToolBarSpacelineType)spacelineType {
@@ -196,7 +196,7 @@
         make.edges.equalTo(self.floatView);
     }];
     UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor hex_colorWithHex:0x000000 alpha:0.9f];
+    line.backgroundColor = [UIColor hex_colorWithHex:0x000000 alpha:0.1f];
     [self.floatView addSubview:line];
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.equalTo(self.floatView);

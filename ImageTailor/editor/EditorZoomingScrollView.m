@@ -18,6 +18,7 @@
 // views
 @property (nonatomic, strong) UIView *imageViewsContainer;
 @property (nonatomic, strong, readwrite) NSArray<TailorReserveInsetsClipedImageView *> *imageViews;
+@property (nonatomic, assign) CGRect imageViewsUnionRect;
 
 @property (nonatomic, strong) EditorClipContext *clipContext;
 @property (nonatomic, strong) EditorPixellateContext *pixellateContext;
@@ -97,9 +98,16 @@
 - (void) pixellateWithType:(ScrawlToolBarPixellateType)pixellateType {
     if (pixellateType == ScrawlToolBarPixellateTypeNone) {
         [self.pixellateContext endDoPixellate];
+        self.panGestureRecognizer.minimumNumberOfTouches = 1;
     } else {
         [self.pixellateContext beginDoPixellateWithType:pixellateType assetModels:self.assetModels];
+        self.panGestureRecognizer.minimumNumberOfTouches = 2;
     }
+}
+
+- (void) pixellateWithdraw {
+    [self.pixellateContext pixellateWithdraw];
+    [self setNeedsLayout];
 }
 
 - (void)zoomToReset {
@@ -118,6 +126,7 @@
     __block CGFloat growingTileSum = 0.f;
     
     NSMutableArray *allImageRects = [@[] mutableCopy];
+    __block CGRect imageViewsUnionRect = CGRectZero;
     [self.imageViews enumerateObjectsUsingBlock:^(TailorReserveInsetsClipedImageView * _Nonnull imgView, NSUInteger idx, BOOL * _Nonnull stop) {
         TailorAssetModel *model = self.assetModels[idx];
         
@@ -146,11 +155,13 @@
         }
         
         imgView.frame = CGRectMake(x, y, width, height);
+        imageViewsUnionRect = CGRectUnion(imageViewsUnionRect, imgView.frame);
         [allImageRects addObject:[NSValue valueWithCGRect:imgView.frame]];
         
         growingTileSum += isVertically ? height : width;
         preView = imgView;
     }];
+    self.imageViewsUnionRect = imageViewsUnionRect;
     
     // container view position
     CGFloat contentSizeWidth = (isVertically ? self.width : growingTileSum) * self.zoomScale;
@@ -182,6 +193,13 @@
 
 #pragma mark - touch event
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    // pixellate
+    if (self.pixellateContext.pixellateType != ScrawlToolBarPixellateTypeNone && touches.count == 1) {
+        [self.pixellateContext touchBeginWithTouch:touches.anyObject
+                                   imagesUnionRect:self.imageViewsUnionRect
+                                         zoomScale:self.zoomScale];
+    }
+    
     if (self.scrollEnabled || touches.count > 1) {
         return ;
     }
@@ -230,6 +248,10 @@
 }
 
 - (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (self.pixellateContext.pixellateType != ScrawlToolBarPixellateTypeNone && touches.count == 1) {
+        [self.pixellateContext touchMovedWithTouch:touches.anyObject];
+    }
+    
     if (!self.clipContext.isEditing || touches.anyObject != self.clipContext.currentEditingTouch) {
         return ;
     }
@@ -268,6 +290,18 @@
 }
 
 - (void) touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self touchesEndOrCancled:touches withEvent:event isCancled:NO];
+}
+
+- (void) touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self touchesEndOrCancled:touches withEvent:event isCancled:YES];
+}
+
+- (void) touchesEndOrCancled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event isCancled:(BOOL)cancled {
+    if (self.pixellateContext.pixellateType != ScrawlToolBarPixellateTypeNone && touches.count == 1) {
+        [self.pixellateContext touchEndedWithTouch:touches.anyObject];
+    }
+    
     // 先针对bounds linkage bounds做值保存
     BOOL isVertically = self.tileDirection == TailorTileDirectionVertically;
     BOOL isEditingLinkageBounds = [self.clipContext isEditingLinkageBounds];
@@ -289,24 +323,24 @@
     CGPoint preContentOffset = self.contentOffset;
     CGFloat extraTopOrLeftDistanceTmp = self.clipContext.extraTopOrLeftDistance;
     self.clipContext.extraTopOrLeftDistance = 0.f;
-    [UIView animateWithDuration:0.2f animations:^{
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-        
-        CGPoint contentOffset = CGPointMake(preContentOffset.x - (isVertically ? 0.f : extraTopOrLeftDistanceTmp * self.zoomScale),
-                                            preContentOffset.y - (isVertically ? extraTopOrLeftDistanceTmp * self.zoomScale : 0.f));
-        if (isEditingLinkageBounds) {
-            contentOffset = CGPointMake(preContentOffset.x - (isVertically ? extraTopOrLeftDistanceTmp * self.zoomScale : 0.f),
-                                        preContentOffset.y - (isVertically ? 0.f : extraTopOrLeftDistanceTmp * self.zoomScale));
-        }
-        
-        self.contentOffset = CGPointMake(isVertically ? 0.f :MAX(MIN(contentOffset.x, self.contentSize.width - self.width), 0.f),
-                                         isVertically ? MAX(MIN(contentOffset.y, self.contentSize.height - self.height), 0.f) : 0.f);
-    }];
-}
-
-- (void) touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self touchesEnded:touches withEvent:event];
+    
+    [self setNeedsLayout];
+    
+    if (!cancled) {
+        [UIView animateWithDuration:0.2f animations:^{
+            [self layoutIfNeeded];
+            
+            CGPoint contentOffset = CGPointMake(preContentOffset.x - (isVertically ? 0.f : extraTopOrLeftDistanceTmp * self.zoomScale),
+                                                preContentOffset.y - (isVertically ? extraTopOrLeftDistanceTmp * self.zoomScale : 0.f));
+            if (isEditingLinkageBounds) {
+                contentOffset = CGPointMake(preContentOffset.x - (isVertically ? extraTopOrLeftDistanceTmp * self.zoomScale : 0.f),
+                                            preContentOffset.y - (isVertically ? 0.f : extraTopOrLeftDistanceTmp * self.zoomScale));
+            }
+            
+            self.contentOffset = CGPointMake(isVertically ? 0.f :MAX(MIN(contentOffset.x, self.contentSize.width - self.width), 0.f),
+                                             isVertically ? MAX(MIN(contentOffset.y, self.contentSize.height - self.height), 0.f) : 0.f);
+        }];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -319,7 +353,7 @@
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    self.scrollEnabled = scrollView.zoomScale != 1.f;
+    self.scrollEnabled = YES;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }

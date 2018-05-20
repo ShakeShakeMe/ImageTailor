@@ -20,6 +20,8 @@
                   tileDirection:(TailorTileDirection)tileDirection;
 
 - (void) clipWithState:(TailorToolActionClipState)clipState;
+
 - (void) pixellateWithType:(ScrawlToolBarPixellateType)pixellateType;
+- (void) pixellateWithdraw;
 
 @end
