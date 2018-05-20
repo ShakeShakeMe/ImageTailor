@@ -24,4 +24,8 @@
 - (void) pixellateWithType:(ScrawlToolBarPixellateType)pixellateType;
 - (void) pixellateWithdraw;
 
+// 水印
+- (void) showWatermarkWithType:(EditorToolBarWatermarkType)watermarkType text:(NSString *)text;
+- (void) hideWatermark;
+
 @end

@@ -141,7 +141,11 @@
 }
 
 - (void) watermarkWithType:(EditorToolBarWatermarkType)watermarkType {
-    
+    if (watermarkType == EditorToolBarWatermarkTypeNone) {
+        [self.zoomingScrollView hideWatermark];
+    } else {
+        [self.zoomingScrollView showWatermarkWithType:watermarkType text:@"©This is test water mark."];
+    }
 }
 
 - (void) watermarkEditWord {

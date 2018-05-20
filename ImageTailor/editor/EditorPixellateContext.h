@@ -26,4 +26,6 @@
 - (void) touchMovedWithTouch:(UITouch *)touch;
 - (void) touchEndedWithTouch:(UITouch *)touch;
 
+- (void) clear;
+
 @end

@@ -380,7 +380,7 @@ LazyPropertyWithInit(UIButton, leftBtn, {
 })
 LazyPropertyWithInit(UIButton, rightBtn, {
     [_rightBtn setImage:[UIImage imageNamed:@"btn_watermark_3_n"] forState:UIControlStateNormal];
-    [_rightBtn setImage:[UIImage imageNamed:@"btn_watermark_3_n"] forState:UIControlStateSelected];
+    [_rightBtn setImage:[UIImage imageNamed:@"btn_watermark_3_s"] forState:UIControlStateSelected];
     @weakify(self)
     [_rightBtn bk_addEventHandler:^(id sender) {
         @strongify(self)

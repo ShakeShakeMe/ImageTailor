@@ -22,6 +22,7 @@
 		62453E0A20B104FB00F20B98 /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E0820B104FA00F20B98 /* UIImage+GIF.m */; };
 		62453E0D20B105D500F20B98 /* img_cut_arrow@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 62453E0B20B105D400F20B98 /* img_cut_arrow@3x.gif */; };
 		62453E0E20B105D500F20B98 /* img_cut_arrow@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */; };
+		62453E1120B120DF00F20B98 /* EditorWatermarkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */; };
 		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
 		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
 		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
@@ -81,6 +82,8 @@
 		62453E0920B104FB00F20B98 /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
 		62453E0B20B105D400F20B98 /* img_cut_arrow@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "img_cut_arrow@3x.gif"; sourceTree = "<group>"; };
 		62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "img_cut_arrow@2x.gif"; sourceTree = "<group>"; };
+		62453E0F20B120DF00F20B98 /* EditorWatermarkContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorWatermarkContext.h; sourceTree = "<group>"; };
+		62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorWatermarkContext.m; sourceTree = "<group>"; };
 		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
 		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
 		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				62453E0020AFF3EE00F20B98 /* EditorClipContext.m */,
 				62453E0220B043FD00F20B98 /* EditorPixellateContext.h */,
 				62453E0320B043FD00F20B98 /* EditorPixellateContext.m */,
+				62453E0F20B120DF00F20B98 /* EditorWatermarkContext.h */,
+				62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */,
 			);
 			path = editor;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				625A701D2096AD3F007F1626 /* TailorViewController.m in Sources */,
 				625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */,
 				62F84293209555C000AE0316 /* ViewController.m in Sources */,
+				62453E1120B120DF00F20B98 /* EditorWatermarkContext.m in Sources */,
 				625A702A2096CA0A007F1626 /* TailorAssetModel.m in Sources */,
 				62453E0A20B104FB00F20B98 /* UIImage+GIF.m in Sources */,
 				625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */,

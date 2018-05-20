@@ -10,6 +10,7 @@
 #import "TailorZoomingFloatEditBtnView.h"
 #import "EditorClipContext.h"
 #import "EditorPixellateContext.h"
+#import "EditorWatermarkContext.h"
 
 @interface EditorZoomingScrollView()<UIScrollViewDelegate, TailorZoomingFloatEditBtnViewDelegate>
 @property (nonatomic, assign, readwrite) TailorTileDirection tileDirection;
@@ -22,6 +23,7 @@
 
 @property (nonatomic, strong) EditorClipContext *clipContext;
 @property (nonatomic, strong) EditorPixellateContext *pixellateContext;
+@property (nonatomic, strong) EditorWatermarkContext *watermarkContext;
 @end
 
 @implementation EditorZoomingScrollView
@@ -42,6 +44,9 @@
         
         self.pixellateContext = [[EditorPixellateContext alloc] init];
         self.pixellateContext.imageContainerView = self.imageViewsContainer;
+        
+        self.watermarkContext = [[EditorWatermarkContext alloc] init];
+        self.watermarkContext.imageContainerView = self.imageViewsContainer;
     }
     return self;
 }
@@ -108,6 +113,16 @@
 - (void) pixellateWithdraw {
     [self.pixellateContext pixellateWithdraw];
     [self setNeedsLayout];
+}
+
+
+- (void) showWatermarkWithType:(EditorToolBarWatermarkType)watermarkType text:(NSString *)text {
+    [self.watermarkContext showWatermarkWithType:watermarkType imagesUnionRect:self.imageViewsUnionRect text:text];
+    [self scrollViewToShowWaterMark];
+}
+
+- (void) hideWatermark {
+    [self.watermarkContext hideWatermark];
 }
 
 - (void)zoomToReset {
@@ -367,6 +382,18 @@
     }
     
     self.clipContext.currentEditingBtnView = isEditing ? floatEditBtnView : nil;
+}
+
+#pragma mark - others scroll to show watermark
+- (void) scrollViewToShowWaterMark {
+    CGRect visableWaterLabelRect = [self.imageViewsContainer convertRect:self.watermarkContext.visableWaterLabelRect toView:self];
+    visableWaterLabelRect.origin = CGPointMake(CGRectGetMinX(visableWaterLabelRect) - self.imageViewsContainer.left,
+                                               CGRectGetMinY(visableWaterLabelRect) - self.imageViewsContainer.top);
+    CGFloat x = CGRectGetMidX(visableWaterLabelRect) - self.width / 2.f;
+    x = MIN(MAX(0.f, x), self.contentSize.width - self.width);
+    visableWaterLabelRect.origin.x = x;
+    visableWaterLabelRect.size.width = self.width;
+    [self scrollRectToVisible:visableWaterLabelRect animated:YES];
 }
 
 #pragma mark - other methods, clear state

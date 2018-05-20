@@ -80,6 +80,14 @@ static CIWarpKernel *customKernel = nil;
     self.snapshotImage = nil;
 }
 
+- (void) clear {
+    [self clearCache];
+    [self.pixellateImageViews bk_each:^(UIView *v) {
+        [v removeFromSuperview];
+    }];
+    [self.pixellateImageViews removeAllObjects];
+}
+
 #pragma mark - touch event
 - (void) touchBeginWithTouch:(UITouch *)touch imagesUnionRect:(CGRect)unionRect zoomScale:(CGFloat)zoomScale {
     self.startTouch = touch;
