@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		620AC0AD209DFE7C0000580D /* ScrawlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0AC209DFE7C0000580D /* ScrawlViewController.m */; };
-		620AC0B0209DFF150000580D /* ScrawlZoomingScollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */; };
-		620AC0B5209F017B0000580D /* ScrawlBottomToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */; };
-		620AC0B8209F4C3E0000580D /* ScrawlPixellateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */; };
-		620AC0BA20A3568C0000580D /* Pixellate.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 620AC0B920A3568C0000580D /* Pixellate.cikernel */; };
 		6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */; };
 		62453DF520AFC77F00F20B98 /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF420AFC77F00F20B98 /* EditorViewController.m */; };
 		62453DF820AFC7AB00F20B98 /* EditorZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF720AFC7AB00F20B98 /* EditorZoomingScrollView.m */; };
@@ -36,9 +31,6 @@
 		625A700F2095DBCE007F1626 /* ImagePickerBottomToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A700E2095DBCE007F1626 /* ImagePickerBottomToolBarView.m */; };
 		625A70132095E488007F1626 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70122095E488007F1626 /* BaseViewController.m */; };
 		625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70182095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m */; };
-		625A701D2096AD3F007F1626 /* TailorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A701C2096AD3F007F1626 /* TailorViewController.m */; };
-		625A70202096B061007F1626 /* TailorNavigatorToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A701F2096B061007F1626 /* TailorNavigatorToolBarControl.m */; };
-		625A70232096C71B007F1626 /* TailorZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70222096C71B007F1626 /* TailorZoomingScrollView.m */; };
 		625A702A2096CA0A007F1626 /* TailorAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A70292096CA0A007F1626 /* TailorAssetModel.m */; };
 		625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A702C2096D84A007F1626 /* TailorBottomToolBarControl.m */; };
 		625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A702F20976BE6007F1626 /* TailorReserveInsetsClipedImageView.m */; };
@@ -55,16 +47,7 @@
 /* Begin PBXFileReference section */
 		02BC7025B34E9D9DB7561A1F /* Pods-ImageTailor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageTailor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageTailor/Pods-ImageTailor.debug.xcconfig"; sourceTree = "<group>"; };
 		430F88C01CBC6590F0532FF6 /* Pods_ImageTailor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageTailor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		620AC0AB209DFE7C0000580D /* ScrawlViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlViewController.h; sourceTree = "<group>"; };
-		620AC0AC209DFE7C0000580D /* ScrawlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlViewController.m; sourceTree = "<group>"; };
-		620AC0AE209DFF150000580D /* ScrawlZoomingScollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlZoomingScollView.h; sourceTree = "<group>"; };
-		620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlZoomingScollView.m; sourceTree = "<group>"; };
 		620AC0B2209DFF830000580D /* ImageTailorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageTailorConstants.h; sourceTree = "<group>"; };
-		620AC0B3209F017B0000580D /* ScrawlBottomToolBarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlBottomToolBarControl.h; sourceTree = "<group>"; };
-		620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlBottomToolBarControl.m; sourceTree = "<group>"; };
-		620AC0B6209F4C3E0000580D /* ScrawlPixellateUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScrawlPixellateUtil.h; sourceTree = "<group>"; };
-		620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrawlPixellateUtil.m; sourceTree = "<group>"; };
-		620AC0B920A3568C0000580D /* Pixellate.cikernel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pixellate.cikernel; sourceTree = "<group>"; };
 		6240338C20AED9B700832A24 /* WatermarkEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatermarkEditorViewController.h; sourceTree = "<group>"; };
 		6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatermarkEditorViewController.m; sourceTree = "<group>"; };
 		62453DF320AFC77F00F20B98 /* EditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
@@ -115,12 +98,6 @@
 		625A70122095E488007F1626 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		625A70172095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerBottomStatusCollectionViewCell.h; sourceTree = "<group>"; };
 		625A70182095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerBottomStatusCollectionViewCell.m; sourceTree = "<group>"; };
-		625A701B2096AD3F007F1626 /* TailorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorViewController.h; sourceTree = "<group>"; };
-		625A701C2096AD3F007F1626 /* TailorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorViewController.m; sourceTree = "<group>"; };
-		625A701E2096B061007F1626 /* TailorNavigatorToolBarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorNavigatorToolBarControl.h; sourceTree = "<group>"; };
-		625A701F2096B061007F1626 /* TailorNavigatorToolBarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorNavigatorToolBarControl.m; sourceTree = "<group>"; };
-		625A70212096C71B007F1626 /* TailorZoomingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorZoomingScrollView.h; sourceTree = "<group>"; };
-		625A70222096C71B007F1626 /* TailorZoomingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorZoomingScrollView.m; sourceTree = "<group>"; };
 		625A70282096CA0A007F1626 /* TailorAssetModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorAssetModel.h; sourceTree = "<group>"; };
 		625A70292096CA0A007F1626 /* TailorAssetModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorAssetModel.m; sourceTree = "<group>"; };
 		625A702B2096D84A007F1626 /* TailorBottomToolBarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorBottomToolBarControl.h; sourceTree = "<group>"; };
@@ -161,22 +138,6 @@
 				D831C7FA8ACC2F4886E295F1 /* Pods-ImageTailor.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		620AC0AA209DFE5F0000580D /* scrawl */ = {
-			isa = PBXGroup;
-			children = (
-				620AC0AB209DFE7C0000580D /* ScrawlViewController.h */,
-				620AC0AC209DFE7C0000580D /* ScrawlViewController.m */,
-				620AC0AE209DFF150000580D /* ScrawlZoomingScollView.h */,
-				620AC0AF209DFF150000580D /* ScrawlZoomingScollView.m */,
-				620AC0B3209F017B0000580D /* ScrawlBottomToolBarControl.h */,
-				620AC0B4209F017B0000580D /* ScrawlBottomToolBarControl.m */,
-				620AC0B6209F4C3E0000580D /* ScrawlPixellateUtil.h */,
-				620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */,
-				620AC0B920A3568C0000580D /* Pixellate.cikernel */,
-			);
-			path = scrawl;
 			sourceTree = "<group>";
 		};
 		620AC0B1209DFF520000580D /* constants */ = {
@@ -270,10 +231,6 @@
 			children = (
 				625A700D2095DBCE007F1626 /* ImagePickerBottomToolBarView.h */,
 				625A700E2095DBCE007F1626 /* ImagePickerBottomToolBarView.m */,
-				625A701E2096B061007F1626 /* TailorNavigatorToolBarControl.h */,
-				625A701F2096B061007F1626 /* TailorNavigatorToolBarControl.m */,
-				625A70212096C71B007F1626 /* TailorZoomingScrollView.h */,
-				625A70222096C71B007F1626 /* TailorZoomingScrollView.m */,
 				625A702B2096D84A007F1626 /* TailorBottomToolBarControl.h */,
 				625A702C2096D84A007F1626 /* TailorBottomToolBarControl.m */,
 				625A702E20976BE6007F1626 /* TailorReserveInsetsClipedImageView.h */,
@@ -291,15 +248,6 @@
 				625A70122095E488007F1626 /* BaseViewController.m */,
 			);
 			path = base;
-			sourceTree = "<group>";
-		};
-		625A701A2096AD26007F1626 /* tailor */ = {
-			isa = PBXGroup;
-			children = (
-				625A701B2096AD3F007F1626 /* TailorViewController.h */,
-				625A701C2096AD3F007F1626 /* TailorViewController.m */,
-			);
-			path = tailor;
 			sourceTree = "<group>";
 		};
 		625A70272096C9B8007F1626 /* models */ = {
@@ -336,9 +284,7 @@
 				62453DF220AFC75F00F20B98 /* editor */,
 				6240338B20AED97C00832A24 /* watermark */,
 				620AC0B1209DFF520000580D /* constants */,
-				620AC0AA209DFE5F0000580D /* scrawl */,
 				625A70272096C9B8007F1626 /* models */,
-				625A701A2096AD26007F1626 /* tailor */,
 				625A70102095E470007F1626 /* base */,
 				625A70092095DB93007F1626 /* views */,
 				625A6FEE2095AE85007F1626 /* cells */,
@@ -431,7 +377,6 @@
 				62453E0D20B105D500F20B98 /* img_cut_arrow@3x.gif in Resources */,
 				62F8429B209555C000AE0316 /* LaunchScreen.storyboard in Resources */,
 				62453E0E20B105D500F20B98 /* img_cut_arrow@2x.gif in Resources */,
-				620AC0BA20A3568C0000580D /* Pixellate.cikernel in Resources */,
 				62F84298209555C000AE0316 /* Assets.xcassets in Resources */,
 				62F84296209555C000AE0316 /* Main.storyboard in Resources */,
 			);
@@ -495,16 +440,13 @@
 				625A70012095C1C1007F1626 /* ImagePickerItemSectionController.m in Sources */,
 				625A70132095E488007F1626 /* BaseViewController.m in Sources */,
 				62453E0120AFF3EE00F20B98 /* EditorClipContext.m in Sources */,
-				625A70202096B061007F1626 /* TailorNavigatorToolBarControl.m in Sources */,
 				625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */,
 				62453E0420B043FD00F20B98 /* EditorPixellateContext.m in Sources */,
 				6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */,
-				620AC0AD209DFE7C0000580D /* ScrawlViewController.m in Sources */,
 				625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */,
 				62453DFE20AFDC3A00F20B98 /* EditorBottomToolbarControl.m in Sources */,
 				62453DFB20AFCD3C00F20B98 /* EditorCloseAndSwitchControl.m in Sources */,
 				625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */,
-				625A701D2096AD3F007F1626 /* TailorViewController.m in Sources */,
 				625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */,
 				62F84293209555C000AE0316 /* ViewController.m in Sources */,
 				62453E1120B120DF00F20B98 /* EditorWatermarkContext.m in Sources */,
@@ -513,14 +455,10 @@
 				625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */,
 				62F8429E209555C000AE0316 /* main.m in Sources */,
 				625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */,
-				620AC0B5209F017B0000580D /* ScrawlBottomToolBarControl.m in Sources */,
 				625A703320981819007F1626 /* TailorZoomingFloatEditBtnView.m in Sources */,
-				620AC0B8209F4C3E0000580D /* ScrawlPixellateUtil.m in Sources */,
 				625A70042095C255007F1626 /* CurrentSelectedAssetsManager.m in Sources */,
 				625A6FFB2095B90E007F1626 /* PHAsset+IGListExtension.m in Sources */,
 				625A6FFE2095BA1D007F1626 /* UIView+ViewFrame.m in Sources */,
-				620AC0B0209DFF150000580D /* ScrawlZoomingScollView.m in Sources */,
-				625A70232096C71B007F1626 /* TailorZoomingScrollView.m in Sources */,
 				62F84290209555C000AE0316 /* AppDelegate.m in Sources */,
 				625A6FF72095B253007F1626 /* PHCachingImageManager+Singleton.m in Sources */,
 				625A70072095CFEE007F1626 /* UIColor+Hex.m in Sources */,

@@ -10,7 +10,6 @@
 #import "ImagePickerItemSectionController.h"
 #include "ImagePickerBottomStatusCollectionViewCell.h"
 #import "ImagePickerBottomToolBarView.h"
-#import "TailorViewController.h"
 #import "EditorViewController.h"
 #import "TailorAssetModel.h"
 
@@ -202,13 +201,6 @@
 }
 
 - (void) gotoTailorPageHorizontally:(BOOL)horizontally {
-//    TailorViewController *tailorVC = [[TailorViewController alloc] init];
-//    tailorVC.assetModels = [[[CurrentSelectedAssetsManager sharedInstance].allSelectedAssets copy] bk_map:^id(PHAsset *asset) {
-//        return [[TailorAssetModel alloc] initWithAsset:asset];
-//    }];
-//    tailorVC.tileDirection = horizontally ? TailorTileDirectionHorizontally : TailorTileDirectionVertically;
-//    [self.navigationController pushViewController:tailorVC animated:YES];
-    
     EditorViewController *editorVC = [[EditorViewController alloc] init];
     editorVC.assetModels = [[[CurrentSelectedAssetsManager sharedInstance].allSelectedAssets copy] bk_map:^id(PHAsset *asset) {
         return [[TailorAssetModel alloc] initWithAsset:asset];
