@@ -52,7 +52,11 @@
           scaledBtnSizeVector:(CGFloat)scaledBtnSizeVector {
     __block CGRect allImagesUnionRect = CGRectZero;
     [imageRects enumerateObjectsUsingBlock:^(NSValue *rectValue, NSUInteger idx, BOOL * _Nonnull stop) {
-        allImagesUnionRect = CGRectUnion([rectValue CGRectValue], allImagesUnionRect);
+        if (idx == 0) {
+            allImagesUnionRect = [rectValue CGRectValue];
+        } else {
+            allImagesUnionRect = CGRectUnion([rectValue CGRectValue], allImagesUnionRect);
+        }
     }];
     CGRect visableLayoutRect = CGRectIntersection(allImagesUnionRect, visableRect);
     
