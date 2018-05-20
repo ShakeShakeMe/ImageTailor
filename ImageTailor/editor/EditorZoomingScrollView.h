@@ -12,6 +12,7 @@
 #import "EditorClipContext.h"
 #import "EditorPixellateContext.h"
 #import "EditorWatermarkContext.h"
+#import "PhoneBoundsContext.h"
 
 @interface EditorZoomingScrollView : UIScrollView
 
@@ -22,6 +23,7 @@
 @property (nonatomic, strong, readonly) EditorClipContext *clipContext;
 @property (nonatomic, strong, readonly) EditorPixellateContext *pixellateContext;
 @property (nonatomic, strong, readonly) EditorWatermarkContext *watermarkContext;
+@property (nonatomic, strong, readonly) PhoneBoundsContext *phoneBoundsContext;
 @property (nonatomic, assign, readonly) CGRect imageViewsUnionRect;
 
 - (void) refreshWithAssetModels:(NSArray<TailorAssetModel *> *)assetModels
@@ -36,6 +38,10 @@
 // 水印
 - (void) showWatermarkWithType:(EditorToolBarWatermarkType)watermarkType text:(NSString *)text;
 - (void) hideWatermark;
+
+// 边框
+- (void) showPhoneBoundsWithType:(EditorToolBarPhoneBoundsType)phoneBoundsType;
+- (void) hidePhoneBounds;
 
 - (BOOL) hasChanged;
 - (void) abandonAllTailorChanges;

@@ -19,6 +19,8 @@
 		62453E0E20B105D500F20B98 /* img_cut_arrow@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */; };
 		62453E1120B120DF00F20B98 /* EditorWatermarkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */; };
 		62453E1520B1819000F20B98 /* SaveToPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */; };
+		62453E1920B19C8800F20B98 /* Pixellate.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 62453E1820B19C8800F20B98 /* Pixellate.cikernel */; };
+		62453E1E20B1A1E400F20B98 /* PhoneBoundsContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1D20B1A1E400F20B98 /* PhoneBoundsContext.m */; };
 		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
 		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
 		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
@@ -70,6 +72,9 @@
 		62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorWatermarkContext.m; sourceTree = "<group>"; };
 		62453E1320B1819000F20B98 /* SaveToPhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveToPhotoViewController.h; sourceTree = "<group>"; };
 		62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SaveToPhotoViewController.m; sourceTree = "<group>"; };
+		62453E1820B19C8800F20B98 /* Pixellate.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pixellate.cikernel; sourceTree = "<group>"; };
+		62453E1C20B1A1E400F20B98 /* PhoneBoundsContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneBoundsContext.h; sourceTree = "<group>"; };
+		62453E1D20B1A1E400F20B98 /* PhoneBoundsContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneBoundsContext.m; sourceTree = "<group>"; };
 		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
 		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
 		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
@@ -174,6 +179,8 @@
 				62453E0320B043FD00F20B98 /* EditorPixellateContext.m */,
 				62453E0F20B120DF00F20B98 /* EditorWatermarkContext.h */,
 				62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */,
+				62453E1C20B1A1E400F20B98 /* PhoneBoundsContext.h */,
+				62453E1D20B1A1E400F20B98 /* PhoneBoundsContext.m */,
 			);
 			path = editor;
 			sourceTree = "<group>";
@@ -293,6 +300,7 @@
 				62F8428F209555C000AE0316 /* AppDelegate.m */,
 				62F84291209555C000AE0316 /* ViewController.h */,
 				62F84292209555C000AE0316 /* ViewController.m */,
+				62453E1820B19C8800F20B98 /* Pixellate.cikernel */,
 				62F84294209555C000AE0316 /* Main.storyboard */,
 				62F84297209555C000AE0316 /* Assets.xcassets */,
 				62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */,
@@ -377,6 +385,7 @@
 				62453E0D20B105D500F20B98 /* img_cut_arrow@3x.gif in Resources */,
 				62F8429B209555C000AE0316 /* LaunchScreen.storyboard in Resources */,
 				62453E0E20B105D500F20B98 /* img_cut_arrow@2x.gif in Resources */,
+				62453E1920B19C8800F20B98 /* Pixellate.cikernel in Resources */,
 				62F84298209555C000AE0316 /* Assets.xcassets in Resources */,
 				62F84296209555C000AE0316 /* Main.storyboard in Resources */,
 			);
@@ -442,6 +451,7 @@
 				62453E0120AFF3EE00F20B98 /* EditorClipContext.m in Sources */,
 				625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */,
 				62453E0420B043FD00F20B98 /* EditorPixellateContext.m in Sources */,
+				62453E1E20B1A1E400F20B98 /* PhoneBoundsContext.m in Sources */,
 				6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */,
 				625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */,
 				62453DFE20AFDC3A00F20B98 /* EditorBottomToolbarControl.m in Sources */,

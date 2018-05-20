@@ -203,7 +203,7 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 }
 
 - (void) phoneBoundsWithType:(EditorToolBarPhoneBoundsType)phoneBoundsType {
-    
+    [self.zoomingScrollView showPhoneBoundsWithType:phoneBoundsType];
 }
 
 #pragma mark - other methods
@@ -281,12 +281,12 @@ LazyPropertyWithInit(UIButton, saveBtn, {
     @weakify(self)
     [_saveBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
-//        [self.zoomingScrollView saveToPhoto];
         SaveToPhotoViewController *vc = [[SaveToPhotoViewController alloc] init];
         vc.tileDirection = self.zoomingScrollView.tileDirection;
         vc.assetModels = self.zoomingScrollView.assetModels;
         vc.pixellateImageViews = self.zoomingScrollView.pixellateContext.pixellateImageViews;
         vc.watermarkLabel = self.zoomingScrollView.watermarkContext.watermarkLabel;
+        vc.phoneBoundsImageView = self.zoomingScrollView.phoneBoundsContext.phoneBoundsImageView;
         vc.imageViewsUnionRect = self.zoomingScrollView.imageViewsUnionRect;
         [self.navigationController presentViewController:vc animated:NO completion:nil];
     } forControlEvents:UIControlEventTouchUpInside];

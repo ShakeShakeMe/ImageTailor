@@ -21,6 +21,7 @@
 @property (nonatomic, strong, readwrite) EditorClipContext *clipContext;
 @property (nonatomic, strong, readwrite) EditorPixellateContext *pixellateContext;
 @property (nonatomic, strong, readwrite) EditorWatermarkContext *watermarkContext;
+@property (nonatomic, strong, readwrite) PhoneBoundsContext *phoneBoundsContext;
 @end
 
 @implementation EditorZoomingScrollView
@@ -44,6 +45,9 @@
         
         self.watermarkContext = [[EditorWatermarkContext alloc] init];
         self.watermarkContext.imageContainerView = self.imageViewsContainer;
+        
+        self.phoneBoundsContext = [[PhoneBoundsContext alloc] init];
+        self.phoneBoundsContext.imageContainerView = self.imageViewsContainer;
     }
     return self;
 }
@@ -126,13 +130,25 @@
     [self.watermarkContext hideWatermark];
 }
 
+- (void) showPhoneBoundsWithType:(EditorToolBarPhoneBoundsType)phoneBoundsType {
+    self.phoneBoundsContext.imageViewsUnionRect = self.imageViewsUnionRect;
+    [self.phoneBoundsContext showWithPhoneBoundsType:phoneBoundsType];
+}
+
+- (void) hidePhoneBounds {
+    [self.phoneBoundsContext hide];
+}
+
 - (BOOL) hasChanged {
-    return !self.watermarkContext.watermarkLabel.hidden || self.pixellateContext.pixellateImageViews.count > 0;
+    return !self.watermarkContext.watermarkLabel.hidden
+            || self.pixellateContext.pixellateImageViews.count > 0
+            || !self.phoneBoundsContext.phoneBoundsImageView.hidden;
 }
 
 - (void) abandonAllTailorChanges {
     [self.watermarkContext clear];
     [self.pixellateContext clear];
+    [self.phoneBoundsContext hide];
 }
 
 - (void)zoomToReset {

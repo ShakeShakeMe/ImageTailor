@@ -159,25 +159,39 @@
             return [NSValue valueWithCGRect:imageRect];
         }];
         
+        CGFloat enlargeScale = (isVertically ? maxImageVector : imageVerticalVectorSum) / CGRectGetWidth(self.imageViewsUnionRect);
+        CGSize extraMarginSize = CGSizeZero;
+        CGSize imageContextSize = CGSizeMake(isVertically ? maxImageVector : imageVerticalVectorSum,
+                                             isVertically ? imageVerticalVectorSum : maxImageVector);
+        CGRect phoneBoundsRect = CGRectMake(self.phoneBoundsImageView.left * enlargeScale,
+                                            self.phoneBoundsImageView.top * enlargeScale,
+                                            self.phoneBoundsImageView.width * enlargeScale,
+                                            self.phoneBoundsImageView.height * enlargeScale);
+        if (self.phoneBoundsImageView.image
+            && CGRectContainsRect(phoneBoundsRect, (CGRect){CGPointZero, imageContextSize})) {
+            imageContextSize = phoneBoundsRect.size;
+            extraMarginSize = CGSizeMake(-phoneBoundsRect.origin.x,-phoneBoundsRect.origin.y);
+            phoneBoundsRect.origin = CGPointZero;
+        }
         // draw on one bitmap
-        UIGraphicsBeginImageContext(CGSizeMake(isVertically ? maxImageVector : imageVerticalVectorSum,
-                                               isVertically ? imageVerticalVectorSum : maxImageVector));
+        UIGraphicsBeginImageContext(imageContextSize);
         
         CGFloat drawOneImageRatio = 20.f / images.count;
         // 绘制所有的原图
         [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
-            [image drawInRect:[imageRects[idx] CGRectValue]];
+            CGRect imageRect = [imageRects[idx] CGRectValue];
+            imageRect.origin = CGPointMake(CGRectGetMinX(imageRect) + extraMarginSize.width,
+                                           CGRectGetMinY(imageRect) + extraMarginSize.height);
+            [image drawInRect:imageRect];
             self.progress += drawOneImageRatio;
         }];
-        
-        CGFloat enlargeScale = (isVertically ? maxImageVector : imageVerticalVectorSum) / CGRectGetWidth(self.imageViewsUnionRect);
         
         // 绘制所有的马赛克图片
         [self.pixellateImageViews enumerateObjectsUsingBlock:^(UIImageView *pixellateImageView, NSUInteger idx, BOOL * _Nonnull stop) {
             UIImage *pixellateImage = pixellateImageView.image;
             CGRect frame = pixellateImageView.frame;
-            CGRect pixellateRect = CGRectMake((frame.origin.x - self.imageViewsUnionRect.origin.x) * enlargeScale,
-                                              (frame.origin.y - self.imageViewsUnionRect.origin.y) * enlargeScale,
+            CGRect pixellateRect = CGRectMake((frame.origin.x - self.imageViewsUnionRect.origin.x) * enlargeScale + extraMarginSize.width,
+                                              (frame.origin.y - self.imageViewsUnionRect.origin.y) * enlargeScale + extraMarginSize.height,
                                               frame.size.width * enlargeScale,
                                               frame.size.height * enlargeScale);
             [pixellateImage drawInRect:pixellateRect];
@@ -185,11 +199,15 @@
         }];
         
         // 绘制水印
-        CGRect watermarkDrawRect = CGRectMake((self.watermarkLabel.left - self.imageViewsUnionRect.origin.x) * enlargeScale,
-                                              (self.watermarkLabel.top - self.imageViewsUnionRect.origin.y) * enlargeScale,
-                                              self.watermarkLabel.width * enlargeScale,
-                                              self.watermarkLabel.height * enlargeScale);
+        CGRect watermarkDrawRect =
+        CGRectMake((self.watermarkLabel.left - self.imageViewsUnionRect.origin.x) * enlargeScale + extraMarginSize.width,
+                   (self.watermarkLabel.top - self.imageViewsUnionRect.origin.y) * enlargeScale + extraMarginSize.height,
+                   self.watermarkLabel.width * enlargeScale,
+                   self.watermarkLabel.height * enlargeScale);
         [self.watermarkLabel drawViewHierarchyInRect:watermarkDrawRect afterScreenUpdates:YES];
+        
+        // 绘制边框
+        [self.phoneBoundsImageView drawViewHierarchyInRect:phoneBoundsRect afterScreenUpdates:YES];
         
         UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
