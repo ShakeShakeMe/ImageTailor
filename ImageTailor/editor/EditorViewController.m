@@ -12,7 +12,11 @@
 #import "EditorBottomToolbarControl.h"
 #import "WatermarkEditorViewController.h"
 
-@interface EditorViewController () <EditorCloseAndSwitchControlDelegate, EditorBottomToolbarControlDelegate, EditorBottomToolbarFloatViewDelegate>
+static NSString *WatermarkTextKey = @"WatermarkTextKey";
+static NSString *WatermarkTextPrefixKey = @"WatermarkTextPrefixKey";
+static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
+
+@interface EditorViewController () <EditorCloseAndSwitchControlDelegate, EditorBottomToolbarControlDelegate, EditorBottomToolbarFloatViewDelegate, WatermarkEditorViewControllerDelegate>
 @property (nonatomic, strong) EditorCloseAndSwitchControl *swithControl;
 @property (nonatomic, strong) UIButton *saveBtn;
 @property (nonatomic, strong) EditorBottomToolbarControl *toolBarControl;
@@ -23,6 +27,10 @@
 @property (nonatomic, strong) EditorBottomToolbarSpacelineFloatView *spacelineFloatView;
 @property (nonatomic, strong) EditorBottomToolbarWatermarkFloatView *watermarkFloatView;
 @property (nonatomic, strong) EditorBottomToolbarPhoneBoundsFLoatView *phoneBoundsFloatView;
+
+@property (nonatomic, copy) NSString *watermarkText;
+@property (nonatomic, assign) EditorToolBarWatermarkType watermarkType;;
+@property (nonatomic, assign) EditorWatermarkPrefixType watermarkPrefixType;
 @end
 
 @implementation EditorViewController
@@ -46,6 +54,16 @@
     
     [self.zoomingScrollView refreshWithAssetModels:self.assetModels tileDirection:self.tileDirection];
     [self.toolBarControl selectBtnType:EditorToolbarBtnTypeClipNormal selected:YES];
+    
+    self.watermarkText = [[NSUserDefaults standardUserDefaults] stringForKey:WatermarkTextKey];
+    self.watermarkPrefixType = [[[NSUserDefaults standardUserDefaults] valueForKey:WatermarkTextPrefixKey] integerValue];
+    self.watermarkType = [[[NSUserDefaults standardUserDefaults] valueForKey:WatermarkPositionTypeKey] integerValue];
+    
+    if (self.watermarkText.length == 0) {
+        self.watermarkText = @"水印";
+        self.watermarkPrefixType = EditorWatermarkPrefixTypeNormal;
+        self.watermarkType = EditorToolBarWatermarkTypeRight;
+    }
 }
 
 - (BOOL) prefersStatusBarHidden {
@@ -127,6 +145,13 @@
     }
 }
 
+#pragma mark - WatermarkEditorViewControllerDelegate
+- (void) didChangeWatermarkText:(NSString *)text prefixType:(EditorWatermarkPrefixType)prefixType {
+    self.watermarkText = text;
+    self.watermarkPrefixType = prefixType;
+    [self watermarkWithType:self.watermarkType];
+}
+
 #pragma mark - EditorBottomToolbarFloatViewDelegate
 - (void)pixellateWithType:(ScrawlToolBarPixellateType)pixellateType {
     [self.zoomingScrollView pixellateWithType:pixellateType];
@@ -144,12 +169,21 @@
     if (watermarkType == EditorToolBarWatermarkTypeNone) {
         [self.zoomingScrollView hideWatermark];
     } else {
-        [self.zoomingScrollView showWatermarkWithType:watermarkType text:@"©This is test water mark."];
+        NSDictionary *watermarkPrefixMap = @{
+            @(EditorWatermarkPrefixTypeNormal): @"©",
+            @(EditorWatermarkPrefixTypeOther): @"@",
+            @(EditorToolBarWatermarkTypeNone): @""
+        };
+        NSString *text = [NSString stringWithFormat:@"%@ %@", watermarkPrefixMap[@(self.watermarkPrefixType)], self.watermarkText];
+        [self.zoomingScrollView showWatermarkWithType:watermarkType text:text];
     }
 }
 
 - (void) watermarkEditWord {
     WatermarkEditorViewController *vc = [[WatermarkEditorViewController alloc] init];
+    vc.text = self.watermarkText;
+    vc.prefixType = self.watermarkPrefixType;
+    vc.delegate = self;
     [self.navigationController presentViewController:vc animated:NO completion:nil];
 }
 
@@ -209,6 +243,21 @@
 }
 
 #pragma mark - getters
+- (void) setWatermarkText:(NSString *)watermarkText {
+    _watermarkText = watermarkText;
+    [[NSUserDefaults standardUserDefaults] setValue:watermarkText forKey:WatermarkTextKey];
+}
+
+- (void) setWatermarkPrefixType:(EditorWatermarkPrefixType)watermarkPrefixType {
+    _watermarkPrefixType = watermarkPrefixType;
+    [[NSUserDefaults standardUserDefaults] setValue:@(watermarkPrefixType) forKey:WatermarkTextPrefixKey];
+}
+
+- (void) setWatermarkType:(EditorToolBarWatermarkType)watermarkType {
+    _watermarkType = watermarkType;
+    [[NSUserDefaults standardUserDefaults] setValue:@(watermarkType) forKey:WatermarkPositionTypeKey];
+}
+
 LazyPropertyWithInit(EditorCloseAndSwitchControl, swithControl, {
     _swithControl.delegate = self;
 })

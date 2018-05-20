@@ -57,6 +57,12 @@ typedef NS_ENUM(NSInteger, EditorToolBarWatermarkType){
     EditorToolBarWatermarkTypeRight
 };
 
+typedef NS_ENUM(NSInteger, EditorWatermarkPrefixType){
+    EditorWatermarkPrefixTypeNone = 0,
+    EditorWatermarkPrefixTypeNormal,
+    EditorWatermarkPrefixTypeOther
+};
+
 typedef NS_ENUM(NSInteger, EditorToolBarPhoneBoundsType){
     EditorToolBarPhoneBoundsTypeNone = 0,
     EditorToolBarPhoneBoundsTypeSilvery,

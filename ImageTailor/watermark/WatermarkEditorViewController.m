@@ -7,6 +7,7 @@
 //
 
 #import "WatermarkEditorViewController.h"
+#import "UIAlertView+BlocksKit.h"
 
 @interface WatermarkEditorViewController ()
 @property (nonatomic, strong) UIVisualEffectView *blurBgView;
@@ -45,6 +46,10 @@
     @weakify(self)
     [self.finishBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
+        if (self.tf.text.length == 0) {
+            [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"请输入水印文案" cancelButtonTitle:nil otherButtonTitles:@"OK" handler:nil];
+            return ;
+        }
         [self dismissAnimating];
         [self.tf resignFirstResponder];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -68,6 +73,15 @@
     [self.btnContainerView addSubview:self.otherStyleBtn];
     [self.btnContainerView addSubview:self.clearBtn];
     
+    self.tf.text = self.text;
+    if (self.prefixType == EditorWatermarkPrefixTypeNormal) {
+        self.defaultStyleBtn.selected = YES;
+    } else if (self.prefixType == EditorWatermarkPrefixTypeOther) {
+        self.otherStyleBtn.selected = YES;
+    } else {
+        self.clearBtn.selected = YES;
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keybordWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keybordWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -85,6 +99,15 @@
 }
 
 - (void)dismissAnimating {
+    if ([self.delegate respondsToSelector:@selector(didChangeWatermarkText:prefixType:)]) {
+        EditorWatermarkPrefixType prefixType = EditorWatermarkPrefixTypeNone;
+        if (self.defaultStyleBtn.selected) {
+            prefixType = EditorWatermarkPrefixTypeNormal;
+        } else if (self.otherStyleBtn.selected) {
+            prefixType = EditorWatermarkPrefixTypeOther;
+        }
+        [self.delegate didChangeWatermarkText:self.tf.text prefixType:prefixType];
+    }
     [UIView animateWithDuration:0.3f animations:^{
         self.blurBgView.alpha = 0.f;
     } completion:^(BOOL finished) {
