@@ -13,6 +13,15 @@
 		620AC0B8209F4C3E0000580D /* ScrawlPixellateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 620AC0B7209F4C3E0000580D /* ScrawlPixellateUtil.m */; };
 		620AC0BA20A3568C0000580D /* Pixellate.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 620AC0B920A3568C0000580D /* Pixellate.cikernel */; };
 		6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */; };
+		62453DF520AFC77F00F20B98 /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF420AFC77F00F20B98 /* EditorViewController.m */; };
+		62453DF820AFC7AB00F20B98 /* EditorZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF720AFC7AB00F20B98 /* EditorZoomingScrollView.m */; };
+		62453DFB20AFCD3C00F20B98 /* EditorCloseAndSwitchControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DFA20AFCD3C00F20B98 /* EditorCloseAndSwitchControl.m */; };
+		62453DFE20AFDC3A00F20B98 /* EditorBottomToolbarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DFD20AFDC3A00F20B98 /* EditorBottomToolbarControl.m */; };
+		62453E0120AFF3EE00F20B98 /* EditorClipContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E0020AFF3EE00F20B98 /* EditorClipContext.m */; };
+		62453E0420B043FD00F20B98 /* EditorPixellateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E0320B043FD00F20B98 /* EditorPixellateContext.m */; };
+		62453E0A20B104FB00F20B98 /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E0820B104FA00F20B98 /* UIImage+GIF.m */; };
+		62453E0D20B105D500F20B98 /* img_cut_arrow@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 62453E0B20B105D400F20B98 /* img_cut_arrow@3x.gif */; };
+		62453E0E20B105D500F20B98 /* img_cut_arrow@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */; };
 		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
 		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
 		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
@@ -56,6 +65,22 @@
 		620AC0B920A3568C0000580D /* Pixellate.cikernel */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pixellate.cikernel; sourceTree = "<group>"; };
 		6240338C20AED9B700832A24 /* WatermarkEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatermarkEditorViewController.h; sourceTree = "<group>"; };
 		6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatermarkEditorViewController.m; sourceTree = "<group>"; };
+		62453DF320AFC77F00F20B98 /* EditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
+		62453DF420AFC77F00F20B98 /* EditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorViewController.m; sourceTree = "<group>"; };
+		62453DF620AFC7AB00F20B98 /* EditorZoomingScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorZoomingScrollView.h; sourceTree = "<group>"; };
+		62453DF720AFC7AB00F20B98 /* EditorZoomingScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorZoomingScrollView.m; sourceTree = "<group>"; };
+		62453DF920AFCD3C00F20B98 /* EditorCloseAndSwitchControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorCloseAndSwitchControl.h; sourceTree = "<group>"; };
+		62453DFA20AFCD3C00F20B98 /* EditorCloseAndSwitchControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorCloseAndSwitchControl.m; sourceTree = "<group>"; };
+		62453DFC20AFDC3A00F20B98 /* EditorBottomToolbarControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorBottomToolbarControl.h; sourceTree = "<group>"; };
+		62453DFD20AFDC3A00F20B98 /* EditorBottomToolbarControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorBottomToolbarControl.m; sourceTree = "<group>"; };
+		62453DFF20AFF3EE00F20B98 /* EditorClipContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorClipContext.h; sourceTree = "<group>"; };
+		62453E0020AFF3EE00F20B98 /* EditorClipContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorClipContext.m; sourceTree = "<group>"; };
+		62453E0220B043FD00F20B98 /* EditorPixellateContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorPixellateContext.h; sourceTree = "<group>"; };
+		62453E0320B043FD00F20B98 /* EditorPixellateContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorPixellateContext.m; sourceTree = "<group>"; };
+		62453E0820B104FA00F20B98 /* UIImage+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GIF.m"; sourceTree = "<group>"; };
+		62453E0920B104FB00F20B98 /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
+		62453E0B20B105D400F20B98 /* img_cut_arrow@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "img_cut_arrow@3x.gif"; sourceTree = "<group>"; };
+		62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "img_cut_arrow@2x.gif"; sourceTree = "<group>"; };
 		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
 		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
 		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
@@ -165,9 +190,30 @@
 			path = watermark;
 			sourceTree = "<group>";
 		};
+		62453DF220AFC75F00F20B98 /* editor */ = {
+			isa = PBXGroup;
+			children = (
+				62453DF320AFC77F00F20B98 /* EditorViewController.h */,
+				62453DF420AFC77F00F20B98 /* EditorViewController.m */,
+				62453DF620AFC7AB00F20B98 /* EditorZoomingScrollView.h */,
+				62453DF720AFC7AB00F20B98 /* EditorZoomingScrollView.m */,
+				62453DF920AFCD3C00F20B98 /* EditorCloseAndSwitchControl.h */,
+				62453DFA20AFCD3C00F20B98 /* EditorCloseAndSwitchControl.m */,
+				62453DFC20AFDC3A00F20B98 /* EditorBottomToolbarControl.h */,
+				62453DFD20AFDC3A00F20B98 /* EditorBottomToolbarControl.m */,
+				62453DFF20AFF3EE00F20B98 /* EditorClipContext.h */,
+				62453E0020AFF3EE00F20B98 /* EditorClipContext.m */,
+				62453E0220B043FD00F20B98 /* EditorPixellateContext.h */,
+				62453E0320B043FD00F20B98 /* EditorPixellateContext.m */,
+			);
+			path = editor;
+			sourceTree = "<group>";
+		};
 		625A6FE62095AA90007F1626 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				62453E0920B104FB00F20B98 /* UIImage+GIF.h */,
+				62453E0820B104FA00F20B98 /* UIImage+GIF.m */,
 				625A6FE72095AAB0007F1626 /* LazyProperty.h */,
 				625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */,
 				625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */,
@@ -269,6 +315,7 @@
 		62F8428D209555C000AE0316 /* ImageTailor */ = {
 			isa = PBXGroup;
 			children = (
+				62453DF220AFC75F00F20B98 /* editor */,
 				6240338B20AED97C00832A24 /* watermark */,
 				620AC0B1209DFF520000580D /* constants */,
 				620AC0AA209DFE5F0000580D /* scrawl */,
@@ -284,6 +331,8 @@
 				62F84292209555C000AE0316 /* ViewController.m */,
 				62F84294209555C000AE0316 /* Main.storyboard */,
 				62F84297209555C000AE0316 /* Assets.xcassets */,
+				62453E0C20B105D500F20B98 /* img_cut_arrow@2x.gif */,
+				62453E0B20B105D400F20B98 /* img_cut_arrow@3x.gif */,
 				62F84299209555C000AE0316 /* LaunchScreen.storyboard */,
 				62F8429C209555C000AE0316 /* Info.plist */,
 				62F8429D209555C000AE0316 /* main.m */,
@@ -361,7 +410,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62453E0D20B105D500F20B98 /* img_cut_arrow@3x.gif in Resources */,
 				62F8429B209555C000AE0316 /* LaunchScreen.storyboard in Resources */,
+				62453E0E20B105D500F20B98 /* img_cut_arrow@2x.gif in Resources */,
 				620AC0BA20A3568C0000580D /* Pixellate.cikernel in Resources */,
 				62F84298209555C000AE0316 /* Assets.xcassets in Resources */,
 				62F84296209555C000AE0316 /* Main.storyboard in Resources */,
@@ -425,16 +476,21 @@
 			files = (
 				625A70012095C1C1007F1626 /* ImagePickerItemSectionController.m in Sources */,
 				625A70132095E488007F1626 /* BaseViewController.m in Sources */,
+				62453E0120AFF3EE00F20B98 /* EditorClipContext.m in Sources */,
 				625A70202096B061007F1626 /* TailorNavigatorToolBarControl.m in Sources */,
 				625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */,
+				62453E0420B043FD00F20B98 /* EditorPixellateContext.m in Sources */,
 				6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */,
 				620AC0AD209DFE7C0000580D /* ScrawlViewController.m in Sources */,
 				625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */,
+				62453DFE20AFDC3A00F20B98 /* EditorBottomToolbarControl.m in Sources */,
+				62453DFB20AFCD3C00F20B98 /* EditorCloseAndSwitchControl.m in Sources */,
 				625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */,
 				625A701D2096AD3F007F1626 /* TailorViewController.m in Sources */,
 				625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */,
 				62F84293209555C000AE0316 /* ViewController.m in Sources */,
 				625A702A2096CA0A007F1626 /* TailorAssetModel.m in Sources */,
+				62453E0A20B104FB00F20B98 /* UIImage+GIF.m in Sources */,
 				625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */,
 				62F8429E209555C000AE0316 /* main.m in Sources */,
 				625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */,
@@ -449,7 +505,9 @@
 				62F84290209555C000AE0316 /* AppDelegate.m in Sources */,
 				625A6FF72095B253007F1626 /* PHCachingImageManager+Singleton.m in Sources */,
 				625A70072095CFEE007F1626 /* UIColor+Hex.m in Sources */,
+				62453DF820AFC7AB00F20B98 /* EditorZoomingScrollView.m in Sources */,
 				625A700F2095DBCE007F1626 /* ImagePickerBottomToolBarView.m in Sources */,
+				62453DF520AFC77F00F20B98 /* EditorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

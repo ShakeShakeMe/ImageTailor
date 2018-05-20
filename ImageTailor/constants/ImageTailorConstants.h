@@ -44,17 +44,31 @@ typedef NS_ENUM(NSInteger, ScrawlToolBarPixellateType){
     ScrawlToolBarPixellateTypeLarge
 };
 
-//typedef NS_ENUM(NSInteger, ScrawlToolBarWatermarkPosition){
-//    ScrawlToolBarWatermarkPositionNone = 0,
-//    ScrawlToolBarWatermarkPositionBottomLeft,
-//    ScrawlToolBarWatermarkPositionBottomCenter,
-//    ScrawlToolBarWatermarkPositionBottomRight
-//};
+typedef NS_ENUM(NSInteger, EditorToolBarSpacelineType){
+    EditorToolBarSpacelineTypeNone = 0,
+    EditorToolBarSpacelineTypeAllBounds,
+    EditorToolBarSpacelineTypeSpace
+};
+
+typedef NS_ENUM(NSInteger, EditorToolBarWatermarkType){
+    EditorToolBarWatermarkTypeNone = 0,
+    EditorToolBarWatermarkTypeCenter,
+    EditorToolBarWatermarkTypeLeft,
+    EditorToolBarWatermarkTypeRight
+};
+
+typedef NS_ENUM(NSInteger, EditorToolBarPhoneBoundsType){
+    EditorToolBarPhoneBoundsTypeNone = 0,
+    EditorToolBarPhoneBoundsTypeSilvery,
+    EditorToolBarPhoneBoundsTypeGold,
+    EditorToolBarPhoneBoundsTypeBlack,
+    EditorToolBarPhoneBoundsTypeIPhoneX
+};
 
 static CGFloat TailorMinZoomingScale = 0.5f;
 static CGFloat TailorMaxZoomingScale = 2.f;
 
 static CGFloat TailorDefaultZoomingSacleHorizontally = .5f;
-static CGFloat TailorDefaultZoomingSacleVertically = 1.f;
+static CGFloat TailorDefaultZoomingSacleVertically = 0.8f;
 
 #endif /* ImageTailorConstants_h */

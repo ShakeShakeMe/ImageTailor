@@ -45,18 +45,6 @@
 
 #pragma mark - custom events
 - (void) goScrawl {
-//    UIImage *snapshotImage = [self.zoomingScrollView tailoredImagesSnapshot];
-//    if (snapshotImage) {
-////        UIImageWriteToSavedPhotosAlbum(snapshotImage, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
-//        ScrawlViewController *scrawlVC = [[ScrawlViewController alloc] init];
-//        scrawlVC.snapshot = snapshotImage;
-//        scrawlVC.rects = [self.zoomingScrollView imageRectsOnSnapshot];
-//        scrawlVC.zoomScale = self.zoomingScrollView.zoomScale;
-//        scrawlVC.conentOffset = self.zoomingScrollView.contentOffset;
-//        scrawlVC.tileDirection = self.zoomingScrollView.tileDirection;
-//        [self.navigationController pushViewController:scrawlVC animated:YES];
-//    }
-    
     ScrawlViewController *scrawlVC = [[ScrawlViewController alloc] init];
     scrawlVC.assetModels = self.zoomingScrollView.assetModels;
     scrawlVC.zoomScale = self.zoomingScrollView.zoomScale;

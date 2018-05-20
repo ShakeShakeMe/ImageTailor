@@ -16,5 +16,6 @@ target :ImageTailor do
   pod 'KVOController',  '1.2.0'
   pod 'libextobjc',        '0.4.1'
   pod 'IGListKit',      '3.1.1'
+  pod 'FDFullscreenPopGesture',      '1.1'
   #pod 'MJRefresh',      '3.1.14'
 end

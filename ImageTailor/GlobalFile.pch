@@ -21,6 +21,7 @@
 #import <BlocksKit/UIView+BlocksKit.h>
 #import <BlocksKit/UIControl+BlocksKit.h>
 #import <libextobjc/extobjc.h>
+#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 
 #import "ConstStuff.h"
 #import "UIView+ViewFrame.h"

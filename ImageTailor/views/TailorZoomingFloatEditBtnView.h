@@ -22,5 +22,6 @@
 - (instancetype) initWithAlignment:(TailorZommingFloatEditAlignment)alignment;
 
 - (void) reset;
+- (void) beginEditing;
 
 @end

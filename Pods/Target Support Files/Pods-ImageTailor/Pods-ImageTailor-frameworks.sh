@@ -90,6 +90,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FDFullscreenPopGesture/FDFullscreenPopGesture.framework"
   install_framework "$BUILT_PRODUCTS_DIR/IGListKit/IGListKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD/MBProgressHUD.framework"
@@ -99,6 +100,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/BlocksKit/BlocksKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FDFullscreenPopGesture/FDFullscreenPopGesture.framework"
   install_framework "$BUILT_PRODUCTS_DIR/IGListKit/IGListKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/KVOController/KVOController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD/MBProgressHUD.framework"
