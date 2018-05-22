@@ -167,11 +167,20 @@
                                             self.phoneBoundsImageView.top * enlargeScale,
                                             self.phoneBoundsImageView.width * enlargeScale,
                                             self.phoneBoundsImageView.height * enlargeScale);
+        UIImage *phoneBoundsResizedImage = nil;
         if (self.phoneBoundsImageView.image
             && CGRectContainsRect(phoneBoundsRect, (CGRect){CGPointZero, imageContextSize})) {
             imageContextSize = phoneBoundsRect.size;
             extraMarginSize = CGSizeMake(-phoneBoundsRect.origin.x,-phoneBoundsRect.origin.y);
             phoneBoundsRect.origin = CGPointZero;
+            
+            // get resized phone bounds image
+            UIImage *image = self.phoneBoundsImageView.image;
+            CGSize resizedSize = CGSizeMake(image.size.width, image.size.width / imageContextSize.width * imageContextSize.height);
+            UIGraphicsBeginImageContext(resizedSize);
+            [image drawInRect:(CGRect){CGPointZero, resizedSize}];
+            phoneBoundsResizedImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
         }
         // draw on one bitmap
         UIGraphicsBeginImageContext(imageContextSize);
@@ -207,7 +216,9 @@
         [self.watermarkLabel drawViewHierarchyInRect:watermarkDrawRect afterScreenUpdates:YES];
         
         // 绘制边框
-        [self.phoneBoundsImageView drawViewHierarchyInRect:phoneBoundsRect afterScreenUpdates:YES];
+        if (phoneBoundsResizedImage) {
+            [phoneBoundsResizedImage drawInRect:phoneBoundsRect];
+        }
         
         UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();

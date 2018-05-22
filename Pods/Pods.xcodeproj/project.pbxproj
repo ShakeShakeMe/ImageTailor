@@ -352,7 +352,6 @@
 		0D82A9FADA23C1D8841D2BF3E390F39A /* NSMutableSet+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMutableSet+BlocksKit.m"; path = "BlocksKit/Core/NSMutableSet+BlocksKit.m"; sourceTree = "<group>"; };
 		0E5FA424976C75E8EF7176F332A22A4B /* UIActionSheet+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActionSheet+BlocksKit.h"; path = "BlocksKit/UIKit/UIActionSheet+BlocksKit.h"; sourceTree = "<group>"; };
 		13FF9376D20A1F10671289DF6D58F59B /* EXTConcreteProtocol.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTConcreteProtocol.m; path = extobjc/EXTConcreteProtocol.m; sourceTree = "<group>"; };
-		1472A06DE15D8653002A331219C28E62 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = vendor/RevealServer.framework; sourceTree = "<group>"; };
 		17BE90E5B3BE41078A6D5F02F6DA0717 /* IGListDebuggingUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGListDebuggingUtilities.m; path = Source/Internal/IGListDebuggingUtilities.m; sourceTree = "<group>"; };
 		18BE623ADEFACE3072994057E2171B36 /* NSURLConnection+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLConnection+BlocksKit.m"; path = "BlocksKit/DynamicDelegate/Foundation/NSURLConnection+BlocksKit.m"; sourceTree = "<group>"; };
 		18CA33249C776664B3FC93C76C542D78 /* NSOrderedSet+BlocksKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSOrderedSet+BlocksKit.m"; path = "BlocksKit/Core/NSOrderedSet+BlocksKit.m"; sourceTree = "<group>"; };
@@ -539,6 +538,7 @@
 		BFD8089E7A6343C45401CF68B85EF24A /* MASConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Masonry/MASConstraint.h; sourceTree = "<group>"; };
 		C025BCDDE9F8DA197683158E3C0126A8 /* IGListKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = IGListKit.modulemap; sourceTree = "<group>"; };
 		C08D97418C7F179B56987086FC8F5E9A /* IGListBindingSectionController+DebugDescription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "IGListBindingSectionController+DebugDescription.h"; path = "Source/Internal/IGListBindingSectionController+DebugDescription.h"; sourceTree = "<group>"; };
+		C10A04DF2BAFBC88C76A072DF4CEA101 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = vendor/RevealServer.framework; sourceTree = "<group>"; };
 		C1B1CB0E3B912650B0635FE1AE21628C /* NSMutableDictionary+BlocksKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+BlocksKit.h"; path = "BlocksKit/Core/NSMutableDictionary+BlocksKit.h"; sourceTree = "<group>"; };
 		C29C1D8FF2E57CE844BEBE3C0901E2EB /* Pods-ImageTailor-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ImageTailor-dummy.m"; sourceTree = "<group>"; };
 		C353D8CB284713A1B8F06DDBC2B653BD /* libextobjc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = libextobjc.framework; path = libextobjc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -711,14 +711,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		014725CD2C3B97035C5368363AF7929C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1472A06DE15D8653002A331219C28E62 /* RevealServer.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		049FDBDC14792B6B641C7FBB1D1175A0 /* IGListKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -730,6 +722,14 @@
 			path = IGListKit;
 			sourceTree = "<group>";
 		};
+		0B151B6CFC2CFF4DF9B309ACB01FADD4 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D7E13E9158AB31469611F868D4B2A82B /* Reveal-iOS-SDK */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
 		0B3F67A218D072233CDC9D0E1B543E53 /* EXTNil */ = {
 			isa = PBXGroup;
 			children = (
@@ -737,15 +737,6 @@
 				B4054268DA2EE11EB64233C7111781E2 /* EXTNil.m */,
 			);
 			name = EXTNil;
-			sourceTree = "<group>";
-		};
-		0FAF1FC10ADE6147C2D79FBFC91FA5AC /* Reveal-Server */ = {
-			isa = PBXGroup;
-			children = (
-				014725CD2C3B97035C5368363AF7929C /* Frameworks */,
-			);
-			name = "Reveal-Server";
-			path = "../Reveal-Server";
 			sourceTree = "<group>";
 		};
 		1093B57D06EE2E3E464BC936A43E8C63 /* Targets Support Files */ = {
@@ -789,14 +780,6 @@
 				A7EBDD429AB06D9EB7D571909EA16552 /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2B2B2A2B5A1653E1AF2899A5796A1F04 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0FAF1FC10ADE6147C2D79FBFC91FA5AC /* Reveal-Server */,
-			);
-			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		2CEBD571047FA9BD00BE9F4B00373BB6 /* libextobjc */ = {
@@ -1113,7 +1096,7 @@
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				2B2B2A2B5A1653E1AF2899A5796A1F04 /* Development Pods */,
+				0B151B6CFC2CFF4DF9B309ACB01FADD4 /* Development Pods */,
 				20B56609144CE204DFA8221F742B2D76 /* Frameworks */,
 				364B1061D7838984A6EEB10A8E2CD0A7 /* Pods */,
 				F38C5590F80465A565D1B04F8D14A5CE /* Products */,
@@ -1207,6 +1190,14 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		BF638E640955C8D0D6D6D2F28CC03990 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C10A04DF2BAFBC88C76A072DF4CEA101 /* RevealServer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C18543683F997631395274AE6B055522 /* Pods-ImageTailor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,6 +1256,15 @@
 			);
 			name = BlocksKit;
 			path = BlocksKit;
+			sourceTree = "<group>";
+		};
+		D7E13E9158AB31469611F868D4B2A82B /* Reveal-iOS-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				BF638E640955C8D0D6D6D2F28CC03990 /* Frameworks */,
+			);
+			name = "Reveal-iOS-SDK";
+			path = "../Reveal-iOS-SDK";
 			sourceTree = "<group>";
 		};
 		DDA6872FE7FCC4B78ACCD68AF9178FBA /* RuntimeExtensions */ = {
