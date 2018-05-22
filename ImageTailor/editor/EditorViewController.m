@@ -123,6 +123,8 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 - (void) toolbarControl:(EditorBottomToolbarControl *)toolbarControl
                clickBtn:(EditorToolbarBtnType)btnType
                selected:(BOOL)selected {
+    
+    [self.zoomingScrollView pixellateEnd];
     switch (btnType) {
         case EditorToolbarBtnTypeClipNormal:
         {
@@ -142,16 +144,19 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
         case EditorToolbarBtnTypeToolSpaceline:
         {
             [self showSpacelineFloatView:selected];
+            [self.zoomingScrollView pixellateEnd];
         }
             break;
         case EditorToolbarBtnTypeToolWatermark:
         {
             [self showWatermarkFloatView:selected];
+            [self.zoomingScrollView pixellateEnd];
         }
             break;
         case EditorToolbarBtnTypeToolPhoneBounds:
         {
             [self showPhoneBoundsFloatView:selected];
+            [self.zoomingScrollView pixellateEnd];
         }
             break;
             
@@ -177,7 +182,7 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 }
 
 - (void) spacelineWithType:(EditorToolBarSpacelineType)spacelineType {
-    
+    [self.zoomingScrollView showSpacelineWithType:spacelineType];
 }
 
 - (void) watermarkWithType:(EditorToolBarWatermarkType)watermarkType {
@@ -212,6 +217,7 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     [self.floatView removeAllSubviews];
     if (show) {
         [self addSubFloatView:self.pixellateFloatView];
+        [self.zoomingScrollView pixellateWithType:[self.pixellateFloatView currentPixellateType]];
     }
     [self.view setNeedsLayout];
 }
@@ -286,6 +292,7 @@ LazyPropertyWithInit(UIButton, saveBtn, {
         vc.assetModels = self.zoomingScrollView.assetModels;
         vc.pixellateImageViews = self.zoomingScrollView.pixellateContext.pixellateImageViews;
         vc.watermarkLabel = self.zoomingScrollView.watermarkContext.watermarkLabel;
+        vc.lineViews = [self.zoomingScrollView.spacelineContext allLineViews];
         vc.phoneBoundsImageView = self.zoomingScrollView.phoneBoundsContext.phoneBoundsImageView;
         vc.imageViewsUnionRect = self.zoomingScrollView.imageViewsUnionRect;
         [self.navigationController presentViewController:vc animated:NO completion:nil];

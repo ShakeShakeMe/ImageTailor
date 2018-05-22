@@ -45,6 +45,7 @@ typedef NS_ENUM(NSInteger, EditorToolbarBtnType){
 
 @interface EditorBottomToolbarPixellateFloatView : UIView
 @property (nonatomic, weak) id<EditorBottomToolbarFloatViewDelegate> delegate;
+- (ScrawlToolBarPixellateType) currentPixellateType;
 - (void) reset;
 @end
 

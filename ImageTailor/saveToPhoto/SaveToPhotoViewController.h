@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSArray<TailorAssetModel *> *assetModels;
 @property (nonatomic, strong) NSArray<UIImageView *> *pixellateImageViews;
 @property (nonatomic, strong) UILabel *watermarkLabel;
+@property (nonatomic, strong) NSArray<UIView *> *lineViews;
 @property (nonatomic, strong) UIImageView *phoneBoundsImageView;
 @property (nonatomic, assign) CGRect imageViewsUnionRect;
 

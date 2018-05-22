@@ -215,6 +215,15 @@
                    self.watermarkLabel.height * enlargeScale);
         [self.watermarkLabel drawViewHierarchyInRect:watermarkDrawRect afterScreenUpdates:YES];
         
+        // 辅助线
+        [self.lineViews enumerateObjectsUsingBlock:^(UIView * line, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect lineRect = CGRectMake((line.left - self.imageViewsUnionRect.origin.x) * enlargeScale + extraMarginSize.width,
+                                         (line.top - self.imageViewsUnionRect.origin.y) * enlargeScale + extraMarginSize.height,
+                                         line.width * enlargeScale,
+                                         line.height * enlargeScale);
+            [line drawViewHierarchyInRect:lineRect afterScreenUpdates:YES];
+        }];
+        
         // 绘制边框
         if (phoneBoundsResizedImage) {
             [phoneBoundsResizedImage drawInRect:phoneBoundsRect];

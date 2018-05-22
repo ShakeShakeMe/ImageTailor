@@ -24,7 +24,7 @@
                                                                          attributes:@{NSShadowAttributeName: shadow}];
     self.watermarkLabel.hidden = text.length == 0;
     [self.imageContainerView addSubview:self.watermarkLabel];
-    self.watermarkLabel.layer.transform = CATransform3DMakeTranslation(0, 0, 10.f);
+    self.watermarkLabel.layer.transform = CATransform3DMakeTranslation(0, 0, 100.f);
     
     CGFloat extraOffset = 0.03f * MIN(CGRectGetWidth(unionRect), CGRectGetHeight(unionRect));
     CGFloat fontSize = MAX(10, ceilf(extraOffset));
@@ -57,7 +57,6 @@
 }
 
 LazyPropertyWithInit(UILabel, watermarkLabel, {
-//    _watermarkLabel.font = [UIFont systemFontOfSize:10];
     _watermarkLabel.textColor = [UIColor whiteColor];
     _watermarkLabel.hidden = YES;
 })

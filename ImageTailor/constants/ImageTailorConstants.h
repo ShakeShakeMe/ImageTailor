@@ -46,8 +46,8 @@ typedef NS_ENUM(NSInteger, ScrawlToolBarPixellateType){
 
 typedef NS_ENUM(NSInteger, EditorToolBarSpacelineType){
     EditorToolBarSpacelineTypeNone = 0,
-    EditorToolBarSpacelineTypeAllBounds,
-    EditorToolBarSpacelineTypeSpace
+    EditorToolBarSpacelineTypeSpace,
+    EditorToolBarSpacelineTypeAllBounds
 };
 
 typedef NS_ENUM(NSInteger, EditorToolBarWatermarkType){

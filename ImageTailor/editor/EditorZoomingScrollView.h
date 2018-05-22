@@ -13,6 +13,7 @@
 #import "EditorPixellateContext.h"
 #import "EditorWatermarkContext.h"
 #import "PhoneBoundsContext.h"
+#import "EditorSpacelineContext.h"
 
 @interface EditorZoomingScrollView : UIScrollView
 
@@ -23,6 +24,7 @@
 @property (nonatomic, strong, readonly) EditorClipContext *clipContext;
 @property (nonatomic, strong, readonly) EditorPixellateContext *pixellateContext;
 @property (nonatomic, strong, readonly) EditorWatermarkContext *watermarkContext;
+@property (nonatomic, strong, readonly) EditorSpacelineContext *spacelineContext;
 @property (nonatomic, strong, readonly) PhoneBoundsContext *phoneBoundsContext;
 @property (nonatomic, assign, readonly) CGRect imageViewsUnionRect;
 
@@ -33,11 +35,16 @@
 
 - (void) pixellateWithType:(ScrawlToolBarPixellateType)pixellateType;
 - (void) pixellateWithdraw;
+- (void) pixellateEnd;
 - (void) pixellateClear;
 
 // 水印
 - (void) showWatermarkWithType:(EditorToolBarWatermarkType)watermarkType text:(NSString *)text;
 - (void) hideWatermark;
+
+// 辅助线
+- (void) showSpacelineWithType:(EditorToolBarSpacelineType)spacelineType;
+- (void) hideSpaceline;
 
 // 边框
 - (void) showPhoneBoundsWithType:(EditorToolBarPhoneBoundsType)phoneBoundsType;

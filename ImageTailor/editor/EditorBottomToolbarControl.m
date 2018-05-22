@@ -173,6 +173,8 @@ LazyPropertyWithInit(UIButton, toolPhoneBoundsBtn, {
         [self addSubview:self.largeBtn];
         [self addSubview:self.middleBtn];
         [self addSubview:self.smallBtn];
+        
+        [self reset];
     }
     return self;
 }
@@ -183,10 +185,21 @@ LazyPropertyWithInit(UIButton, toolPhoneBoundsBtn, {
     self.middleBtn.frame = CGRectMake(self.largeBtn.right, 0.f, self.width / 4.f, self.height);
     self.smallBtn.frame = CGRectMake(self.middleBtn.right, 0.f, self.width / 4.f, self.height);
 }
+- (ScrawlToolBarPixellateType) currentPixellateType {
+    if (self.largeBtn.selected) {
+        return ScrawlToolBarPixellateTypeLarge;
+    } else if (self.middleBtn.selected) {
+        return ScrawlToolBarPixellateTypeMiddle;
+    } else if (self.smallBtn.selected) {
+        return ScrawlToolBarPixellateTypeSmall;
+    }
+    return ScrawlToolBarPixellateTypeNone;
+}
 - (void) reset {
     [@[self.largeBtn, self.middleBtn, self.smallBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
+    self.middleBtn.selected = YES;
 }
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
     [@[self.largeBtn, self.middleBtn, self.smallBtn] bk_each:^(UIButton *btn) {

@@ -21,6 +21,7 @@
 @property (nonatomic, strong, readwrite) EditorClipContext *clipContext;
 @property (nonatomic, strong, readwrite) EditorPixellateContext *pixellateContext;
 @property (nonatomic, strong, readwrite) EditorWatermarkContext *watermarkContext;
+@property (nonatomic, strong, readwrite) EditorSpacelineContext *spacelineContext;
 @property (nonatomic, strong, readwrite) PhoneBoundsContext *phoneBoundsContext;
 @end
 
@@ -45,6 +46,9 @@
         
         self.watermarkContext = [[EditorWatermarkContext alloc] init];
         self.watermarkContext.imageContainerView = self.imageViewsContainer;
+        
+        self.spacelineContext = [[EditorSpacelineContext alloc] init];
+        self.spacelineContext.imageContainerView = self.imageViewsContainer;
         
         self.phoneBoundsContext = [[PhoneBoundsContext alloc] init];
         self.phoneBoundsContext.imageContainerView = self.imageViewsContainer;
@@ -72,6 +76,11 @@
     self.clipContext.tileDirection = tileDirection;
     self.clipContext.imagesCnt = self.imageViews.count;
     [self.clipContext setup];
+    
+    // 辅助线
+    self.spacelineContext.tileDirection = tileDirection;
+    self.spacelineContext.imagesCnt = self.imageViews.count;
+    [self.spacelineContext setup];
     
     // pixellate
     self.pixellateContext.tileDirection = tileDirection;
@@ -117,6 +126,11 @@
     [self setNeedsLayout];
 }
 
+- (void) pixellateEnd {
+    [self.pixellateContext endDoPixellate];
+    self.panGestureRecognizer.minimumNumberOfTouches = 1;
+}
+
 - (void) pixellateClear {
     [self.pixellateContext clear];
 }
@@ -128,6 +142,20 @@
 
 - (void) hideWatermark {
     [self.watermarkContext hideWatermark];
+}
+
+- (void) showSpacelineWithType:(EditorToolBarSpacelineType)spacelineType {
+    if (spacelineType == EditorToolBarSpacelineTypeNone) {
+        [self.spacelineContext hide];
+    } else {
+        [self.spacelineContext showSpacelineWithType:spacelineType];
+    }
+    [self setNeedsLayout];
+}
+
+- (void) hideSpaceline {
+    [self.spacelineContext hide];
+    [self setNeedsLayout];
 }
 
 - (void) showPhoneBoundsWithType:(EditorToolBarPhoneBoundsType)phoneBoundsType {
@@ -149,6 +177,8 @@
     [self.watermarkContext clear];
     [self.pixellateContext clear];
     [self.phoneBoundsContext hide];
+    [self.spacelineContext hide];
+    [self setNeedsLayout];
 }
 
 - (void)zoomToReset {
@@ -233,6 +263,8 @@
     CGRect visableRect = [self.superview convertRect:((CGRect){CGPointZero, self.size}) toView:self.imageViewsContainer];
     CGFloat scaledBtnSizeVector= 1.f / self.zoomScale * 20.f;
     [self.clipContext didChangeVisableRect:visableRect imageRects:allImageRects scaledBtnSizeVector:scaledBtnSizeVector];
+    
+    [self.spacelineContext didChangeAllImageViewsRect:imageViewsUnionRect imageRects:allImageRects];
 }
 
 #pragma mark - touch event

@@ -37,6 +37,7 @@
 		625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A702C2096D84A007F1626 /* TailorBottomToolBarControl.m */; };
 		625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A702F20976BE6007F1626 /* TailorReserveInsetsClipedImageView.m */; };
 		625A703320981819007F1626 /* TailorZoomingFloatEditBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A703220981819007F1626 /* TailorZoomingFloatEditBtnView.m */; };
+		62A7734020B435300039CEF7 /* EditorSpacelineContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A7733F20B435300039CEF7 /* EditorSpacelineContext.m */; };
 		62F84290209555C000AE0316 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F8428F209555C000AE0316 /* AppDelegate.m */; };
 		62F84293209555C000AE0316 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F84292209555C000AE0316 /* ViewController.m */; };
 		62F84296209555C000AE0316 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62F84294209555C000AE0316 /* Main.storyboard */; };
@@ -111,6 +112,8 @@
 		625A702F20976BE6007F1626 /* TailorReserveInsetsClipedImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorReserveInsetsClipedImageView.m; sourceTree = "<group>"; };
 		625A703120981819007F1626 /* TailorZoomingFloatEditBtnView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TailorZoomingFloatEditBtnView.h; sourceTree = "<group>"; };
 		625A703220981819007F1626 /* TailorZoomingFloatEditBtnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TailorZoomingFloatEditBtnView.m; sourceTree = "<group>"; };
+		62A7733E20B435300039CEF7 /* EditorSpacelineContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorSpacelineContext.h; sourceTree = "<group>"; };
+		62A7733F20B435300039CEF7 /* EditorSpacelineContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorSpacelineContext.m; sourceTree = "<group>"; };
 		62F8428B209555C000AE0316 /* ImageTailor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageTailor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F8428E209555C000AE0316 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		62F8428F209555C000AE0316 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				62453E1020B120DF00F20B98 /* EditorWatermarkContext.m */,
 				62453E1C20B1A1E400F20B98 /* PhoneBoundsContext.h */,
 				62453E1D20B1A1E400F20B98 /* PhoneBoundsContext.m */,
+				62A7733E20B435300039CEF7 /* EditorSpacelineContext.h */,
+				62A7733F20B435300039CEF7 /* EditorSpacelineContext.m */,
 			);
 			path = editor;
 			sourceTree = "<group>";
@@ -452,6 +457,7 @@
 				625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */,
 				62453E0420B043FD00F20B98 /* EditorPixellateContext.m in Sources */,
 				62453E1E20B1A1E400F20B98 /* PhoneBoundsContext.m in Sources */,
+				62A7734020B435300039CEF7 /* EditorSpacelineContext.m in Sources */,
 				6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */,
 				625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */,
 				62453DFE20AFDC3A00F20B98 /* EditorBottomToolbarControl.m in Sources */,
