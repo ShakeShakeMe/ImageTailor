@@ -21,6 +21,9 @@
 		62453E1520B1819000F20B98 /* SaveToPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */; };
 		62453E1920B19C8800F20B98 /* Pixellate.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 62453E1820B19C8800F20B98 /* Pixellate.cikernel */; };
 		62453E1E20B1A1E400F20B98 /* PhoneBoundsContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E1D20B1A1E400F20B98 /* PhoneBoundsContext.m */; };
+		62453E2220B45E9400F20B98 /* ImagePickerCatalogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E2120B45E9400F20B98 /* ImagePickerCatalogView.m */; };
+		62453E2520B4691800F20B98 /* PhotoAssetsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E2420B4691800F20B98 /* PhotoAssetsService.m */; };
+		62453E2A20B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453E2920B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.m */; };
 		625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FE92095AE08007F1626 /* NSArray+IGListExtension.m */; };
 		625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FEC2095AE1B007F1626 /* NSDictionary+IGListExtension.m */; };
 		625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 625A6FF02095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m */; };
@@ -76,6 +79,14 @@
 		62453E1820B19C8800F20B98 /* Pixellate.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pixellate.cikernel; sourceTree = "<group>"; };
 		62453E1C20B1A1E400F20B98 /* PhoneBoundsContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneBoundsContext.h; sourceTree = "<group>"; };
 		62453E1D20B1A1E400F20B98 /* PhoneBoundsContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneBoundsContext.m; sourceTree = "<group>"; };
+		62453E2020B45E9400F20B98 /* ImagePickerCatalogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerCatalogView.h; sourceTree = "<group>"; };
+		62453E2120B45E9400F20B98 /* ImagePickerCatalogView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerCatalogView.m; sourceTree = "<group>"; };
+		62453E2320B4691800F20B98 /* PhotoAssetsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoAssetsService.h; sourceTree = "<group>"; };
+		62453E2420B4691800F20B98 /* PhotoAssetsService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoAssetsService.m; sourceTree = "<group>"; };
+		62453E2620B4731900F20B98 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		62453E2720B4731900F20B98 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		62453E2820B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePickerAssetGroupCollectionViewCell.h; sourceTree = "<group>"; };
+		62453E2920B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerAssetGroupCollectionViewCell.m; sourceTree = "<group>"; };
 		625A6FE52095A8DD007F1626 /* GlobalFile.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFile.pch; sourceTree = "<group>"; };
 		625A6FE72095AAB0007F1626 /* LazyProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LazyProperty.h; sourceTree = "<group>"; };
 		625A6FE82095AE08007F1626 /* NSArray+IGListExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+IGListExtension.h"; sourceTree = "<group>"; };
@@ -199,6 +210,19 @@
 			path = saveToPhoto;
 			sourceTree = "<group>";
 		};
+		62453E1F20B45E4000F20B98 /* imagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				62453E2020B45E9400F20B98 /* ImagePickerCatalogView.h */,
+				62453E2120B45E9400F20B98 /* ImagePickerCatalogView.m */,
+				62453E2320B4691800F20B98 /* PhotoAssetsService.h */,
+				62453E2420B4691800F20B98 /* PhotoAssetsService.m */,
+				62453E2820B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.h */,
+				62453E2920B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.m */,
+			);
+			path = imagePicker;
+			sourceTree = "<group>";
+		};
 		625A6FE62095AA90007F1626 /* util */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +316,7 @@
 		62F8428D209555C000AE0316 /* ImageTailor */ = {
 			isa = PBXGroup;
 			children = (
+				62453E1F20B45E4000F20B98 /* imagePicker */,
 				62453E1220B1816B00F20B98 /* saveToPhoto */,
 				62453DF220AFC75F00F20B98 /* editor */,
 				6240338B20AED97C00832A24 /* watermark */,
@@ -451,16 +476,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62453E2520B4691800F20B98 /* PhotoAssetsService.m in Sources */,
 				625A70012095C1C1007F1626 /* ImagePickerItemSectionController.m in Sources */,
 				625A70132095E488007F1626 /* BaseViewController.m in Sources */,
 				62453E0120AFF3EE00F20B98 /* EditorClipContext.m in Sources */,
 				625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */,
+				62453E2A20B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.m in Sources */,
 				62453E0420B043FD00F20B98 /* EditorPixellateContext.m in Sources */,
 				62453E1E20B1A1E400F20B98 /* PhoneBoundsContext.m in Sources */,
 				62A7734020B435300039CEF7 /* EditorSpacelineContext.m in Sources */,
 				6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */,
 				625A703020976BE6007F1626 /* TailorReserveInsetsClipedImageView.m in Sources */,
 				62453DFE20AFDC3A00F20B98 /* EditorBottomToolbarControl.m in Sources */,
+				62453E2220B45E9400F20B98 /* ImagePickerCatalogView.m in Sources */,
 				62453DFB20AFCD3C00F20B98 /* EditorCloseAndSwitchControl.m in Sources */,
 				625A6FEA2095AE08007F1626 /* NSArray+IGListExtension.m in Sources */,
 				625A702D2096D84A007F1626 /* TailorBottomToolBarControl.m in Sources */,
@@ -492,6 +520,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				62F84295209555C000AE0316 /* Base */,
+				62453E2620B4731900F20B98 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -500,6 +529,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				62F8429A209555C000AE0316 /* Base */,
+				62453E2720B4731900F20B98 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -511,6 +541,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -566,6 +597,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -617,14 +649,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2293A6ZPW6;
+				DEVELOPMENT_TEAM = T3C3G75DXL;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ImageTailor/GlobalFile.pch;
 				INFOPLIST_FILE = ImageTailor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.li.ding.ImageTailor.shakeme.dl;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.ding.ImageTailor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -636,14 +668,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2293A6ZPW6;
+				DEVELOPMENT_TEAM = T3C3G75DXL;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ImageTailor/GlobalFile.pch;
 				INFOPLIST_FILE = ImageTailor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.li.ding.ImageTailor.shakeme.dl;
+				PRODUCT_BUNDLE_IDENTIFIER = com.li.ding.ImageTailor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
