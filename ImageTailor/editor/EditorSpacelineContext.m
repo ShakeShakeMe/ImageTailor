@@ -87,7 +87,7 @@
     self.spacelineType = EditorToolBarSpacelineTypeNone;
 }
 
-- (NSArray<UIView *> *) allLineViews {
+- (NSArray<UIView *> *) allVisableLineViews {
     NSMutableArray *spacelines = [@[] mutableCopy];
     [spacelines addObjectsFromArray:[self.boundslineViews bk_select:^BOOL(UIView *line) {
         return !line.hidden;

@@ -170,7 +170,8 @@
 - (BOOL) hasChanged {
     return !self.watermarkContext.watermarkLabel.hidden
             || self.pixellateContext.pixellateImageViews.count > 0
-            || !self.phoneBoundsContext.phoneBoundsImageView.hidden;
+            || !self.phoneBoundsContext.phoneBoundsImageView.hidden
+            || self.spacelineContext.allVisableLineViews.count > 0;
 }
 
 - (void) abandonAllTailorChanges {

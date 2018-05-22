@@ -25,6 +25,6 @@
 - (void) showSpacelineWithType:(EditorToolBarSpacelineType)spacelineType;
 - (void) hide;
 
-- (NSArray<UIView *> *) allLineViews;
+- (NSArray<UIView *> *) allVisableLineViews;
 
 @end

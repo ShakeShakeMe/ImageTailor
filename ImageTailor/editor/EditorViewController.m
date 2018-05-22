@@ -292,7 +292,7 @@ LazyPropertyWithInit(UIButton, saveBtn, {
         vc.assetModels = self.zoomingScrollView.assetModels;
         vc.pixellateImageViews = self.zoomingScrollView.pixellateContext.pixellateImageViews;
         vc.watermarkLabel = self.zoomingScrollView.watermarkContext.watermarkLabel;
-        vc.lineViews = [self.zoomingScrollView.spacelineContext allLineViews];
+        vc.lineViews = [self.zoomingScrollView.spacelineContext allVisableLineViews];
         vc.phoneBoundsImageView = self.zoomingScrollView.phoneBoundsContext.phoneBoundsImageView;
         vc.imageViewsUnionRect = self.zoomingScrollView.imageViewsUnionRect;
         [self.navigationController presentViewController:vc animated:NO completion:nil];
