@@ -205,22 +205,21 @@
 }
 
 - (void) showOrHideCatalogView {
-    BOOL catalogShouldShowing = NO;
     if (!self.isCatalogShowing) {
-        catalogShouldShowing = YES;
+        self.isCatalogShowing = YES;
         self.catalogView.currentAssetsGroup = self.currentAssetGroup;
         [self.catalogView forceReload];
+    } else {
+        self.isCatalogShowing = NO;
     }
-    CGFloat catalogViewTop = catalogShouldShowing ? self.mergedSafeAreaInsets.top : self.view.height;
+    CGFloat catalogViewTop = self.isCatalogShowing ? self.mergedSafeAreaInsets.top : self.view.height;
     [UIView animateWithDuration:0.3f animations:^{
-        self.navTitleImageView.transform = catalogShouldShowing ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
+        self.navTitleImageView.transform = self.isCatalogShowing ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
         self.catalogView.frame = CGRectMake(0.f,
                                             catalogViewTop,
-                                            self.view.height,
+                                            self.view.width,
                                             self.view.height - self.mergedSafeAreaInsets.top - self.mergedSafeAreaInsets.bottom);
     } completion:^(BOOL finished) {
-        [self.view setNeedsLayout];
-        self.isCatalogShowing = catalogShouldShowing;
     }];
 }
 
