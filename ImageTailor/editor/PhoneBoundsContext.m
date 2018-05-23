@@ -25,11 +25,14 @@
                                    @(EditorToolBarPhoneBoundsTypeBlack): @"img_mockup_3",
                                    @(EditorToolBarPhoneBoundsTypeIPhoneX): @"img_mockup_ipx"
                                    };
-    UIImage *phoneBoundsImage = [UIImage imageNamed:imageNameMap[@(phoneBoundsType)]];
+    BOOL isVertical = CGRectGetWidth(self.imageViewsUnionRect) < CGRectGetHeight(self.imageViewsUnionRect);
+    NSMutableString *imageName = [imageNameMap[@(phoneBoundsType)] mutableCopy];
+    if (!isVertical) {
+        [imageName appendString:@"_h"];
+    }
+    UIImage *phoneBoundsImage = [UIImage imageNamed:imageName];
     self.phoneBoundsImageView.image = phoneBoundsImage;
     [self.imageContainerView addSubview:self.phoneBoundsImageView];
-
-    BOOL isVertical = CGRectGetWidth(self.imageViewsUnionRect) < CGRectGetHeight(self.imageViewsUnionRect);
     
     CGFloat enlargeScale = (1444.f - 200.f) / CGRectGetWidth(self.imageViewsUnionRect);
     if (!isVertical) {
@@ -43,8 +46,8 @@
     CGFloat width = (CGRectGetWidth(self.imageViewsUnionRect) + 2.f * leftMargin) * enlargeScale;
     CGFloat height = (CGRectGetHeight(self.imageViewsUnionRect) + topMargin + bottomMargin) * enlargeScale;
     if (!isVertical) {
-        width = (CGRectGetHeight(self.imageViewsUnionRect) + 2.f * leftMargin) * enlargeScale;
-        height = (CGRectGetWidth(self.imageViewsUnionRect) + topMargin + bottomMargin) * enlargeScale;
+        width = (CGRectGetWidth(self.imageViewsUnionRect) + topMargin + bottomMargin) * enlargeScale;
+        height = (CGRectGetHeight(self.imageViewsUnionRect) + 2.f * leftMargin) * enlargeScale;
     }
     self.phoneBoundsImageView.frame = CGRectMake(0.f, 0.f, width, height);
     self.phoneBoundsImageView.center = CGPointMake(CGRectGetMidX(self.imageViewsUnionRect), CGRectGetMidY(self.imageViewsUnionRect));
@@ -52,7 +55,7 @@
     CATransform3D transform = CATransform3DMakeTranslation(0, 0, 1000);
     transform = CATransform3DScale(transform, 1.f / enlargeScale, 1.f / enlargeScale, 1);
     if (!isVertical) {
-        transform = CATransform3DRotate(transform, -M_PI_2, 0, 0, 1);
+//        transform = CATransform3DRotate(transform, M_PI, 0, 0, 1);
     }
     self.phoneBoundsImageView.layer.transform = transform;
     self.phoneBoundsImageView.hidden = NO;

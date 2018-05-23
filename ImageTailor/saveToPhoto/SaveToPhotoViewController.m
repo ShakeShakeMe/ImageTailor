@@ -214,6 +214,9 @@
             // get resized phone bounds image
             UIImage *image = self.phoneBoundsImageView.image;
             CGSize resizedSize = CGSizeMake(image.size.width, image.size.width / imageContextSize.width * imageContextSize.height);
+            if (CGRectGetWidth(phoneBoundsRect) > CGRectGetHeight(phoneBoundsRect)) {
+                resizedSize = CGSizeMake(image.size.width / imageContextSize.height * imageContextSize.width, image.size.height);
+            }
             UIGraphicsBeginImageContext(resizedSize);
             [image drawInRect:(CGRect){CGPointZero, resizedSize}];
             phoneBoundsResizedImage = UIGraphicsGetImageFromCurrentImageContext();

@@ -106,11 +106,11 @@
 #pragma mark - PhotoAssetsServiceDelegate
 - (void) loadPhotoWithDefaultAssetGroup:(AssetsGroup *)defaultAssetGroup
                       assetsGroupsArray:(NSArray<AssetsGroup *> *)assetsGroupsArray {
-    NSMutableString *groupNames = [NSMutableString string];
-    [assetsGroupsArray enumerateObjectsUsingBlock:^(AssetsGroup * assetGroup, NSUInteger idx, BOOL * _Nonnull stop) {
-        [groupNames appendFormat:@"%@[%@], ", assetGroup.groupName, @(assetGroup.assetCount)];
-    }];
-    NSLog(@"groupNames: %@", groupNames);
+//    NSMutableString *groupNames = [NSMutableString string];
+//    [assetsGroupsArray enumerateObjectsUsingBlock:^(AssetsGroup * assetGroup, NSUInteger idx, BOOL * _Nonnull stop) {
+//        [groupNames appendFormat:@"%@[%@], ", assetGroup.groupName, @(assetGroup.assetCount)];
+//    }];
+//    NSLog(@"groupNames: %@", groupNames);
     
     self.currentAssetGroup = defaultAssetGroup;
     if (self.isCatalogShowing) {
