@@ -8,6 +8,8 @@
 
 #import "SaveToPhotoViewController.h"
 #import "UIAlertView+BlocksKit.h"
+#import <sys/sysctl.h>
+#import <mach/mach.h>
 
 @interface SaveToPhotoViewController ()
 @property (nonatomic, strong) UIVisualEffectView *blurBgView;
@@ -111,6 +113,38 @@
     NSMutableArray *images = [@[] mutableCopy];
     dispatch_group_t requestGroup = dispatch_group_create();
     
+    __block CGFloat maxImageVector = 0.f;
+    [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGFloat originImageWidth = assetModel.asset.pixelWidth;
+        CGFloat originImageHeight = assetModel.asset.pixelHeight;
+        CGFloat imageVector = isVertically ? originImageWidth : originImageHeight;
+        maxImageVector = MAX(maxImageVector, imageVector);
+    }];
+    __block CGFloat otherSideSum = 0.f;
+    [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGFloat originImageWidth = assetModel.asset.pixelWidth;
+        CGFloat originImageHeight = assetModel.asset.pixelHeight;
+        
+        CGFloat enlargeScale = isVertically ? (maxImageVector / originImageWidth) : (maxImageVector / originImageHeight);
+        otherSideSum += (isVertically ? originImageHeight : originImageWidth) * enlargeScale;
+    }];
+    
+    // 判断是否图片过大
+    // 占用内存大小不能超过当前总内存大小的一半
+    long long memoryToUse = maxImageVector * otherSideSum * 8 / 1024 / 1024;
+    long long totalMemorySize = [self totalMemorySize];
+    long long usedMemory = [self usedMemory];
+    CGFloat reduceScale = 1.f;
+    if (totalMemorySize * 0.5f - usedMemory < memoryToUse) {
+        reduceScale = (totalMemorySize * 0.5f - usedMemory) / memoryToUse;
+    }
+//    NSLog(@"reduceScale: %@,memoryToUse: %@,totalMemorySize: %@, availableMemory: %@, usedMemory: %@",
+//          @(reduceScale),
+//          @(memoryToUse),
+//          @([self totalMemorySize]),
+//          @([self availableMemory]),
+//          @([self usedMemory]));
+    
     CGFloat fetchOneImageRatio = 40.f / self.assetModels.count;
     [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
         dispatch_group_enter(requestGroup);
@@ -123,7 +157,7 @@
         
         [[PHCachingImageManager sharedInstance]
          requestImageForAsset:assetModel.asset
-         targetSize:CGSizeMake(assetModel.asset.pixelWidth, assetModel.asset.pixelHeight)
+         targetSize:CGSizeMake(assetModel.asset.pixelWidth * reduceScale, assetModel.asset.pixelHeight * reduceScale)
          contentMode:PHImageContentModeDefault
          options:options
          resultHandler:^(UIImage *result, NSDictionary *info) {
@@ -137,10 +171,13 @@
         
         // 计算绘制每一个原图时(每个原图大小可能不一样)，应该绘制成的大小
         __block CGFloat maxImageVector = 0.f;
+        __block CGFloat otherSideSum = 0.f;
         [images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL * _Nonnull stop) {
             CGFloat imageVector = (isVertically ? image.size.width : image.size.height) * image.scale;
+            otherSideSum += (isVertically ? image.size.height : image.size.width) * image.scale;
             maxImageVector = MAX(maxImageVector, imageVector);
         }];
+        
         __block CGFloat imageVerticalVectorSum = 0.f;
         __block CGRect preImageRect = CGRectZero;
         // 计算每个原图应该占用的大小
@@ -235,6 +272,41 @@
         
         [self saveImage:mergedImage];
     });
+}
+
+
+-(long long)totalMemorySize {
+    return[NSProcessInfo processInfo].physicalMemory / 1024.0 / 1024.0;
+}
+
+// 获取当前设备可用内存(单位：MB）
+- (double)availableMemory {
+    vm_statistics_data_t vmStats;
+    mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
+    kern_return_t kernReturn = host_statistics(mach_host_self(),
+                                               HOST_VM_INFO,
+                                               (host_info_t)&vmStats,
+                                               &infoCount);
+    if (kernReturn != KERN_SUCCESS) {
+        return NSNotFound;
+    }
+    
+    return ((vm_page_size *vmStats.free_count) / 1024.0) / 1024.0;
+}
+
+// 获取当前任务所占用的内存（单位：MB）
+- (double)usedMemory {
+    task_basic_info_data_t taskInfo;
+    mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
+    kern_return_t kernReturn = task_info(mach_task_self(),
+                                         TASK_BASIC_INFO,
+                                         (task_info_t)&taskInfo,
+                                         &infoCount);
+    if (kernReturn != KERN_SUCCESS) {
+        return NSNotFound;
+    }
+    
+    return taskInfo.resident_size / 1024.0 / 1024.0;
 }
 
 #pragma mark - others save image to photo
