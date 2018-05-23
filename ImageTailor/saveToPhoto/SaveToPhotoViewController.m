@@ -131,12 +131,12 @@
     
     // 判断是否图片过大
     // 占用内存大小不能超过当前总内存大小的一半
-    long long memoryToUse = maxImageVector * otherSideSum * 8 / 1024 / 1024;
-    long long totalMemorySize = [self totalMemorySize];
-    long long usedMemory = [self usedMemory];
+    CGFloat memoryToUse = maxImageVector * otherSideSum * 8 / 1024 / 1024;
+    CGFloat totalMemorySize = [self totalMemorySize] * 0.7;
+    CGFloat usedMemory = [self usedMemory];
     CGFloat reduceScale = 1.f;
-    if (totalMemorySize * 0.5f - usedMemory < memoryToUse) {
-        reduceScale = (totalMemorySize * 0.5f - usedMemory) / memoryToUse;
+    if (totalMemorySize - usedMemory < memoryToUse) {
+        reduceScale = (totalMemorySize - usedMemory) / memoryToUse;
     }
 //    NSLog(@"reduceScale: %@,memoryToUse: %@,totalMemorySize: %@, availableMemory: %@, usedMemory: %@",
 //          @(reduceScale),
