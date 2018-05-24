@@ -16,18 +16,19 @@
 @implementation EditorWatermarkContext
 
 - (void) showWatermarkWithType:(EditorToolBarWatermarkType)watermarkType imagesUnionRect:(CGRect)unionRect text:(NSString *)text {
+    CGFloat extraOffset = 0.03f * MIN(CGRectGetWidth(unionRect), CGRectGetHeight(unionRect));
+    CGFloat fontSize = MAX(10, ceilf(extraOffset));
+    
     NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowColor = [UIColor blackColor];
-    shadow.shadowOffset = CGSizeMake(3.f, 3.f);
-    shadow.shadowBlurRadius = 3.f;
+    shadow.shadowColor = [UIColor hex_colorWithHex:0x000000 alpha:0.2f];
+    shadow.shadowOffset = CGSizeMake(.1f * fontSize, .1f * fontSize);
+    shadow.shadowBlurRadius = 0.1f * fontSize;
     self.watermarkLabel.attributedText = [[NSAttributedString alloc] initWithString:(text ?: @"")
                                                                          attributes:@{NSShadowAttributeName: shadow}];
     self.watermarkLabel.hidden = text.length == 0;
     [self.imageContainerView addSubview:self.watermarkLabel];
     self.watermarkLabel.layer.transform = CATransform3DMakeTranslation(0, 0, 100.f);
     
-    CGFloat extraOffset = 0.03f * MIN(CGRectGetWidth(unionRect), CGRectGetHeight(unionRect));
-    CGFloat fontSize = MAX(10, ceilf(extraOffset));
     self.watermarkLabel.font = [UIFont systemFontOfSize:fontSize];
     [self.watermarkLabel sizeToFit];
     

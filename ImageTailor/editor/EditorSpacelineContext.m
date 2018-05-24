@@ -45,16 +45,22 @@
     [self.spacelineViews enumerateObjectsUsingBlock:^(UIView * line, NSUInteger idx, BOOL * _Nonnull stop) {
         line.hidden = self.spacelineType == EditorToolBarSpacelineTypeNone;
     }];
+    
+    CGFloat lineVector = CGRectGetWidth(allImageViewsRect) * 0.012f;
+    if (self.tileDirection == TailorTileDirectionHorizontally) {
+        lineVector = CGRectGetHeight(allImageViewsRect) * 0.012f;
+    }
+    lineVector = MAX(roundf(lineVector * 0.012f), 2.f / [UIScreen mainScreen].scale);
     if (self.spacelineType == EditorToolBarSpacelineTypeAllBounds) {
-        self.boundslineViews[0].frame = (CGRect){allImageViewsRect.origin, CGSizeMake(CGRectGetWidth(allImageViewsRect), 2.f)};
-        self.boundslineViews[1].frame = (CGRect){allImageViewsRect.origin, CGSizeMake(2.f, CGRectGetHeight(allImageViewsRect))};
+        self.boundslineViews[0].frame = (CGRect){allImageViewsRect.origin, CGSizeMake(CGRectGetWidth(allImageViewsRect), lineVector)};
+        self.boundslineViews[1].frame = (CGRect){allImageViewsRect.origin, CGSizeMake(lineVector, CGRectGetHeight(allImageViewsRect))};
         self.boundslineViews[2].frame = CGRectMake(CGRectGetMinX(allImageViewsRect),
-                                                   CGRectGetMaxY(allImageViewsRect) - 2.f,
+                                                   CGRectGetMaxY(allImageViewsRect) - lineVector,
                                                    CGRectGetWidth(allImageViewsRect),
-                                                   2.f);
-        self.boundslineViews[3].frame = CGRectMake(CGRectGetMaxX(allImageViewsRect) - 2.f,
+                                                   lineVector);
+        self.boundslineViews[3].frame = CGRectMake(CGRectGetMaxX(allImageViewsRect) - lineVector,
                                                    CGRectGetMinY(allImageViewsRect),
-                                                   2.f,
+                                                   lineVector,
                                                    CGRectGetHeight(allImageViewsRect));
     }
     if (self.spacelineType != EditorToolBarSpacelineTypeNone) {
@@ -64,13 +70,13 @@
                 CGRect imageRect = [rectValue CGRectValue];
                 if (self.tileDirection == TailorTileDirectionVertically) {
                     lineFrame = CGRectMake(CGRectGetMinX(allImageViewsRect),
-                                           CGRectGetMaxY(imageRect) - 1.f,
+                                           CGRectGetMaxY(imageRect) - 0.5f * lineVector,
                                            CGRectGetWidth(allImageViewsRect),
-                                           2.f);
+                                           lineVector);
                 } else {
-                    lineFrame = CGRectMake(CGRectGetMaxX(imageRect) - 1.f,
+                    lineFrame = CGRectMake(CGRectGetMaxX(imageRect) - 0.5f * lineVector,
                                            CGRectGetMinY(allImageViewsRect),
-                                           2.f,
+                                           lineVector,
                                            CGRectGetHeight(allImageViewsRect));
                 }
                 self.spacelineViews[idx].frame = lineFrame;

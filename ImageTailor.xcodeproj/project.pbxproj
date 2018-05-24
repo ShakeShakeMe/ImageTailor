@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		623C2DC520B70900006D1132 /* EditorFloatTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623C2DC320B70900006D1132 /* EditorFloatTipView.m */; };
+		623C2DC820B70909006D1132 /* SavePhotoSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623C2DC720B70909006D1132 /* SavePhotoSuccessViewController.m */; };
 		6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */; };
 		62453DF520AFC77F00F20B98 /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF420AFC77F00F20B98 /* EditorViewController.m */; };
 		62453DF820AFC7AB00F20B98 /* EditorZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF720AFC7AB00F20B98 /* EditorZoomingScrollView.m */; };
@@ -54,6 +56,10 @@
 		02BC7025B34E9D9DB7561A1F /* Pods-ImageTailor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageTailor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageTailor/Pods-ImageTailor.debug.xcconfig"; sourceTree = "<group>"; };
 		430F88C01CBC6590F0532FF6 /* Pods_ImageTailor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageTailor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		620AC0B2209DFF830000580D /* ImageTailorConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageTailorConstants.h; sourceTree = "<group>"; };
+		623C2DC320B70900006D1132 /* EditorFloatTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorFloatTipView.m; sourceTree = "<group>"; };
+		623C2DC420B70900006D1132 /* EditorFloatTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorFloatTipView.h; sourceTree = "<group>"; };
+		623C2DC620B70909006D1132 /* SavePhotoSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavePhotoSuccessViewController.h; sourceTree = "<group>"; };
+		623C2DC720B70909006D1132 /* SavePhotoSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavePhotoSuccessViewController.m; sourceTree = "<group>"; };
 		6240338C20AED9B700832A24 /* WatermarkEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatermarkEditorViewController.h; sourceTree = "<group>"; };
 		6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatermarkEditorViewController.m; sourceTree = "<group>"; };
 		62453DF320AFC77F00F20B98 /* EditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
@@ -179,6 +185,8 @@
 		62453DF220AFC75F00F20B98 /* editor */ = {
 			isa = PBXGroup;
 			children = (
+				623C2DC420B70900006D1132 /* EditorFloatTipView.h */,
+				623C2DC320B70900006D1132 /* EditorFloatTipView.m */,
 				62453DF320AFC77F00F20B98 /* EditorViewController.h */,
 				62453DF420AFC77F00F20B98 /* EditorViewController.m */,
 				62453DF620AFC7AB00F20B98 /* EditorZoomingScrollView.h */,
@@ -204,6 +212,8 @@
 		62453E1220B1816B00F20B98 /* saveToPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				623C2DC620B70909006D1132 /* SavePhotoSuccessViewController.h */,
+				623C2DC720B70909006D1132 /* SavePhotoSuccessViewController.m */,
 				62453E1320B1819000F20B98 /* SaveToPhotoViewController.h */,
 				62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */,
 			);
@@ -479,6 +489,7 @@
 				62453E2520B4691800F20B98 /* PhotoAssetsService.m in Sources */,
 				625A70012095C1C1007F1626 /* ImagePickerItemSectionController.m in Sources */,
 				625A70132095E488007F1626 /* BaseViewController.m in Sources */,
+				623C2DC520B70900006D1132 /* EditorFloatTipView.m in Sources */,
 				62453E0120AFF3EE00F20B98 /* EditorClipContext.m in Sources */,
 				625A6FED2095AE1B007F1626 /* NSDictionary+IGListExtension.m in Sources */,
 				62453E2A20B47DE800F20B98 /* ImagePickerAssetGroupCollectionViewCell.m in Sources */,
@@ -499,6 +510,7 @@
 				625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */,
 				62F8429E209555C000AE0316 /* main.m in Sources */,
 				625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */,
+				623C2DC820B70909006D1132 /* SavePhotoSuccessViewController.m in Sources */,
 				625A703320981819007F1626 /* TailorZoomingFloatEditBtnView.m in Sources */,
 				625A70042095C255007F1626 /* CurrentSelectedAssetsManager.m in Sources */,
 				625A6FFB2095B90E007F1626 /* PHAsset+IGListExtension.m in Sources */,

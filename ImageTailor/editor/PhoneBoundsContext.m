@@ -67,6 +67,8 @@
     self.phoneBoundsImageView.hidden = YES;
 }
 
-LazyProperty(UIImageView, phoneBoundsImageView)
+LazyPropertyWithInit(UIImageView, phoneBoundsImageView, {
+    _phoneBoundsImageView.hidden = YES;
+})
 
 @end

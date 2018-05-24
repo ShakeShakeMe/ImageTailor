@@ -8,6 +8,7 @@
 
 #import "EditorViewController.h"
 #import "EditorCloseAndSwitchControl.h"
+#import "EditorFloatTipView.h"
 #import "EditorZoomingScrollView.h"
 #import "EditorBottomToolbarControl.h"
 #import "WatermarkEditorViewController.h"
@@ -19,6 +20,7 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 
 @interface EditorViewController () <EditorCloseAndSwitchControlDelegate, EditorBottomToolbarControlDelegate, EditorBottomToolbarFloatViewDelegate, WatermarkEditorViewControllerDelegate>
 @property (nonatomic, strong) EditorCloseAndSwitchControl *swithControl;
+@property (nonatomic, strong) EditorFloatTipView *floatTipView;
 @property (nonatomic, strong) UIButton *saveBtn;
 @property (nonatomic, strong) EditorBottomToolbarControl *toolBarControl;
 @property (nonatomic, strong) EditorZoomingScrollView *zoomingScrollView;
@@ -44,9 +46,15 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     
     [self.view addSubview:self.zoomingScrollView];
     [self.view addSubview:self.swithControl];
+    [self.view addSubview:self.floatTipView];
     [self.view addSubview:self.saveBtn];
     [self.view addSubview:self.toolBarControl];
     [self.view addSubview:self.floatView];
+    
+    [self.floatTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.swithControl.mas_right).offset(-16.f);
+        make.centerY.equalTo(self.swithControl);
+    }];
     
     self.pixellateFloatView.delegate = self;
     self.spacelineFloatView.delegate = self;
@@ -65,10 +73,35 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
         self.watermarkPrefixType = EditorWatermarkPrefixTypeNormal;
         self.watermarkType = EditorToolBarWatermarkTypeRight;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(refreshPixellateWithdraState:)
+                                                 name:@"kPixellateStateChangeNotiName"
+                                               object:nil];
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL) prefersStatusBarHidden {
     return YES;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    BOOL floatTipViewHasShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"kFloatTipViewHasShown"];
+    if (!floatTipViewHasShown) {
+        self.floatTipView.alpha = 1.f;
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kFloatTipViewHasShown"];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.3f animations:^{
+                self.floatTipView.alpha = 0.f;
+            }];
+        });
+    }
 }
 
 - (void) viewDidLayoutSubviews {
@@ -222,6 +255,10 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     [self.view setNeedsLayout];
 }
 
+- (void) refreshPixellateWithdraState:(NSNotification *)noti {
+    [self.pixellateFloatView setWithdrawEnable:[[noti object] boolValue]];
+}
+
 - (void) showSpacelineFloatView:(BOOL)show {
     self.floatView.hidden = !show;
     [self.floatView removeAllSubviews];
@@ -282,8 +319,12 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 LazyPropertyWithInit(EditorCloseAndSwitchControl, swithControl, {
     _swithControl.delegate = self;
 })
+LazyPropertyWithInit(EditorFloatTipView, floatTipView, {
+    _floatTipView.alpha = 0.f;
+})
 LazyPropertyWithInit(UIButton, saveBtn, {
     [_saveBtn setImage:[UIImage imageNamed:@"btn_navbar_save_n"] forState:UIControlStateNormal];
+    [_saveBtn setImage:[UIImage imageNamed:@"btn_navbar_save_n"] forState:UIControlStateHighlighted];
     @weakify(self)
     [_saveBtn bk_addEventHandler:^(id sender) {
         @strongify(self)

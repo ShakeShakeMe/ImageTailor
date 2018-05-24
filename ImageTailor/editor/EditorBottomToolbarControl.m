@@ -185,6 +185,9 @@ LazyPropertyWithInit(UIButton, toolPhoneBoundsBtn, {
     self.middleBtn.frame = CGRectMake(self.largeBtn.right, 0.f, self.width / 4.f, self.height);
     self.smallBtn.frame = CGRectMake(self.middleBtn.right, 0.f, self.width / 4.f, self.height);
 }
+- (void) setWithdrawEnable:(BOOL)enable {
+    self.withdrawBtn.selected = enable;
+}
 - (ScrawlToolBarPixellateType) currentPixellateType {
     if (self.largeBtn.selected) {
         return ScrawlToolBarPixellateTypeLarge;
@@ -211,7 +214,7 @@ LazyPropertyWithInit(UIButton, toolPhoneBoundsBtn, {
 }
 LazyPropertyWithInit(UIButton, withdrawBtn, {
     [_withdrawBtn setImage:[UIImage imageNamed:@"btn_edit_revoke_d"] forState:UIControlStateNormal];
-    [_withdrawBtn setImage:[UIImage imageNamed:@"btn_edit_revoke_s"] forState:UIControlStateHighlighted];
+    [_withdrawBtn setImage:[UIImage imageNamed:@"btn_edit_revoke_n"] forState:UIControlStateSelected];
     @weakify(self)
     [_withdrawBtn bk_addEventHandler:^(id sender) {
         @strongify(self)

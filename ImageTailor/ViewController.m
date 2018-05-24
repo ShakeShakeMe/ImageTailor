@@ -94,7 +94,7 @@
     self.collectionView.contentInset = UIEdgeInsetsMake(self.mergedSafeAreaInsets.top, 0.f, self.mergedSafeAreaInsets.bottom, 0.f);
     self.floatGoToBottomBtn.size = CGSizeMake(44.f, 44.f);
     self.floatGoToBottomBtn.centerX = self.view.centerX;
-    self.floatGoToBottomBtn.bottom = self.toolBarView.top - 44.f;
+    self.floatGoToBottomBtn.bottom = self.toolBarView.top - 24.f;
     
     CGFloat catalogViewTop = self.isCatalogShowing ? self.mergedSafeAreaInsets.top : self.view.height;
     self.catalogView.frame = CGRectMake(0.f,
@@ -275,9 +275,7 @@ LazyPropertyWithInit(ImagePickerBottomToolBarView, toolBarView, {
 })
 LazyPropertyWithInit(UIButton, floatGoToBottomBtn, {
     _floatGoToBottomBtn.alpha = 0.f;
-    _floatGoToBottomBtn.layer.cornerRadius = 22.f;
-    _floatGoToBottomBtn.clipsToBounds = YES;
-    _floatGoToBottomBtn.backgroundColor = [UIColor hex_colorWithHex:0x333333 alpha:0.7f];
+    [_floatGoToBottomBtn setImage:[UIImage imageNamed:@"btn_album_tobottom_n"] forState:UIControlStateNormal];
     @weakify(self)
     [_floatGoToBottomBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
