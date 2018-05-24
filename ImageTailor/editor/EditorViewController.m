@@ -13,12 +13,13 @@
 #import "EditorBottomToolbarControl.h"
 #import "WatermarkEditorViewController.h"
 #import "SaveToPhotoViewController.h"
+#import "SavePhotoSuccessViewController.h"
 
 static NSString *WatermarkTextKey = @"WatermarkTextKey";
 static NSString *WatermarkTextPrefixKey = @"WatermarkTextPrefixKey";
 static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 
-@interface EditorViewController () <EditorCloseAndSwitchControlDelegate, EditorBottomToolbarControlDelegate, EditorBottomToolbarFloatViewDelegate, WatermarkEditorViewControllerDelegate>
+@interface EditorViewController () <EditorCloseAndSwitchControlDelegate, EditorBottomToolbarControlDelegate, EditorBottomToolbarFloatViewDelegate, WatermarkEditorViewControllerDelegate, SaveToPhotoViewControllerDelegate>
 @property (nonatomic, strong) EditorCloseAndSwitchControl *swithControl;
 @property (nonatomic, strong) EditorFloatTipView *floatTipView;
 @property (nonatomic, strong) UIButton *saveBtn;
@@ -244,6 +245,13 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     [self.zoomingScrollView showPhoneBoundsWithType:phoneBoundsType];
 }
 
+#pragma mark - SaveToPhotoViewControllerDelegate
+- (void) saveToPhoto:(BOOL)success asset:(PHAsset *)asset {
+    SavePhotoSuccessViewController *vc = [[SavePhotoSuccessViewController alloc] init];
+    vc.asset = asset;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - other methods
 - (void) showPixellateFloatView:(BOOL)show {
     self.floatView.hidden = !show;
@@ -329,6 +337,7 @@ LazyPropertyWithInit(UIButton, saveBtn, {
     [_saveBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
         SaveToPhotoViewController *vc = [[SaveToPhotoViewController alloc] init];
+        vc.delegate = self;
         vc.tileDirection = self.zoomingScrollView.tileDirection;
         vc.assetModels = self.zoomingScrollView.assetModels;
         vc.pixellateImageViews = self.zoomingScrollView.pixellateContext.pixellateImageViews;

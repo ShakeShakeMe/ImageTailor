@@ -10,6 +10,7 @@
 #import "UIAlertView+BlocksKit.h"
 #import <sys/sysctl.h>
 #import <mach/mach.h>
+#import "SavePhotoSuccessViewController.h"
 
 @interface SaveToPhotoViewController ()
 @property (nonatomic, strong) UIVisualEffectView *blurBgView;
@@ -49,7 +50,11 @@
         @strongify(self)
         self.alertView = [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"确定取消保存?" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                [self dismissAnimating];
+                [self dismissAnimatingWithCompletion:^{
+                    if ([self.delegate respondsToSelector:@selector(saveToPhoto:asset:)]) {
+                        [self.delegate saveToPhoto:NO asset:nil];
+                    }
+                }];
             }
         }];
     } forControlEvents:UIControlEventTouchUpInside];
@@ -64,9 +69,6 @@
                 [[NSAttributedString alloc] initWithString:@"保存成功" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:60]}];
                 self.progressLabel.attributedText = successAttr;
                 [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self dismissAnimating];
-                });
             } else {
                 NSMutableString *progressText = [NSMutableString stringWithFormat:@"%d", [@(self.progress) intValue]];
                 [progressText appendString:@"%"];
@@ -90,11 +92,12 @@
     }];
 }
 
-- (void)dismissAnimating {
+- (void)dismissAnimatingWithCompletion:(void(^)(void))completion {
     [UIView animateWithDuration:0.3f animations:^{
         self.blurBgView.alpha = 0.f;
     } completion:^(BOOL finished) {
         [self dismissViewControllerAnimated:NO completion:nil];
+        !completion ?: completion();
     }];
 }
 
@@ -319,11 +322,14 @@
 - (void) saveImage:(UIImage *)image {
     [self saveImageToPhoto:image completion:^(BOOL success, PHAsset *asset) {
         self.progress = 100.f;
-        NSString *message = @"保存图片失败";
-        if (success) {
-            message = @"成功保存到相册";
-        }
-        NSLog(@"saved msg: %@", message);
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissAnimatingWithCompletion:^{
+                if ([self.delegate respondsToSelector:@selector(saveToPhoto:asset:)]) {
+                    [self.delegate saveToPhoto:success asset:asset];
+                }
+            }];
+        });
     }];
 }
 
