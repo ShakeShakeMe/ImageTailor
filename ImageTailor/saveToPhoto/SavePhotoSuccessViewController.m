@@ -8,6 +8,7 @@
 
 #import "SavePhotoSuccessViewController.h"
 #import <BlocksKit/UIAlertView+BlocksKit.h>
+#import "PreviewLargeImageViewController.h"
 
 @interface SavePhotoSuccessViewController ()
 @property (nonatomic, strong) UIImageView *imageView;
@@ -33,6 +34,7 @@
                                                                 action:@selector(navBack)];
     
     self.navigationItem.leftBarButtonItem = leftItem;
+    self.title = @"以保存";
     
     [self.view addSubview:self.imageView];
     [self.view addSubview:self.bottomBtn];
@@ -104,6 +106,14 @@
 LazyPropertyWithInit(UIImageView, imageView, {
     _imageView.backgroundColor = [UIColor hex_colorWithHex:0xE5F1F7];
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    _imageView.userInteractionEnabled = YES;
+    @weakify(self)
+    [_imageView bk_whenTapped:^{
+        @strongify(self)
+        PreviewLargeImageViewController *vc = [[PreviewLargeImageViewController alloc] init];
+        vc.asset = self.asset;
+        [self.navigationController presentViewController:vc animated:NO completion:nil];
+    }];
 })
 LazyPropertyWithInit(UIButton, bottomBtn, {
     _bottomBtn.backgroundColor = [UIColor hex_colorWithHex:0x0036FF];

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		623C2DC520B70900006D1132 /* EditorFloatTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623C2DC320B70900006D1132 /* EditorFloatTipView.m */; };
 		623C2DC820B70909006D1132 /* SavePhotoSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623C2DC720B70909006D1132 /* SavePhotoSuccessViewController.m */; };
+		623C2DCB20B7205C006D1132 /* PreviewLargeImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 623C2DCA20B7205C006D1132 /* PreviewLargeImageViewController.m */; };
 		6240338E20AED9B700832A24 /* WatermarkEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */; };
 		62453DF520AFC77F00F20B98 /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF420AFC77F00F20B98 /* EditorViewController.m */; };
 		62453DF820AFC7AB00F20B98 /* EditorZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62453DF720AFC7AB00F20B98 /* EditorZoomingScrollView.m */; };
@@ -60,6 +61,8 @@
 		623C2DC420B70900006D1132 /* EditorFloatTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorFloatTipView.h; sourceTree = "<group>"; };
 		623C2DC620B70909006D1132 /* SavePhotoSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavePhotoSuccessViewController.h; sourceTree = "<group>"; };
 		623C2DC720B70909006D1132 /* SavePhotoSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavePhotoSuccessViewController.m; sourceTree = "<group>"; };
+		623C2DC920B7205C006D1132 /* PreviewLargeImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewLargeImageViewController.h; sourceTree = "<group>"; };
+		623C2DCA20B7205C006D1132 /* PreviewLargeImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewLargeImageViewController.m; sourceTree = "<group>"; };
 		6240338C20AED9B700832A24 /* WatermarkEditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatermarkEditorViewController.h; sourceTree = "<group>"; };
 		6240338D20AED9B700832A24 /* WatermarkEditorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatermarkEditorViewController.m; sourceTree = "<group>"; };
 		62453DF320AFC77F00F20B98 /* EditorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				623C2DC720B70909006D1132 /* SavePhotoSuccessViewController.m */,
 				62453E1320B1819000F20B98 /* SaveToPhotoViewController.h */,
 				62453E1420B1819000F20B98 /* SaveToPhotoViewController.m */,
+				623C2DC920B7205C006D1132 /* PreviewLargeImageViewController.h */,
+				623C2DCA20B7205C006D1132 /* PreviewLargeImageViewController.m */,
 			);
 			path = saveToPhoto;
 			sourceTree = "<group>";
@@ -510,6 +515,7 @@
 				625A6FF12095AEAE007F1626 /* ImagePickerItemCollectionViewCell.m in Sources */,
 				62F8429E209555C000AE0316 /* main.m in Sources */,
 				625A70192095F5B4007F1626 /* ImagePickerBottomStatusCollectionViewCell.m in Sources */,
+				623C2DCB20B7205C006D1132 /* PreviewLargeImageViewController.m in Sources */,
 				623C2DC820B70909006D1132 /* SavePhotoSuccessViewController.m in Sources */,
 				625A703320981819007F1626 /* TailorZoomingFloatEditBtnView.m in Sources */,
 				625A70042095C255007F1626 /* CurrentSelectedAssetsManager.m in Sources */,
