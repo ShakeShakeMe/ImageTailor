@@ -58,25 +58,27 @@
     
     [self.view addSubview:self.progressLabel];
     [self bk_addObserverForKeyPath:@"progress" task:^(id target) {
-        if (self.progress == 100) {
-            NSAttributedString *successAttr =
-            [[NSAttributedString alloc] initWithString:@"保存成功" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:60]}];
-            self.progressLabel.attributedText = successAttr;
-            [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissAnimating];
-            });
-        } else {
-            NSMutableString *progressText = [NSMutableString stringWithFormat:@"%d", [@(self.progress) intValue]];
-            [progressText appendString:@"%"];
-            NSMutableAttributedString *attr =
-            [[NSMutableAttributedString alloc] initWithString:progressText
-                                                   attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:60]}];
-            NSAttributedString *subTitle =
-            [[NSAttributedString alloc] initWithString:@"\n正在生成图片中" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}];
-            [attr appendAttributedString:subTitle];
-            self.progressLabel.attributedText = attr;
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.progress >= 100.f) {
+                NSAttributedString *successAttr =
+                [[NSAttributedString alloc] initWithString:@"保存成功" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:60]}];
+                self.progressLabel.attributedText = successAttr;
+                [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self dismissAnimating];
+                });
+            } else {
+                NSMutableString *progressText = [NSMutableString stringWithFormat:@"%d", [@(self.progress) intValue]];
+                [progressText appendString:@"%"];
+                NSMutableAttributedString *attr =
+                [[NSMutableAttributedString alloc] initWithString:progressText
+                                                       attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:60]}];
+                NSAttributedString *subTitle =
+                [[NSAttributedString alloc] initWithString:@"\n正在生成图片中" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13]}];
+                [attr appendAttributedString:subTitle];
+                self.progressLabel.attributedText = attr;
+            }
+        });
     }];
 }
 
@@ -315,16 +317,29 @@
 
 #pragma mark - others save image to photo
 - (void) saveImage:(UIImage *)image {
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(imageSavedToPhotosAlbum:didFinishSavingWithError:contextInfo:), nil);
+    [self saveImageToPhoto:image completion:^(BOOL success, PHAsset *asset) {
+        self.progress = 100.f;
+        NSString *message = @"保存图片失败";
+        if (success) {
+            message = @"成功保存到相册";
+        }
+        NSLog(@"saved msg: %@", message);
+    }];
 }
 
-- (void)imageSavedToPhotosAlbum:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    NSString *message = @"保存图片失败";
-    if (!error) {
-        message = @"成功保存到相册";
-        self.progress = 100.f;
-    }
-    NSLog(@"saved msg: %@", message);
+- (void) saveImageToPhoto:(UIImage *)image completion:(void(^)(BOOL success, PHAsset *asset))completion {
+    __block NSString *saveImageLocalIdentifier = nil;
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        PHAssetChangeRequest *saveReq = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+        saveImageLocalIdentifier = saveReq.placeholderForCreatedAsset.localIdentifier;
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+        if (success && !error) {
+            PHAsset *asset = [[PHAsset fetchAssetsWithLocalIdentifiers:@[saveImageLocalIdentifier] options:nil] firstObject];
+            !completion ?: completion((asset != nil), asset);
+        } else {
+            !completion ?: completion(NO, nil);
+        }
+    }];
 }
 
 LazyPropertyWithInit(UILabel, progressLabel, {
