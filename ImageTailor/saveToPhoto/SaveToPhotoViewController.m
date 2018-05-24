@@ -115,15 +115,15 @@
     
     __block CGFloat maxImageVector = 0.f;
     [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGFloat originImageWidth = assetModel.asset.pixelWidth;
-        CGFloat originImageHeight = assetModel.asset.pixelHeight;
+        CGFloat originImageWidth = assetModel.asset.pixelWidth * (assetModel.normalizedCropRect.size.width);
+        CGFloat originImageHeight = assetModel.asset.pixelHeight * (assetModel.normalizedCropRect.size.height);
         CGFloat imageVector = isVertically ? originImageWidth : originImageHeight;
         maxImageVector = MAX(maxImageVector, imageVector);
     }];
     __block CGFloat otherSideSum = 0.f;
     [self.assetModels enumerateObjectsUsingBlock:^(TailorAssetModel * _Nonnull assetModel, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGFloat originImageWidth = assetModel.asset.pixelWidth;
-        CGFloat originImageHeight = assetModel.asset.pixelHeight;
+        CGFloat originImageWidth = assetModel.asset.pixelWidth * (assetModel.normalizedCropRect.size.width);
+        CGFloat originImageHeight = assetModel.asset.pixelHeight * (assetModel.normalizedCropRect.size.height);
         
         CGFloat enlargeScale = isVertically ? (maxImageVector / originImageWidth) : (maxImageVector / originImageHeight);
         otherSideSum += (isVertically ? originImageHeight : originImageWidth) * enlargeScale;
@@ -206,9 +206,10 @@
                                             self.phoneBoundsImageView.height * enlargeScale);
         UIImage *phoneBoundsResizedImage = nil;
         if (self.phoneBoundsImageView.image
-            && CGRectContainsRect(phoneBoundsRect, (CGRect){CGPointZero, imageContextSize})) {
+            && CGRectContainsRect((CGRect){CGPointZero, phoneBoundsRect.size}, (CGRect){CGPointZero, imageContextSize})) {
             imageContextSize = phoneBoundsRect.size;
-            extraMarginSize = CGSizeMake(-phoneBoundsRect.origin.x,-phoneBoundsRect.origin.y);
+            extraMarginSize = CGSizeMake(-(phoneBoundsRect.origin.x - CGRectGetMinX(self.imageViewsUnionRect) * enlargeScale),
+                                         -(phoneBoundsRect.origin.y - CGRectGetMinY(self.imageViewsUnionRect) * enlargeScale));
             phoneBoundsRect.origin = CGPointZero;
             
             // get resized phone bounds image
