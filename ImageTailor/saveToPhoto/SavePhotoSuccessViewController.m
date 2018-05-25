@@ -73,6 +73,7 @@
     options.resizeMode = PHImageRequestOptionsResizeModeExact;
     options.normalizedCropRect = normalizedCropRect;
     
+    targetSize = CGSizeMake(targetSize.width * 2.f, targetSize.height * 2.f);
     [[PHCachingImageManager sharedInstance] requestImageForAsset:self.asset targetSize:targetSize contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         self.imageView.image = result;
     }];
