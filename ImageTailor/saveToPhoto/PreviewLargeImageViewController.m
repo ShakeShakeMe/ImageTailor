@@ -49,19 +49,28 @@
         CGSize imageViewSize = CGSizeZero;
         if (isVertical) {
             imageViewSize.width = self.view.width;
-            imageViewSize.height = imageSize.height * imageSize.width / imageViewSize.width;
+            imageViewSize.height = imageSize.height * imageViewSize.width / imageSize.width;
         } else {
             imageViewSize.height = self.view.height * 0.6f;
-            imageViewSize.width = imageSize.width * imageSize.height / imageViewSize.height;
+            imageViewSize.width = imageSize.width * imageViewSize.height / imageSize.height;
         }
         
         self.imageView.size = imageViewSize;
-        if (isVertical) {
-            self.imageView.centerX = self.view.centerX;
-        } else {
-            self.imageView.centerY = self.view.centerY;
-        }
         self.scrollView.contentSize = imageViewSize;
+        
+        if (isVertical) {
+            if (imageViewSize.height > self.scrollView.height) {
+                self.scrollView.contentOffset = CGPointMake(0, (imageViewSize.height - self.scrollView.height) / 2.f);
+            }
+            self.scrollView.zoomScale = 0.8f;
+        } else {
+            if (imageViewSize.width > self.scrollView.width) {
+                self.scrollView.contentOffset = CGPointMake((imageViewSize.width - self.scrollView.width) / 2.f, 0.f);
+            }
+            self.scrollView.zoomScale = 1.f;
+        }
+        
+        [self.view setNeedsLayout];
     }];
 }
 
@@ -101,8 +110,13 @@
 }
 
 #pragma mark - UIScrollViewDelegate
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+- (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.imageView;
+}
+
+- (void) scrollViewDidZoom:(UIScrollView *)scrollView {
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
 }
 
 #pragma mark - getters

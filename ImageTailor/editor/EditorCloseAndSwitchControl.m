@@ -49,7 +49,7 @@
                 }
             };
             if (shouldAsk) {
-                [UIAlertView bk_showAlertViewWithTitle:@"放弃修改" message:@"确定放弃修改?" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [UIAlertView bk_showAlertViewWithTitle:@"放弃修改" message:@"回到\"裁剪\"状态, 当前编辑进度将丢失, 确定放弃修改?" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
                     if (buttonIndex == 1) {
                         !switchBlock ?: switchBlock();
                     }

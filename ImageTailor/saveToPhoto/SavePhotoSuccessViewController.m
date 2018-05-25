@@ -34,7 +34,7 @@
                                                                 action:@selector(navBack)];
     
     self.navigationItem.leftBarButtonItem = leftItem;
-    self.title = @"以保存";
+    self.title = @"已保存";
     
     [self.view addSubview:self.imageView];
     [self.view addSubview:self.bottomBtn];
@@ -92,7 +92,7 @@
     self.bottomShareView.frame = CGRectMake(14.f, shareViewTop, self.view.width - 28.f, 96.f);
     self.shareTitleLabel.frame = CGRectMake(0.f, 0.f, self.view.width, 16.f);
     
-    CGFloat shareBtnWidth = (self.view.width - 28.f) / 5.f;
+    CGFloat shareBtnWidth = (self.view.width - 28.f) / 6.f;
     [self.shareItemBtns enumerateObjectsUsingBlock:^(UIButton *shareBtn, NSUInteger idx, BOOL * _Nonnull stop) {
         shareBtn.frame = CGRectMake(14.f + shareBtnWidth * idx, 16.f + (80.f - shareBtnWidth) / 2.f, shareBtnWidth, shareBtnWidth);
     }];
@@ -141,19 +141,24 @@ LazyPropertyWithInit(UILabel, shareTitleLabel, {
                                 @{@"icon": @"btn_share_moments_n", @"url": @"wechat://"},
                                 @{@"icon": @"btn_share_qq_n", @"url": @"mqq://"},
                                 @{@"icon": @"btn_share_qqspace_n", @"url": @"mqq://"},
-                                @{@"icon": @"btn_share_weibo_n", @"url": @"sinaweibo://"}
+                                @{@"icon": @"btn_share_weibo_n", @"url": @"sinaweibo://"},
+                                @{@"icon": @"btn_share_more_n", @"action": @"share"}
                                 ];
         _shareItemBtns = [shareItems bk_map:^id(NSDictionary *shareItem) {
             UIButton *btn = [[UIButton alloc] init];
             [btn setImage:[UIImage imageNamed:shareItem[@"icon"]] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:shareItem[@"icon"]] forState:UIControlStateHighlighted];
             [btn bk_addEventHandler:^(id sender) {
-                NSURL * url = [NSURL URLWithString:shareItem[@"url"]];
-                BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
-                if (canOpen) {
-                    [[UIApplication sharedApplication] openURL:url];
+                if (shareItem[@"action"]) {
+                    [self share];
                 } else {
-                    [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"请安装该应用" cancelButtonTitle:nil otherButtonTitles:@[@"确定"] handler:nil];
+                    NSURL * url = [NSURL URLWithString:shareItem[@"url"]];
+                    BOOL canOpen = [[UIApplication sharedApplication] canOpenURL:url];
+                    if (canOpen) {
+                        [[UIApplication sharedApplication] openURL:url];
+                    } else {
+                        [UIAlertView bk_showAlertViewWithTitle:nil message:@"请安装该应用" cancelButtonTitle:nil otherButtonTitles:@[@"确定"] handler:nil];
+                    }
                 }
             } forControlEvents:UIControlEventTouchUpInside];
             return btn;
@@ -161,4 +166,25 @@ LazyPropertyWithInit(UILabel, shareTitleLabel, {
     }
     return _shareItemBtns;
 }
+
+- (void) share {
+    void(^shareBlockWithImage)(UIImage *) = ^(UIImage *image) {
+        UIActivityViewController *activityViewController =
+        [[UIActivityViewController alloc] initWithActivityItems:@[image] applicationActivities:nil];
+        activityViewController.modalInPopover = true;
+        [self presentViewController:activityViewController animated:YES completion:nil];
+    };
+    
+    PHImageRequestOptions *options = [PHImageRequestOptions new];
+    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    options.resizeMode = PHImageRequestOptionsResizeModeExact;
+    
+    CGSize originImageSize = CGSizeMake(self.asset.pixelWidth, self.asset.pixelHeight);
+    [[PHCachingImageManager sharedInstance] requestImageForAsset:self.asset targetSize:originImageSize contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        if (result) {
+            shareBlockWithImage(result);
+        }
+    }];
+}
+
 @end

@@ -15,6 +15,8 @@
 #import "TailorAssetModel.h"
 #import "ImagePickerCatalogView.h"
 
+#import "SavePhotoSuccessViewController.h"
+
 @interface ViewController () <IGListAdapterDataSource, UIScrollViewDelegate, ImagePickerBottomToolBarViewDelegate, PhotoAssetsServiceDelegate, ImagePickerCatalogViewDelegate>
 
 @property (nonatomic, strong) UILabel *navTitleLabel;
@@ -235,6 +237,10 @@
     }];
     editorVC.tileDirection = horizontally ? TailorTileDirectionHorizontally : TailorTileDirectionVertically;
     [self.navigationController pushViewController:editorVC animated:YES];
+    
+//    SavePhotoSuccessViewController * vc = [[SavePhotoSuccessViewController alloc] init];
+//    vc.asset = [CurrentSelectedAssetsManager sharedInstance].allSelectedAssets.firstObject;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - getters

@@ -70,7 +70,7 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     self.watermarkType = [[[NSUserDefaults standardUserDefaults] valueForKey:WatermarkPositionTypeKey] integerValue];
     
     if (self.watermarkText.length == 0) {
-        self.watermarkText = @"水印";
+        self.watermarkText = @"拼图大师Pro";
         self.watermarkPrefixType = EditorWatermarkPrefixTypeNormal;
         self.watermarkType = EditorToolBarWatermarkTypeRight;
     }

@@ -273,6 +273,8 @@ LazyPropertyWithInit(UIButton, smallBtn, {
         [self addSubview:self.clearBtn];
         [self addSubview:self.allBoundsBtn];
         [self addSubview:self.spaceBtn];
+        
+        [self reset];
     }
     return self;
 }
@@ -286,6 +288,7 @@ LazyPropertyWithInit(UIButton, smallBtn, {
     [@[self.clearBtn, self.allBoundsBtn, self.spaceBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
+    self.clearBtn.selected = YES;
 }
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
     [self reset];
@@ -345,6 +348,8 @@ LazyPropertyWithInit(UIButton, spaceBtn, {
         [self addSubview:self.leftBtn];
         [self addSubview:self.rightBtn];
         [self addSubview:self.editBtn];
+        
+        [self reset];
     }
     return self;
 }
@@ -360,6 +365,7 @@ LazyPropertyWithInit(UIButton, spaceBtn, {
     [@[self.clearBtn, self.centerBtn, self.leftBtn, self.rightBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
+    self.clearBtn.selected = YES;
 }
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
     [self reset];
@@ -441,6 +447,8 @@ LazyPropertyWithInit(UIButton, editBtn, {
         [self addSubview:self.goldBtn];
         [self addSubview:self.blackBtn];
         [self addSubview:self.iPhoneXBtn];
+        
+        [self reset];
     }
     return self;
 }
@@ -456,6 +464,7 @@ LazyPropertyWithInit(UIButton, editBtn, {
     [@[self.clearBtn, self.silveryBtn, self.goldBtn, self.blackBtn, self.iPhoneXBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
+    self.clearBtn.selected = YES;
 }
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
     [self reset];
