@@ -16,9 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.extendedLayoutIncludesOpaqueBars = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.modalPresentationCapturesStatusBarAppearance = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 

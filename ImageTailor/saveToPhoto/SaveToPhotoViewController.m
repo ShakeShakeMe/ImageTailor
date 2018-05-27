@@ -16,9 +16,11 @@
 @property (nonatomic, strong) UIVisualEffectView *blurBgView;
 @property (nonatomic, strong) UIButton *closeBtn;
 
-@property (nonatomic, strong) UIAlertView *alertView;
 @property (nonatomic, strong) UILabel *progressLabel;
 @property (nonatomic, assign) CGFloat progress;
+
+@property (nonatomic, assign) BOOL canBeenCancled;
+@property (nonatomic, assign) BOOL hasBeenCancled;
 @end
 
 @implementation SaveToPhotoViewController
@@ -48,15 +50,14 @@
     @weakify(self)
     [self.closeBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
-        self.alertView = [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"确定取消保存?" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                [self dismissAnimatingWithCompletion:^{
-                    if ([self.delegate respondsToSelector:@selector(saveToPhoto:asset:)]) {
-                        [self.delegate saveToPhoto:NO asset:nil];
-                    }
-                }];
-            }
-        }];
+        if (self.canBeenCancled) {
+            self.hasBeenCancled = YES;
+            [self dismissAnimatingWithCompletion:^{
+                if ([self.delegate respondsToSelector:@selector(saveToPhoto:asset:)]) {
+                    [self.delegate saveToPhoto:NO asset:nil];
+                }
+            }];
+        }
     } forControlEvents:UIControlEventTouchUpInside];
     
     [self saveToPhoto];
@@ -68,7 +69,6 @@
                 NSAttributedString *successAttr =
                 [[NSAttributedString alloc] initWithString:@"保存成功" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:60]}];
                 self.progressLabel.attributedText = successAttr;
-                [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
             } else {
                 NSMutableString *progressText = [NSMutableString stringWithFormat:@"%d", [@(self.progress) intValue]];
                 [progressText appendString:@"%"];
@@ -114,6 +114,8 @@
 }
 
 - (void) saveToPhoto {
+    self.canBeenCancled = YES;
+    
     BOOL isVertically = self.tileDirection == TailorTileDirectionVertically;
     NSMutableArray *images = [@[] mutableCopy];
     dispatch_group_t requestGroup = dispatch_group_create();
@@ -174,6 +176,9 @@
     
     dispatch_group_notify(requestGroup, dispatch_get_main_queue(), ^{
         
+        if (self.hasBeenCancled) {
+            return ;
+        }
         // 计算绘制每一个原图时(每个原图大小可能不一样)，应该绘制成的大小
         __block CGFloat maxImageVector = 0.f;
         __block CGFloat otherSideSum = 0.f;
@@ -228,6 +233,11 @@
             phoneBoundsResizedImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
         }
+        
+        if (self.hasBeenCancled) {
+            return ;
+        }
+        
         // draw on one bitmap
         UIGraphicsBeginImageContext(imageContextSize);
         
@@ -279,6 +289,9 @@
         UIGraphicsEndImageContext();
         self.progress += 5.f;
         
+        if (self.hasBeenCancled) {
+            return ;
+        }
         [self saveImage:mergedImage];
     });
 }
@@ -322,6 +335,7 @@
 - (void) saveImage:(UIImage *)image {
     [self saveImageToPhoto:image completion:^(BOOL success, PHAsset *asset) {
         self.progress = 100.f;
+        self.canBeenCancled = NO;
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismissAnimatingWithCompletion:^{

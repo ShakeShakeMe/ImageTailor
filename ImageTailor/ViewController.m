@@ -67,14 +67,6 @@
     UIView *navTitleView = [[UIView alloc] init];
     [navTitleView addSubview:self.navTitleLabel];
     [navTitleView addSubview:self.navTitleImageView];
-    [self.navTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.centerY.height.top.equalTo(navTitleView);
-    }];
-    [self.navTitleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.navTitleLabel.mas_right).offset(1.5f);
-        make.centerY.right.equalTo(navTitleView);
-        make.size.mas_equalTo(CGSizeMake(12, 12));
-    }];
     @weakify(self)
     [navTitleView bk_whenTapped:^{
         @strongify(self)
@@ -82,6 +74,15 @@
     }];
     self.navigationItem.titleView = navTitleView;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    [self refreshTitleViewFrame];
+}
+
+- (void) refreshTitleViewFrame {
+    [self.navTitleLabel sizeToFit];
+    CGFloat width = self.navTitleLabel.width + 1.5f + 12.f;
+    self.navigationItem.titleView.size = CGSizeMake(width, 44.f);
+    self.navTitleLabel.frame = CGRectMake(0.f, 0.f, self.navTitleLabel.width, 44.f);
+    self.navTitleImageView.frame = CGRectMake(self.navTitleLabel.right + 1.5f, 16.f, 12.f, 12.f);
 }
 
 - (void) dealloc {
@@ -93,7 +94,6 @@
     
     self.toolBarView.frame = CGRectMake(0.f, self.view.height - self.mergedSafeAreaInsets.bottom - 50.f, self.view.width, 50.f);
     self.collectionView.frame = CGRectMake(0, 0.f, self.view.width, self.view.height);
-    self.collectionView.contentInset = UIEdgeInsetsMake(self.mergedSafeAreaInsets.top, 0.f, self.mergedSafeAreaInsets.bottom, 0.f);
     self.floatGoToBottomBtn.size = CGSizeMake(44.f, 44.f);
     self.floatGoToBottomBtn.centerX = self.view.centerX;
     self.floatGoToBottomBtn.bottom = self.toolBarView.top - 24.f;
@@ -249,6 +249,9 @@
         _currentAssetGroup = currentAssetGroup;
         self.imagePickerBottomStatusDesc = currentAssetGroup.assetsArray.count ? [NSString stringWithFormat:@"%@张照片", @(currentAssetGroup.assetsArray.count)] : nil;
         [[CurrentSelectedAssetsManager sharedInstance] clear];
+        
+        self.navTitleLabel.text = self.currentAssetGroup.groupName;
+        [self refreshTitleViewFrame];
     }
 }
 LazyPropertyWithInit(UILabel, navTitleLabel, {

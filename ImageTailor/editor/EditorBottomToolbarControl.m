@@ -83,7 +83,7 @@
     
     BaseViewController *vc = (BaseViewController *)self.viewController;
     
-    self.extraBottomView.frame = CGRectMake(0.f, self.height, self.width, vc.mergedSafeAreaInsets.bottom);
+    self.extraBottomView.frame = CGRectMake(0.f, self.height, self.width * 2.f, vc.mergedSafeAreaInsets.bottom);
     self.line.frame = CGRectMake(0.f, 0.f, 2.f * self.width, 0.5f);
     
     self.clipBtnBgView.frame = CGRectMake(0.f, 0.f, self.width, self.height);

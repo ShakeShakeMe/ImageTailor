@@ -247,9 +247,11 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 
 #pragma mark - SaveToPhotoViewControllerDelegate
 - (void) saveToPhoto:(BOOL)success asset:(PHAsset *)asset {
-    SavePhotoSuccessViewController *vc = [[SavePhotoSuccessViewController alloc] init];
-    vc.asset = asset;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (success && asset) {
+        SavePhotoSuccessViewController *vc = [[SavePhotoSuccessViewController alloc] init];
+        vc.asset = asset;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - other methods
