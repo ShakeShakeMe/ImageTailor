@@ -97,6 +97,7 @@ LazyPropertyWithInit(UIButton, clearBtn, {
 })
 LazyPropertyWithInit(UIButton, clipBtn, {
     [_clipBtn setImage:[UIImage imageNamed:@"img_mode_0"] forState:UIControlStateNormal];
+    [_clipBtn setImage:[UIImage imageNamed:@"img_mode_0"] forState:UIControlStateHighlighted];
     [_clipBtn setTitle:@"单张编辑" forState:UIControlStateNormal];
     [_clipBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _clipBtn.titleLabel.font = [UIFont boldSystemFontOfSize:13];
@@ -112,6 +113,7 @@ LazyPropertyWithInit(UIButton, clipBtn, {
 })
 LazyPropertyWithInit(UIButton, spliceVertically, {
     [_spliceVertically setImage:[UIImage imageNamed:@"img_mode_1"] forState:UIControlStateNormal];
+    [_spliceVertically setImage:[UIImage imageNamed:@"img_mode_1"] forState:UIControlStateHighlighted];
     [_spliceVertically setTitle:@"纵向拼接" forState:UIControlStateNormal];
     [_spliceVertically setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _spliceVertically.titleLabel.font = [UIFont boldSystemFontOfSize:13];
@@ -127,6 +129,7 @@ LazyPropertyWithInit(UIButton, spliceVertically, {
 })
 LazyPropertyWithInit(UIButton, spliceHorizontally, {
     [_spliceHorizontally setImage:[UIImage imageNamed:@"img_mode_2"] forState:UIControlStateNormal];
+    [_spliceHorizontally setImage:[UIImage imageNamed:@"img_mode_2"] forState:UIControlStateHighlighted];
     [_spliceHorizontally setTitle:@"横向拼接" forState:UIControlStateNormal];
     [_spliceHorizontally setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _spliceHorizontally.titleLabel.font = [UIFont boldSystemFontOfSize:13];

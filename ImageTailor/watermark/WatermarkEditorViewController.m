@@ -9,7 +9,7 @@
 #import "WatermarkEditorViewController.h"
 #import "UIAlertView+BlocksKit.h"
 
-@interface WatermarkEditorViewController ()
+@interface WatermarkEditorViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UIVisualEffectView *blurBgView;
 @property (nonatomic, strong) UIButton *finishBtn;
 @property (nonatomic, strong) UITextField *tf;
@@ -45,13 +45,7 @@
     [self.blurBgView.contentView addSubview:self.finishBtn];
     @weakify(self)
     [self.finishBtn bk_addEventHandler:^(id sender) {
-        @strongify(self)
-        if (self.tf.text.length == 0) {
-            [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"请输入水印文案" cancelButtonTitle:nil otherButtonTitles:@[@"OK"] handler:nil];
-            return ;
-        }
-        [self dismissAnimating];
-        [self.tf resignFirstResponder];
+        [self finish];
     } forControlEvents:UIControlEventTouchUpInside];
     
     self.tf = [[UITextField alloc] init];
@@ -65,6 +59,7 @@
     self.tf.clearButtonMode = UITextFieldViewModeNever;
     self.tf.keyboardType = UIKeyboardTypeDefault;
     self.tf.returnKeyType = UIReturnKeyDone;
+    self.tf.delegate = self;
     [self.tf becomeFirstResponder];
     [self.blurBgView.contentView addSubview:self.tf];
     
@@ -146,6 +141,21 @@
     self.keybordHeight = 0.f;
     self.tf.centerY = self.view.centerY;
     self.btnContainerView.bottom = self.blurBgView.bottom - self.mergedSafeAreaInsets.bottom;
+}
+
+- (void) finish {
+    if (self.tf.text.length == 0) {
+        [UIAlertView bk_showAlertViewWithTitle:@"提示" message:@"请输入水印文案" cancelButtonTitle:nil otherButtonTitles:@[@"OK"] handler:nil];
+        return ;
+    }
+    [self dismissAnimating];
+    [self.tf resignFirstResponder];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self finish];
+    return YES;
 }
 
 - (void) clearOtherBtnState:(UIButton *)btn {

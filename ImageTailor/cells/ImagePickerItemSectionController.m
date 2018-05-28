@@ -29,7 +29,7 @@
 
 - (CGSize)sizeForItemAtIndex:(NSInteger)index {
     CGFloat containerWidth = self.collectionContext.insetContainerSize.width;
-    CGFloat itemWidth = (containerWidth - 2.f) / 4.f;
+    CGFloat itemWidth = (containerWidth - 3.f) / 4.f;
     CGFloat scale = UIScreen.mainScreen.scale;
     return CGSizeMake(floorf(itemWidth * scale) / scale, itemWidth);
 }

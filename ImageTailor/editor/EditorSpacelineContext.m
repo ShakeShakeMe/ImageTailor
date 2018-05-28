@@ -46,11 +46,11 @@
         line.hidden = self.spacelineType == EditorToolBarSpacelineTypeNone;
     }];
     
-    CGFloat lineVector = CGRectGetWidth(allImageViewsRect) * 0.012f;
+    CGFloat lineVector = CGRectGetWidth(allImageViewsRect) * 0.02f;
     if (self.tileDirection == TailorTileDirectionHorizontally) {
-        lineVector = CGRectGetHeight(allImageViewsRect) * 0.012f;
+        lineVector = CGRectGetHeight(allImageViewsRect) * 0.02f;
     }
-    lineVector = MAX(roundf(lineVector * 0.012f), 2.f / [UIScreen mainScreen].scale);
+    lineVector = MAX(roundf(lineVector * 0.02f), 2.f / [UIScreen mainScreen].scale);
     if (self.spacelineType == EditorToolBarSpacelineTypeAllBounds) {
         self.boundslineViews[0].frame = (CGRect){allImageViewsRect.origin, CGSizeMake(CGRectGetWidth(allImageViewsRect), lineVector)};
         self.boundslineViews[1].frame = (CGRect){allImageViewsRect.origin, CGSizeMake(lineVector, CGRectGetHeight(allImageViewsRect))};

@@ -199,17 +199,18 @@ LazyPropertyWithInit(UIButton, toolPhoneBoundsBtn, {
     return ScrawlToolBarPixellateTypeNone;
 }
 - (void) reset {
+    [self clearWithAllBtnUnSelected:NO];
+}
+
+- (void) clearWithAllBtnUnSelected:(BOOL)allBtnUnselected {
     [@[self.largeBtn, self.middleBtn, self.smallBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
-    self.middleBtn.selected = YES;
+    self.middleBtn.selected = !allBtnUnselected;
 }
+
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
-    [@[self.largeBtn, self.middleBtn, self.smallBtn] bk_each:^(UIButton *btn) {
-        if (currentBtn != btn) {
-            btn.selected = NO;
-        }
-    }];
+    [self clearWithAllBtnUnSelected:YES];
     currentBtn.selected = !currentBtn.selected;
 }
 LazyPropertyWithInit(UIButton, withdrawBtn, {
@@ -285,13 +286,16 @@ LazyPropertyWithInit(UIButton, smallBtn, {
     self.spaceBtn.frame = CGRectMake(self.allBoundsBtn.right, 0.f, self.width / 3.f, self.height);
 }
 - (void) reset {
+    [self clearWithAllBtnUnSelected:NO];
+}
+- (void) clearWithAllBtnUnSelected:(BOOL)allBtnUnselected {
     [@[self.clearBtn, self.allBoundsBtn, self.spaceBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
-    self.clearBtn.selected = YES;
+    self.clearBtn.selected = !allBtnUnselected;
 }
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
-    [self reset];
+    [self clearWithAllBtnUnSelected:YES];
     currentBtn.selected = YES;
 }
 LazyPropertyWithInit(UIButton, clearBtn, {
@@ -362,13 +366,16 @@ LazyPropertyWithInit(UIButton, spaceBtn, {
     self.editBtn.frame = CGRectMake(self.rightBtn.right, 0.f, self.width / 5.f, self.height);
 }
 - (void) reset {
+    [self clearWithAllBtnUnSelected:NO];
+}
+- (void) clearWithAllBtnUnSelected:(BOOL)allBtnUnselected {
     [@[self.clearBtn, self.centerBtn, self.leftBtn, self.rightBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
-    self.clearBtn.selected = YES;
+    self.clearBtn.selected = !allBtnUnselected;
 }
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
-    [self reset];
+    [self clearWithAllBtnUnSelected:YES];
     currentBtn.selected = YES;
 }
 LazyPropertyWithInit(UIButton, clearBtn, {
@@ -461,13 +468,16 @@ LazyPropertyWithInit(UIButton, editBtn, {
     self.iPhoneXBtn.frame = CGRectMake(self.blackBtn.right, 0.f, self.width / 5.f, self.height);
 }
 - (void) reset {
+    [self clearWithAllBtnUnSelected:NO];
+}
+- (void) clearWithAllBtnUnSelected:(BOOL)allBtnUnselected {
     [@[self.clearBtn, self.silveryBtn, self.goldBtn, self.blackBtn, self.iPhoneXBtn] bk_each:^(UIButton *btn) {
         btn.selected = NO;
     }];
-    self.clearBtn.selected = YES;
+    self.clearBtn.selected = !allBtnUnselected;
 }
 - (void) clearOtherBtnState:(UIButton *)currentBtn {
-    [self reset];
+    [self clearWithAllBtnUnSelected:YES];
     currentBtn.selected = YES;
 }
 LazyPropertyWithInit(UIButton, clearBtn, {

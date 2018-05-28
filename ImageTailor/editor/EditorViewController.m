@@ -70,7 +70,7 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
     self.watermarkType = [[[NSUserDefaults standardUserDefaults] valueForKey:WatermarkPositionTypeKey] integerValue];
     
     if (self.watermarkText.length == 0) {
-        self.watermarkText = @"拼图大师Pro";
+        self.watermarkText = @"长图拼接Pro";
         self.watermarkPrefixType = EditorWatermarkPrefixTypeNormal;
         self.watermarkType = EditorToolBarWatermarkTypeRight;
     }
@@ -92,10 +92,11 @@ static NSString *WatermarkPositionTypeKey = @"WatermarkPositionTypeKey";
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    BOOL floatTipViewHasShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"kFloatTipViewHasShown"];
-    if (!floatTipViewHasShown) {
+    NSInteger floatTipViewShowCnt = [[[NSUserDefaults standardUserDefaults] valueForKey:@"kFloatTipViewShowCnt"] integerValue];
+    if (floatTipViewShowCnt < 3) {
         self.floatTipView.alpha = 1.f;
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kFloatTipViewHasShown"];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@(floatTipViewShowCnt + 1) forKey:@"kFloatTipViewShowCnt"];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:0.3f animations:^{

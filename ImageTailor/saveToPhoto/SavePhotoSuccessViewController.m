@@ -91,9 +91,9 @@
     
     CGFloat shareViewTop = (self.imageView.bottom + self.bottomBtn.top) / 2.f - 48.f;
     self.bottomShareView.frame = CGRectMake(14.f, shareViewTop, self.view.width - 28.f, 96.f);
-    self.shareTitleLabel.frame = CGRectMake(0.f, 0.f, self.view.width, 16.f);
+    self.shareTitleLabel.frame = CGRectMake(0.f, 0.f, self.bottomShareView.width, 16.f);
     
-    CGFloat shareBtnWidth = (self.view.width - 28.f) / 6.f;
+    CGFloat shareBtnWidth = (self.bottomShareView.width - 28.f) / 6.f;
     [self.shareItemBtns enumerateObjectsUsingBlock:^(UIButton *shareBtn, NSUInteger idx, BOOL * _Nonnull stop) {
         shareBtn.frame = CGRectMake(14.f + shareBtnWidth * idx, 16.f + (80.f - shareBtnWidth) / 2.f, shareBtnWidth, shareBtnWidth);
     }];
