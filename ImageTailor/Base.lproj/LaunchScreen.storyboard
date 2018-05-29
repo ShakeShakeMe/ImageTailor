@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,17 +19,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_ls_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ZRQ-8L-3Pt">
-                                <rect key="frame" x="132.5" y="134" width="110" height="110"/>
+                                <rect key="frame" x="152.5" y="308.5" width="70" height="70"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="oQh-7p-Fse"/>
-                                    <constraint firstAttribute="height" constant="110" id="od6-1b-HgI"/>
+                                    <constraint firstAttribute="width" constant="70" id="oQh-7p-Fse"/>
+                                    <constraint firstAttribute="height" constant="70" id="od6-1b-HgI"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.054901960784313725" green="0.25098039215686274" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.094117647058823528" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ZRQ-8L-3Pt" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.55" id="17V-Z7-vt1"/>
                             <constraint firstItem="ZRQ-8L-3Pt" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="DF0-dR-zuE"/>
+                            <constraint firstItem="ZRQ-8L-3Pt" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Yup-Vj-KTZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -41,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="img_ls_logo" width="110" height="110"/>
+        <image name="img_ls_logo" width="70" height="70"/>
     </resources>
 </document>

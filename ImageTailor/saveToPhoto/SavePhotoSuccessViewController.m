@@ -122,7 +122,7 @@ LazyPropertyWithInit(UIButton, bottomBtn, {
     @weakify(self)
     [_bottomBtn bk_addEventHandler:^(id sender) {
         @strongify(self)
-        [self navBack];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } forControlEvents:UIControlEventTouchUpInside];
 })
 LazyPropertyWithInit(UIView, extraBottomView, {

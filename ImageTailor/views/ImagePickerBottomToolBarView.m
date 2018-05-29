@@ -114,7 +114,7 @@ LazyPropertyWithInit(UIButton, clipBtn, {
 LazyPropertyWithInit(UIButton, spliceVertically, {
     [_spliceVertically setImage:[UIImage imageNamed:@"img_mode_1"] forState:UIControlStateNormal];
     [_spliceVertically setImage:[UIImage imageNamed:@"img_mode_1"] forState:UIControlStateHighlighted];
-    [_spliceVertically setTitle:@"纵向拼接" forState:UIControlStateNormal];
+    [_spliceVertically setTitle:@"竖向拼接" forState:UIControlStateNormal];
     [_spliceVertically setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _spliceVertically.titleLabel.font = [UIFont boldSystemFontOfSize:13];
     [_spliceVertically setImageEdgeInsets:UIEdgeInsetsMake(0.f, 0.f, 0.f, 3.f)];
